@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Linux练习题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux练习题">
+<meta property="og:url" content="http://example.com/2021/05/24/linux%E7%BB%83%E4%B9%A0%E9%A2%98/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="Linux练习题">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-24T08:00:30.000Z">
+<meta property="article:modified_time" content="2021-05-25T08:54:24.755Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/24/linux%E7%BB%83%E4%B9%A0%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>linux练习题 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/24/linux%E7%BB%83%E4%B9%A0%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux练习题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-24 16:00:30" itemprop="dateCreated datePublished" datetime="2021-05-24T16:00:30+08:00">2021-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-25 16:54:24" itemprop="dateModified" datetime="2021-05-25T16:54:24+08:00">2021-05-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%83%E4%B9%A0%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">练习题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">Linux练习题</font></center>
+
+
+<a id="more"></a>
+
+<h1 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h1><p>1.一个Linux用户给root用户发邮件，要求邮件的标题为”help”,邮件正文如下：Hello,i am 用户名，The system version is here,please help me to check it,thanks!<br>操作系统版本信息</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[pan@VM-0-15-centos ~]$ mail -s help root &lt;&lt;EOF</span><br><span class="line">&gt; Hello I am <span class="variable">$USER</span>,The<span class="built_in"> system </span>version is here,please help me <span class="keyword">to</span> check it,thanks!</span><br><span class="line">&gt; `cat /etc/centos-release`</span><br><span class="line">&gt; EOF</span><br></pre></td></tr></table></figure>
+<h1 id="计算从1-2-3-100"><a href="#计算从1-2-3-100" class="headerlink" title="计算从1+2+3..100"></a>计算从1+2+3..100</h1><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# echo &#123;<span class="number">1.</span><span class="number">.100</span>&#125; | tr <span class="string">&#x27; &#x27;</span> <span class="string">&#x27;+&#x27;</span> | bc</span><br><span class="line"><span class="number">5050</span></span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# seq -s+ <span class="number">100</span> </span><br><span class="line"><span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>+<span class="number">6</span>+<span class="number">7</span>+<span class="number">8</span>+<span class="number">9</span>+<span class="number">10</span>+<span class="number">11</span>+<span class="number">12</span>+<span class="number">13</span>+<span class="number">14</span>+<span class="number">15</span>+<span class="number">16</span>+<span class="number">17</span>+<span class="number">18</span>+<span class="number">19</span>+<span class="number">20</span>+<span class="number">21</span>+<span class="number">22</span>+<span class="number">23</span>+<span class="number">24</span>+<span class="number">25</span>+<span class="number">26</span>+<span class="number">27</span>+<span class="number">28</span>+<span class="number">29</span>+<span class="number">30</span>+<span class="number">31</span>+<span class="number">32</span>+<span class="number">33</span>+<span class="number">34</span>+<span class="number">35</span>+<span class="number">36</span>+<span class="number">37</span>+<span class="number">38</span>+<span class="number">39</span>+<span class="number">40</span>+<span class="number">41</span>+<span class="number">42</span>+<span class="number">43</span>+<span class="number">44</span>+<span class="number">45</span>+<span class="number">46</span>+<span class="number">47</span>+<span class="number">48</span>+<span class="number">49</span>+<span class="number">50</span>+<span class="number">51</span>+<span class="number">52</span>+<span class="number">53</span>+<span class="number">54</span>+<span class="number">55</span>+<span class="number">56</span>+<span class="number">57</span>+<span class="number">58</span>+<span class="number">59</span>+<span class="number">60</span>+<span class="number">61</span>+<span class="number">62</span>+<span class="number">63</span>+<span class="number">64</span>+<span class="number">65</span>+<span class="number">66</span>+<span class="number">67</span>+<span class="number">68</span>+<span class="number">69</span>+<span class="number">70</span>+<span class="number">71</span>+<span class="number">72</span>+<span class="number">73</span>+<span class="number">74</span>+<span class="number">75</span>+<span class="number">76</span>+<span class="number">77</span>+<span class="number">78</span>+<span class="number">79</span>+<span class="number">80</span>+<span class="number">81</span>+<span class="number">82</span>+<span class="number">83</span>+<span class="number">84</span>+<span class="number">85</span>+<span class="number">86</span>+<span class="number">87</span>+<span class="number">88</span>+<span class="number">89</span>+<span class="number">90</span>+<span class="number">91</span>+<span class="number">92</span>+<span class="number">93</span>+<span class="number">94</span>+<span class="number">95</span>+<span class="number">96</span>+<span class="number">97</span>+<span class="number">98</span>+<span class="number">99</span>+<span class="number">100</span></span><br><span class="line">[<span class="symbol">root@</span>VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# seq -s+ <span class="number">100</span> | bc</span><br><span class="line"><span class="number">5050</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="考查tr"><a href="#考查tr" class="headerlink" title="考查tr"></a>考查tr</h1><p>3.将/etc/issue文件中的内容转换为大写后保存至/tmp/issue.out文件中<br><code>[root@VM-0-15-centos ~]# cat /etc/issue | tr &#39;a-z&#39; &#39;A-Z&#39; &gt;a.txt</code></p>
+<h1 id="将-root-下文件列表，显示成一行，并文件名之间用空格隔开"><a href="#将-root-下文件列表，显示成一行，并文件名之间用空格隔开" class="headerlink" title="将/root/下文件列表，显示成一行，并文件名之间用空格隔开"></a>将/root/下文件列表，显示成一行，并文件名之间用空格隔开</h1><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@VM</span><span class="number">-0</span><span class="number">-15</span>-centos ~]<span class="meta"># ls -a /root | tr <span class="string">&#x27;\n&#x27;</span> <span class="string">&#x27; &#x27;</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="考查tr-1"><a href="#考查tr-1" class="headerlink" title="考查tr"></a>考查tr</h1><p>将当前系统登录用户的信息转换为大写后保存至/tmp/who.out文件中</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# who | tr <span class="string">&#x27;a-z&#x27;</span> <span class="string">&#x27;A-Z&#x27;</span></span><br><span class="line">ROOT     PTS/<span class="number">0</span>        <span class="number">2021</span><span class="number">-05</span><span class="number">-24</span> <span class="number">21</span>:<span class="number">29</span> (<span class="number">120.85</span><span class="number">.103</span><span class="number">.89</span>)</span><br><span class="line">ROOT     PTS/<span class="number">1</span>        <span class="number">2021</span><span class="number">-05</span><span class="number">-24</span> <span class="number">21</span>:<span class="number">40</span> (<span class="number">120.85</span><span class="number">.103</span><span class="number">.89</span>)</span><br><span class="line">ROOT     PTS/<span class="number">2</span>        <span class="number">2021</span><span class="number">-05</span><span class="number">-24</span> <span class="number">21</span>:<span class="number">40</span> (<span class="number">120.85</span><span class="number">.103</span><span class="number">.89</span>)</span><br><span class="line">ROOT     PTS/<span class="number">3</span>        <span class="number">2021</span><span class="number">-05</span><span class="number">-24</span> <span class="number">21</span>:<span class="number">49</span> (<span class="number">120.85</span><span class="number">.103</span><span class="number">.89</span>)</span><br><span class="line">ROOT     PTS/<span class="number">4</span>        <span class="number">2021</span><span class="number">-05</span><span class="number">-24</span> <span class="number">23</span>:<span class="number">03</span> (<span class="number">120.85</span><span class="number">.103</span><span class="number">.89</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="删除Windows文本文件中的回车字符，即‘-r‘"><a href="#删除Windows文本文件中的回车字符，即‘-r‘" class="headerlink" title="删除Windows文本文件中的回车字符，即‘\r‘"></a>删除Windows文本文件中的回车字符，即‘\r‘</h1><p><code>[root@VM-0-15-centos ~]# cat dd.txt | tr &#39;\r&#39; &#39; &#39; &gt; c.txt</code></p>
+<h1 id="处理字符串xt-l-1-jr-mn-2-c-fe-3-uz-4只保留其中的数字和空格"><a href="#处理字符串xt-l-1-jr-mn-2-c-fe-3-uz-4只保留其中的数字和空格" class="headerlink" title="处理字符串xt.,l 1 jr#!$mn 2 c*/fe 3 uz 4只保留其中的数字和空格"></a>处理字符串<code>xt.,l 1 jr#!$mn 2 c*/fe 3 uz 4</code>只保留其中的数字和空格</h1><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# echo <span class="string">&quot;xt.,I 1 jr#4mn 2 c*/fe3 uz 4&quot;</span> |tr -dc &#x27;<span class="number">0</span><span class="number">-9</span> &#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="将PATH变量每个目录显示在独立的一行"><a href="#将PATH变量每个目录显示在独立的一行" class="headerlink" title="将PATH变量每个目录显示在独立的一行"></a>将PATH变量每个目录显示在独立的一行</h1><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@VM</span><span class="number">-0</span><span class="number">-15</span>-centos ~]<span class="meta"># echo $PATH | tr <span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;\n&#x27;</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="将指定文件中0-9分别替代成a-j"><a href="#将指定文件中0-9分别替代成a-j" class="headerlink" title="将指定文件中0-9分别替代成a-j"></a>将指定文件中0-9分别替代成a-j</h1><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# echo &#123;<span class="number">0.</span><span class="number">.9</span>&#125; | tr &#x27;<span class="number">0</span><span class="number">-9</span>&#x27; &#x27;a-j&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="将文件-etc-centos-release中的每个单词-由字母组成-显示在独立一行，并无空行。"><a href="#将文件-etc-centos-release中的每个单词-由字母组成-显示在独立一行，并无空行。" class="headerlink" title="将文件/etc/centos-release中的每个单词(由字母组成)显示在独立一行，并无空行。"></a>将文件/etc/centos-release中的每个单词(由字母组成)显示在独立一行，并无空行。</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /etc/centos-release | <span class="keyword">tr</span> -<span class="keyword">cs</span> <span class="string">&#x27;[:alpha:]&#x27;</span> <span class="string">&#x27;\n&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/17/Linux2/" rel="prev" title="linux笔记-2">
+      <i class="fa fa-chevron-left"></i> linux笔记-2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/22/zabbix/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">发送邮件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%BB%8E1-2-3-100"><span class="nav-number">2.</span> <span class="nav-text">计算从1+2+3..100</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E6%9F%A5tr"><span class="nav-number">3.</span> <span class="nav-text">考查tr</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86-root-%E4%B8%8B%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8%EF%BC%8C%E6%98%BE%E7%A4%BA%E6%88%90%E4%B8%80%E8%A1%8C%EF%BC%8C%E5%B9%B6%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%8B%E9%97%B4%E7%94%A8%E7%A9%BA%E6%A0%BC%E9%9A%94%E5%BC%80"><span class="nav-number">4.</span> <span class="nav-text">将&#x2F;root&#x2F;下文件列表，显示成一行，并文件名之间用空格隔开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E6%9F%A5tr-1"><span class="nav-number">5.</span> <span class="nav-text">考查tr</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A0%E9%99%A4Windows%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9B%9E%E8%BD%A6%E5%AD%97%E7%AC%A6%EF%BC%8C%E5%8D%B3%E2%80%98-r%E2%80%98"><span class="nav-number">6.</span> <span class="nav-text">删除Windows文本文件中的回车字符，即‘\r‘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2xt-l-1-jr-mn-2-c-fe-3-uz-4%E5%8F%AA%E4%BF%9D%E7%95%99%E5%85%B6%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%97%E5%92%8C%E7%A9%BA%E6%A0%BC"><span class="nav-number">7.</span> <span class="nav-text">处理字符串xt.,l 1 jr#!$mn 2 c*&#x2F;fe 3 uz 4只保留其中的数字和空格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86PATH%E5%8F%98%E9%87%8F%E6%AF%8F%E4%B8%AA%E7%9B%AE%E5%BD%95%E6%98%BE%E7%A4%BA%E5%9C%A8%E7%8B%AC%E7%AB%8B%E7%9A%84%E4%B8%80%E8%A1%8C"><span class="nav-number">8.</span> <span class="nav-text">将PATH变量每个目录显示在独立的一行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E4%B8%AD0-9%E5%88%86%E5%88%AB%E6%9B%BF%E4%BB%A3%E6%88%90a-j"><span class="nav-number">9.</span> <span class="nav-text">将指定文件中0-9分别替代成a-j</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E6%96%87%E4%BB%B6-etc-centos-release%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%8D%95%E8%AF%8D-%E7%94%B1%E5%AD%97%E6%AF%8D%E7%BB%84%E6%88%90-%E6%98%BE%E7%A4%BA%E5%9C%A8%E7%8B%AC%E7%AB%8B%E4%B8%80%E8%A1%8C%EF%BC%8C%E5%B9%B6%E6%97%A0%E7%A9%BA%E8%A1%8C%E3%80%82"><span class="nav-number">10.</span> <span class="nav-text">将文件&#x2F;etc&#x2F;centos-release中的每个单词(由字母组成)显示在独立一行，并无空行。</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

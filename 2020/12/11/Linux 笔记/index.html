@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Linux基础笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux笔记">
+<meta property="og:url" content="http://example.com/2020/12/11/Linux%20%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="Linux基础笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/09/rCMvOU.png">
+<meta property="og:image" content="https://i.loli.net/2020/12/10/RSdjr8wh2oAyqT3.jpg">
+<meta property="article:published_time" content="2020-12-11T03:21:03.000Z">
+<meta property="article:modified_time" content="2021-04-18T04:04:02.445Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/09/rCMvOU.png">
+
+<link rel="canonical" href="http://example.com/2020/12/11/Linux%20%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>linux笔记 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/11/Linux%20%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-11 11:21:03" itemprop="dateCreated datePublished" datetime="2020-12-11T11:21:03+08:00">2020-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-18 12:04:02" itemprop="dateModified" datetime="2021-04-18T12:04:02+08:00">2021-04-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">Linux基础笔记</font></center>
+<a id="more"></a>
+
+
+
+<h1 id="文件系统管理命令01"><a href="#文件系统管理命令01" class="headerlink" title="文件系统管理命令01"></a>文件系统管理命令01</h1><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">b</span> <span class="string">块设备文件</span></span><br><span class="line"><span class="attr">c</span> <span class="string">字符文件</span></span><br><span class="line"><span class="attr">d</span> <span class="string">文件夹文件</span></span><br><span class="line"><span class="meta">-</span> <span class="string">普通文件</span></span><br><span class="line"><span class="attr">l</span> <span class="string">符号链接文件</span></span><br><span class="line"><span class="attr">p</span> <span class="string">管道文件pipe</span></span><br><span class="line"><span class="attr">s</span> <span class="string">套接字文件socket</span></span><br></pre></td></tr></table></figure>
+
+<p>FHS 文件系统分层标准</p>
+<h2 id="目录简介"><a href="#目录简介" class="headerlink" title="目录简介"></a>目录简介</h2><p>/proc /sys 比较特殊的目录，他们目录的数据大小为0<br>/proc 放的是和进程相关的 里面的数据是内存中的，不在磁盘上<br>/sys 里面的是硬件信息</p>
+<p>标准的linux文件系统（如ext4），文件名称大小写敏感<br>fat32的文件系统大小写不敏感，就像windows里面的一个分区 挂在到 linux 中，在linux中就把这个分区当成一个磁盘，这个磁盘的文件系统是fat32的，里面可以不用区分大小写。</p>
+<p>创建带-的文件：<code>touch -- -a.txt</code><br>删除：<code>rm -- -a.txt</code></p>
+<p>显示当前工作目录<br>pwd<br>    -P 显示真实物理路径<br>    -L 显示链接路径（默认）</p>
+<p>basename 取文件名(基名)<br>dirname 取路径名</p>
+<h2 id="文件时间"><a href="#文件时间" class="headerlink" title="文件时间"></a>文件时间</h2><p>查看一个文件的最后的时间是指文件的最后的修改时间<br>ll a.txt<br>-rw-r–r–. 1 root root 0 Dec  3 14:07 a.txt<br>Dec  3 14:07 这个时间是指文件的最后修改时间</p>
+<p>查看SElinux 状态：getenforce</p>
+<p>Linux下文件的三个时间参数：stat a.txt<br>1）modification time(mtime):内容修改时间<br>        这里的修改时间指的是文件的内容发生变化，而更新的时间。</p>
+<p>2）change time(ctime):状态修改时间<br>        这里的修改时间指的是文件的属性或者权限发生变化，而更新的时间。</p>
+<p>3）access time(atime):最后访问时间<br>        这里的访问时间是指文件被读取，而更新的时间。</p>
+<h1 id="文件系统管理命令02"><a href="#文件系统管理命令02" class="headerlink" title="文件系统管理命令02"></a>文件系统管理命令02</h1><h2 id="文件通配符-一般匹配文件名-："><a href="#文件通配符-一般匹配文件名-：" class="headerlink" title="文件通配符(一般匹配文件名)："></a>文件通配符(一般匹配文件名)：</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">* 表示零个或多个字符 但是*不能表示隐藏文件</span><br><span class="line">? 表示任意单个字符</span><br><span class="line"><span class="selector-attr">[0-9]</span> 匹配数字范围</span><br><span class="line"><span class="selector-attr">[a-z]</span> 字母</span><br><span class="line"><span class="selector-attr">[A-Z]</span> 字母</span><br><span class="line"><span class="selector-attr">[wang]</span> 匹配括号中任何一个字符</span><br><span class="line"><span class="selector-attr">[^wang]</span> 匹配列表中的所有字符以外的字符</span><br><span class="line"></span><br><span class="line">~ 当前用户家目录</span><br><span class="line">～+ 当前工作目录</span><br><span class="line">～<span class="selector-tag">-</span> 前一个工作目录</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[:digit:]</span> :任意数字，相当于0<span class="selector-tag">-9</span></span><br><span class="line"><span class="selector-attr">[:lower:]</span> :任意小写字母</span><br><span class="line"><span class="selector-attr">[:upper:]</span> :任意大写字母</span><br><span class="line"><span class="selector-attr">[:alpha:]</span> :任意大小写字母</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[:alnum:]</span> :任意数字或字母</span><br><span class="line"><span class="selector-attr">[:blank:]</span> :水平空白字符</span><br><span class="line"><span class="selector-attr">[:space:]</span> :水平或垂直空白字符</span><br><span class="line"><span class="selector-attr">[:punct:]</span> :标点符号</span><br><span class="line"><span class="selector-attr">[:print:]</span> :可打印字符</span><br><span class="line"><span class="selector-attr">[:cntrl:]</span> :控制(非打印)字符</span><br><span class="line"><span class="selector-attr">[:graph:]</span> :图形字符</span><br><span class="line"><span class="selector-attr">[:xdigit:]</span> :十六进制字符</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[root@CentOS1 data]</span># <span class="selector-tag">ls</span> <span class="selector-tag">f</span><span class="selector-attr">[a-c]</span><span class="selector-class">.txt</span>  排列注意：</span><br><span class="line"><span class="selector-tag">fa</span><span class="selector-class">.txt</span>  <span class="selector-tag">fA</span><span class="selector-class">.txt</span>  <span class="selector-tag">fb</span><span class="selector-class">.txt</span>  <span class="selector-tag">fB</span><span class="selector-class">.txt</span>  <span class="selector-tag">fc</span><span class="selector-class">.txt</span></span><br><span class="line"><span class="selector-attr">[root@CentOS1 data]</span># <span class="selector-tag">ls</span> <span class="selector-tag">f</span><span class="selector-attr">[A-C]</span><span class="selector-class">.txt</span></span><br><span class="line"><span class="selector-tag">fA</span><span class="selector-class">.txt</span>  <span class="selector-tag">fb</span><span class="selector-class">.txt</span>  <span class="selector-tag">fB</span><span class="selector-class">.txt</span>  <span class="selector-tag">fc</span><span class="selector-class">.txt</span>  <span class="selector-tag">fC</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><code>l.</code> 只显示隐藏文件，不显示其他文件。</p>
+<h2 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>显示/var目录下所有以l开头，以一个小写字母结尾，且中间出现至少一位数字的文件或目录</span><br><span class="line">	ls l*<span class="string">[[:digit:]]</span>*<span class="string">[[:lower:]]</span></span><br><span class="line"><span class="number">2.</span>显示/etc/目录下任意一位数字开头，且以非数字结尾的文件或目录 </span><br><span class="line">	ls [<span class="number">0</span><span class="number">-9</span>]*[^<span class="number">0</span><span class="number">-9</span>]</span><br><span class="line"><span class="number">3.</span>显示/etc目录下以非字母开头，后面跟了一个字母及其它任意长度任意字符的文件或目录 </span><br><span class="line">	ls [^[:alpha:]]<span class="string">[[:alpha:]]</span>*</span><br><span class="line"><span class="number">4.</span>显示/etc/目录下所有以rc开头，并且后面是<span class="number">0</span><span class="number">-6</span>之间的数字，其他为任意字母的文件或目录 </span><br><span class="line">	ls -d rc[<span class="number">0</span><span class="number">-6</span>]*  加-d是只列举文件和文件夹本身，不进入文件夹列举</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch `<span class="built_in">date</span> +%F`.<span class="built_in">log</span>  创建今天带日期的文件</span><br><span class="line">touch `<span class="built_in">date</span> -d &#x27;<span class="number">-1</span> <span class="built_in">day</span>&#x27; +%F`.<span class="built_in">log</span>  创建昨天带日期的文件</span><br></pre></td></tr></table></figure>
+
+<h1 id="文件管理基本命令cp和mv"><a href="#文件管理基本命令cp和mv" class="headerlink" title="文件管理基本命令cp和mv"></a>文件管理基本命令cp和mv</h1><p>cp命令能复制文件，但是文件上的有些信息会丢失；也可以一次性复制多个文件，但要求目标是一个目录(而且是已经存在的目录)。<br>复制文件夹需要加选项：-r</p>
+<p>例：cp -r /etc/sysconfig /data/a<br>如果/data/下面没有a文件夹，那么/sysconfig文件夹会复制过来并且文件夹改名为a；如果a文件夹和已存在那么/sysconfig目录会复制到a的文件夹下面。    </p>
+<p>用原始命令不用别名就在命令的前面加<code>\</code><br>在root下 alias cp=’cp -i’ -i表示会提示复制是否覆盖原文件，想要不提醒就在命令的前面加\    </p>
+<p>-d 如果源文件为软链接（对硬链接无效），则复制出的目标文件也为软链接；</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--preserv=</span></span><br><span class="line">		<span class="keyword">move</span>:权限</span><br><span class="line">		ownership:属主属组</span><br><span class="line">		<span class="type">timestamp</span>:时间</span><br><span class="line">		links</span><br><span class="line">		xattr</span><br><span class="line">		context</span><br><span class="line">		<span class="keyword">all</span></span><br><span class="line">-p 等同于 <span class="comment">--preserv=mode,ownership,timestamp	</span></span><br><span class="line">复制文件时，有些信息可能会丢失，所以为了保存信息，可以加上想要保存的信息。</span><br><span class="line">-p复制后目标文件保留源文件的属性（包括所有者、所属组、权限和时间）</span><br></pre></td></tr></table></figure>
+<p>如果想要保存所有的信息就用-a，一般来充当备份的效果<br><code>-a 相当于-dR --preserv=all</code></p>
+<p>如果想要看保存的过程加选项 -v</p>
+<p>复制备份：<code>cp --backup=numbered /etc/issue f1</code> 这个选项表示，无论复制多少次，目标文件如果存在都会加数字备份。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例：1.每天将<span class="string">/etc/</span>	目录下所有文件，备份到<span class="string">/data</span>独立的子目录下，并要求子目录格式为backupYYYY-mm-dd,备份过程可见。</span><br><span class="line">cp -av <span class="string">/etc/</span> <span class="string">./backup</span>`date +%F`</span><br><span class="line"></span><br><span class="line">2.创建<span class="string">/data/rootdir</span>目录，并复制<span class="string">/root</span>下所有的文件到该目录内，要求保留原有权限。</span><br><span class="line"> cp -r <span class="params">--preserv=mode</span> <span class="string">/root</span> <span class="string">/data/rootdir</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h2><p>-i 交互式<br>-f 强制删除<br>-r 递归</p>
+<h2 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h2><p>-L level:指定显示出来的层级数目</p>
+<h2 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h2><p>删除空目录<br>-p 递归删除父空目录，也就是从下往上删除。</p>
+<h2 id="rename"><a href="#rename" class="headerlink" title="rename"></a>rename</h2><p>批量修改文件名<br>rename .log .log.bak * 意思是将此目录下所有的.log 修改为.log.bak<br>如果不想要.bak <code>rename .bak &quot;&quot; *</code></p>
+<p>例：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.创建<span class="regexp">/testdir/</span>dir1<span class="regexp">/x,/</span>testdir<span class="regexp">/dir1/y</span>,<span class="regexp">/testdir/</span>dir1<span class="regexp">/x/</span>a,<span class="regexp">/testdir/</span>dir1<span class="regexp">/x/</span>b,<span class="regexp">/testdir/</span>dir1<span class="regexp">/y/</span>a,<span class="regexp">/testdir/</span>dir1<span class="regexp">/y/</span>b</span><br><span class="line">mkdir -p .<span class="regexp">/testdir/</span>dir1<span class="regexp">/&#123;x,y&#125;/</span>&#123;a,b&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>.创建<span class="regexp">/testdir/</span>dir2<span class="regexp">/x,/</span>testdir<span class="regexp">/dir2/y</span>,<span class="regexp">/testdir/</span>dir2<span class="regexp">/x/</span>a,testdir<span class="regexp">/dir2/</span>x/b</span><br><span class="line">mkdir -p testdir<span class="regexp">/dir2&#123;x/</span>&#123;a,b&#125;,y&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>.创建<span class="regexp">/testdir/</span>dir3,<span class="regexp">/testdir/</span>dir4,<span class="regexp">/testdir/</span>dir5,<span class="regexp">/testdir/</span>dir5<span class="regexp">/dir6,testdir/</span>dir5/dir7</span><br><span class="line">mkdir -p .<span class="regexp">/testdir/</span>dir&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>/dir&#123;<span class="number">6</span>,<span class="number">7</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="文件节点表和原理"><a href="#文件节点表和原理" class="headerlink" title="文件节点表和原理"></a>文件节点表和原理</h1><h2 id="索引节点"><a href="#索引节点" class="headerlink" title="索引节点"></a>索引节点</h2><p>inode(index node)表中包含文件系统所有文件列表<br>一个节点(索引节点)是在一个表项，包含有关文件的信息(元数据)，包括：<br>文件类型，权限，UID，GID<br>链接数(指向这个文件名路径名称个数)<br>该文件的大小和不同的时间戳<br>指向磁盘上文件的数据块指针<br>有关文件的其他数据<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rCMvOU"><img src="https://s3.ax1x.com/2020/12/09/rCMvOU.png" alt="rCMvOU.png"></a></p>
+<p><img src="https://i.loli.net/2020/12/10/RSdjr8wh2oAyqT3.jpg" alt="inode表结构.jpeg"></p>
+<p><font color="red">关于文件夹来讲，数据栏那一块放的是文件夹下文件的文件名</font></p>
+<h2 id="文件链接类型"><a href="#文件链接类型" class="headerlink" title="文件链接类型"></a>文件链接类型</h2><h2 id="硬连接"><a href="#硬连接" class="headerlink" title="硬连接"></a>硬连接</h2><p>硬连接的本质就是一个文件创建多个名字。<br>硬链接不支持对文件夹进行创建会造成死循环嵌套的问题。也不支持跨分区创建，因为本质上硬链接是同一个文件 夸了设备分区就不是同一个文件了。</p>
+<p><code>-rw-r--r-- 2 root root    0 Dec 11 14:29 a1</code><br>这里的2表示 链接数，自己本身就算一个，还有一个硬链接</p>
+<p>而一个新建的文件夹的链接数默认是有两个，自己本身算一个，文件夹里面的隐藏文件<code>.</code>也算一个。以此类推 如果文件夹里面继续新建文件其他的文件夹，那么还有<code>..</code>也算他的链接数。所以说不管新建的文件夹下面的文件夹有多少个， 只要能表示这个新建的文件夹的，链接数就会增加。可以 <code>ll -i </code>查看，只要inode号一样就表示同一个文件，链接数就会增加。</p>
+<h2 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h2><p>软链接就是不同文件，软链接支持对目录的创建<br>创建软链接时，要用相对路径时，他的原始文件相对路径一定是相对软链接的路径。不是相对于当前目录的路径。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">例：/root/<span class="meta">data</span>/下面有普通文件<span class="built_in">a1</span>.txt	，<span class="built_in">d1</span>/<span class="built_in">d2</span>/<span class="built_in">d3</span>文件夹，现在给<span class="built_in">a1</span>.txt创建软链接到<span class="built_in">d3</span>下面的目录</span><br><span class="line">使用相对路径：(当前的目录在/root/<span class="meta">data</span>下进行创建) ln -s ../../../<span class="built_in">a1</span>.txt <span class="built_in">d1</span>/<span class="built_in">d2</span>/<span class="built_in">d3</span>/a.txt.link</span><br><span class="line">  ,相当于软链接的这个文件按照原始文件的这个路径的走向能不能找到原始文件。</span><br><span class="line"></span><br><span class="line">/root/<span class="meta">data</span></span><br><span class="line">├── <span class="built_in">a1</span>.txt </span><br><span class="line">└── <span class="built_in">d1</span></span><br><span class="line">    └── <span class="built_in">d2</span></span><br><span class="line">        └── <span class="built_in">d3</span></span><br><span class="line">            └── <span class="built_in">a1</span>.txt.link -&gt; ../../../<span class="built_in">a1</span></span><br></pre></td></tr></table></figure>
+<p><font color="red">删除文件夹的软链接时请注意：<br>如果一个文件夹f f的下面还有其他文件a b<br>ln -s f f.link 创建了f的软链接f.link<br>rm -fr f.link/ 删除文件夹的软链接时后面不可以带/，这样删除时会将文件夹里面的文件全部删除，并不是删除软链接本身。</font></p>
+<h2 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h2><p>STDERR默认不能通过管道转发，可利用2&gt;&amp;1 或 ｜&amp; 实现</p>
+<h2 id="管道中-符号"><a href="#管道中-符号" class="headerlink" title="管道中 - 符号"></a>管道中 - 符号</h2><p><code>tar -cvf - /home | tar -xvf -</code><br>将/home里面的文件打包，但打包的数据不是记录到文件，而是传送到stdout(标准输出),经过管道后，将tar -cvf - /home 传送到后面的tar -xvf -,后面的这个 - 则是取前一个命令的stdout(标准输出),因此，就不需要使用文件名来代替。    </p>
+<h2 id="tee"><a href="#tee" class="headerlink" title="tee"></a>tee</h2><p>使用tee既可以把文件传送到标准输出，也可以作为命令的输出。-a为追加<br><code>hostname | tee -a f1.txt </code></p>
+<h2 id="1-2-100"><a href="#1-2-100" class="headerlink" title="1+2+..+100"></a>1+2+..+100</h2><p><code>echo &#123;1..100&#125; | tr &#39; &#39; &#39;+&#39; | bc</code></p>
+<h1 id="用户，权限，组"><a href="#用户，权限，组" class="headerlink" title="用户，权限，组"></a>用户，权限，组</h1><p>介绍安全3A<br>资源分派：</p>
+<ol>
+<li>Authentication:认证</li>
+<li>Authorization:授权</li>
+<li>Accouting|Audition:审计 </li>
+</ol>
+<h2 id="用户和组的配置文件"><a href="#用户和组的配置文件" class="headerlink" title="用户和组的配置文件"></a>用户和组的配置文件</h2><p>Linux用户和组的主要配置文件：<br>/etc/passwd：用户及其属性信息(名称，UID,主组ID等)getent passwd 用户名(可选)<br>/etc/group：组及其属性信息.<code>getent group</code> 可以直接进行查看<br>/etc/shadow：用户密码及其相关属性<br>/etc/gshadow：组密码及其相关属性</p>
+<h2 id="用户和组管理命令"><a href="#用户和组管理命令" class="headerlink" title="用户和组管理命令"></a>用户和组管理命令</h2><h3 id="用户管理命令："><a href="#用户管理命令：" class="headerlink" title="用户管理命令："></a>用户管理命令：</h3><p><font color="red">useradd</font><br><code>-u</code>: UID<br><code>-o</code>: 配合-u选项，不检查UID的唯一性(为了和某些账号的权限一样，将UID设置为一样。用户名只是作区分)<br><code>-g</code>: GID 指明用户所属基本组，可为组名，也可GID<br><code>-G</code>group1[,group2,..]: 为用户指明附加组，组必须事先存在<br><code>-N</code>: 不创建私用组做做主组，使用users组做主组 </p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# useradd rose -N</span><br><span class="line">[<span class="symbol">root@</span>VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# id rose</span><br><span class="line">uid=<span class="number">1002</span>(rose) gid=<span class="number">100</span>(users) groups=<span class="number">100</span>(users)</span><br></pre></td></tr></table></figure>
+<p><code>-r</code>: 创建系统用户Centos6:ID&lt;500,Centos7:ID&lt;1000(-r默认不会创建家目录)<br><code>-m</code>: 创建家目录，用于系统用户。<br><code>-M</code>: 不创建家目录，用于非系统用户。(因为创建系统用户默认会自动创建家目录)<br><code>-s</code>SHEll: 指明用户默认的shell程序，可用列表在/etc/shells 文件中<br><code>-d</code>HOME_DIR: 以指定的路径(不存在)为家目录 </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -d <span class="regexp">/data/</span>a5 -M jeta</span><br><span class="line">创建一个非系统用户jeta -d指定他的家目录，-M不创建。也就是说只是在passwd 文件中看得到而已，实际上目录并没有创建。</span><br></pre></td></tr></table></figure>
+<p><code>-c</code>“COMMENT”: 用户的注释信息 (使用finger可以进行查看)<br>useradd的默认属性 在文件：cat /etc/default/useradd,这个文件里面有一个 SKEL=/etc/skel 这是一个模板目录，就是说用户账号家目录创建的时候会自动复制这个目录中的文件到新建的家目录中。<br>useradd -D 也能直接看到useradd的属性文件。    </p>
+<p><font color="red">usermod</font><br><code>-u UID</code>: 新UID<br><code>-g GID</code>: 新主组<br><code>-G GROUP1,[GROUP2],..</code>: 新附加组，原来的附加组会被覆盖，如果要保留原有，则要同时使用-a选项<br><code>-s SHELL</code>: 新的默认SHELL<br><code>-c &#39;COMMENT&#39;</code>: 新的注释信息。<br><code>-d HOME</code>: 新家目录不会自动创建；若要创建新家目录并移动原家目录数据，同时使用-m选项。<br><code>-l login_name</code>: 新的名字<br><code>-L</code>: lock指定用户，在/etc/shadow 密码栏的增加！<br><code>-U</code>: unlock指定用户，在/etc/shadow密码栏的！拿掉<br><code>-e YYYY-MM-DD</code>: 指明用户账号过期日期<br><code>-f INACTIVE</code>: 设定非活动期限。</p>
+<p><font color="red">userdel</font><br><code>-r</code>: 删除家目录</p>
+<p><font color="red">组账号维护命令</font></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd</span><br><span class="line">	groupadd -r <span class="attr">a:</span>创建系统组a,他的组ID号会小于<span class="number">1000</span></span><br><span class="line">groupmod</span><br><span class="line">	 groupmod --<span class="attr">help:</span>查看帮助；修改组命令</span><br><span class="line"><span class="attr">groupdel:</span>不可删除,用户作为主组的组</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span><span class="type">users</span> passwd格式文件 批量创建用户</span><br><span class="line">chpasswd 批量修改用户口令</span><br></pre></td></tr></table></figure>
+<h2 id="切换用户或以其他用户身份执行命令"><a href="#切换用户或以其他用户身份执行命令" class="headerlink" title="切换用户或以其他用户身份执行命令"></a>切换用户或以其他用户身份执行命令</h2><p>切换用户的方式：<br><code>su UserName</code> :非登录式切换，即不会读取用户的配置文件，不改变当前工作目录。<br><code>su - UserName</code> :登录式切换，会读取目标用户的配置文件，切换至家目录，完全切换<br>选项：su -l UserName 相当于 su - UserName<br>换身份执行命令：<br><code>su [-] Username -c &#39;COMMAND&#39;</code></p>
+<h2 id="从标准输入接受密码"><a href="#从标准输入接受密码" class="headerlink" title="从标准输入接受密码"></a>从标准输入接受密码</h2><p>echo “PASSWORD” | passwd –stdin USERNAME</p>
+<h2 id="更改组密码-gpasswd"><a href="#更改组密码-gpasswd" class="headerlink" title="更改组密码 gpasswd"></a>更改组密码 gpasswd</h2><p>-a user 将user添加至指定组中<br>-d user 从指定组中移除用户user<br>-A user1,user2 … 设置有管理权限的用户列表</p>
+<h1 id="ssh-基于key的认证"><a href="#ssh-基于key的认证" class="headerlink" title="ssh 基于key的认证"></a>ssh 基于key的认证</h1><div class="alert alert-success">
+<center>基于密钥的认证：</center> 
+1.首先在客户端生成一对密钥(ssh-keygen)<br> 
+2.并将在客户端的公钥ssh-copy-id 拷贝到服务端<br> 
+3.当客户端再次发送一个连接请求，包括ip，用户名<br> 
+4.服务端得到客户端的请求后，会到authorized_keys中去查找，如果有响应的ip和用户，就会随机生成一个字符串，例如magedu <br> 
+5.服务端将使用客户端拷贝过来的公钥进行加密，然后发送给客户端<br> 
+6.得到服务端发送过来的消息后，客户端会使用私钥就行解密，然后将解密后的字符串发送给服务端。<br> 
+7.服务端接受到客户端发来的字符串后，跟之前的字符串进行对比，如果一致，就允许免密码登录。</div>
+
+<p>当用户远程链接ssh服务器时，会复制ssh服务器<code>/etc/ssh/ssh_host*key.pub</code>（centos7默认是ssh_host_ecdsa_key.pub）文件中的公钥到客户机的<code>~./ssh/know_hosts中。</code>(也就是说knows_hosts这个文件就是曾经连过的对方主机的公钥)下次链接时，会自动匹配到相应的私钥，不能匹配，将拒绝链接。</p>
+<h2 id="使用MAC生成密钥连接server"><a href="#使用MAC生成密钥连接server" class="headerlink" title="使用MAC生成密钥连接server"></a>使用MAC生成密钥连接server</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;注释一般为邮箱&quot;</span></span><br><span class="line">-t:表示类型；</span><br><span class="line">rsa:表示RSA加密算法是一种非对称加密算法;</span><br><span class="line">一直回车，确认以后。会生成私钥和公钥文件</span><br><span class="line">将公钥文件发送到服务端：ssh-copy-id -i ~/.ssh/id_rsa.pub <span class="symbol">root@</span><span class="number">121.4</span><span class="number">.135</span><span class="number">.30</span></span><br><span class="line">-i 表示指定文件发送。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="使用CRT生成公钥连接主机"><a href="#使用CRT生成公钥连接主机" class="headerlink" title="使用CRT生成公钥连接主机"></a>使用CRT生成公钥连接主机</h2><div class="alert alert-danger"><font color="#4de680"><i class="fa fa-key fa-2x"></i></font>
+1.CRT设置：Tools——Create Pubilc key—— 一直下一步默认选择就好，最后选择保存的路径就好<br>
+
+<p>2.在生成好公钥文件(Identity.pub)以后，<br>将公钥文件内容复制到Linux用户家目录的隐藏ssh目录中的authorized_keys中。<br>（使用rz上传，sz下载）<br></p>
+<p>3.CRT上的验证方式：在IP标签页上右键——SSH2——PublicKey 旁边的Properties 选择保存好的私钥文件就可以了</p></div><p></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/11/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" rel="next" title="网络基础">
+      网络基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A401"><span class="nav-number">1.</span> <span class="nav-text">文件系统管理命令01</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">目录简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%97%B6%E9%97%B4"><span class="nav-number">1.2.</span> <span class="nav-text">文件时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A402"><span class="nav-number">2.</span> <span class="nav-text">文件系统管理命令02</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%80%9A%E9%85%8D%E7%AC%A6-%E4%B8%80%E8%88%AC%E5%8C%B9%E9%85%8D%E6%96%87%E4%BB%B6%E5%90%8D-%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">文件通配符(一般匹配文件名)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise"><span class="nav-number">2.2.</span> <span class="nav-text">Exercise</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4cp%E5%92%8Cmv"><span class="nav-number">3.</span> <span class="nav-text">文件管理基本命令cp和mv</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rm"><span class="nav-number">3.1.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tree"><span class="nav-number">3.2.</span> <span class="nav-text">tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmdir"><span class="nav-number">3.3.</span> <span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rename"><span class="nav-number">3.4.</span> <span class="nav-text">rename</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%8A%82%E7%82%B9%E8%A1%A8%E5%92%8C%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">文件节点表和原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%8A%82%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">索引节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%93%BE%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">文件链接类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.3.</span> <span class="nav-text">硬连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="nav-number">4.4.</span> <span class="nav-text">软链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="nav-number">4.5.</span> <span class="nav-text">管道符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E4%B8%AD-%E7%AC%A6%E5%8F%B7"><span class="nav-number">4.6.</span> <span class="nav-text">管道中 - 符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tee"><span class="nav-number">4.7.</span> <span class="nav-text">tee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-100"><span class="nav-number">4.8.</span> <span class="nav-text">1+2+..+100</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%EF%BC%8C%E6%9D%83%E9%99%90%EF%BC%8C%E7%BB%84"><span class="nav-number">5.</span> <span class="nav-text">用户，权限，组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">用户和组的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">5.2.</span> <span class="nav-text">用户和组管理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">5.2.1.</span> <span class="nav-text">用户管理命令：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E7%94%A8%E6%88%B7%E6%88%96%E4%BB%A5%E5%85%B6%E4%BB%96%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="nav-number">5.3.</span> <span class="nav-text">切换用户或以其他用户身份执行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E6%8E%A5%E5%8F%97%E5%AF%86%E7%A0%81"><span class="nav-number">5.4.</span> <span class="nav-text">从标准输入接受密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E7%BB%84%E5%AF%86%E7%A0%81-gpasswd"><span class="nav-number">5.5.</span> <span class="nav-text">更改组密码 gpasswd</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh-%E5%9F%BA%E4%BA%8Ekey%E7%9A%84%E8%AE%A4%E8%AF%81"><span class="nav-number">6.</span> <span class="nav-text">ssh 基于key的认证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8MAC%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E8%BF%9E%E6%8E%A5server"><span class="nav-number">6.1.</span> <span class="nav-text">使用MAC生成密钥连接server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CRT%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5%E8%BF%9E%E6%8E%A5%E4%B8%BB%E6%9C%BA"><span class="nav-number">6.2.</span> <span class="nav-text">使用CRT生成公钥连接主机</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
