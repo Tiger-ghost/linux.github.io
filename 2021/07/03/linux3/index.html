@@ -29,7 +29,7 @@
 <meta property="og:description" content="Linux笔记3">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-03T04:44:30.000Z">
-<meta property="article:modified_time" content="2021-07-03T05:11:51.962Z">
+<meta property="article:modified_time" content="2021-07-08T02:22:41.215Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -219,10 +219,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-07-03 12:44:30 / Modified: 13:11:51" itemprop="dateCreated datePublished" datetime="2021-07-03T12:44:30+08:00">2021-07-03</time>
+              <time title="Created: 2021-07-03 12:44:30" itemprop="dateCreated datePublished" datetime="2021-07-03T12:44:30+08:00">2021-07-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-08 10:22:41" itemprop="dateModified" datetime="2021-07-08T10:22:41+08:00">2021-07-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -249,6 +255,17 @@
 <a id="more"></a>
 
 <h1 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h1><h2 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>CentOS1 ~]# ll a.log</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root <span class="number">186</span> Jul  <span class="number">3</span> <span class="number">12</span>:<span class="number">37</span> a.log</span><br><span class="line">权限，引用计数，拥有者，所属组，大小，创建和修改时间，文件名。</span><br></pre></td></tr></table></figure>
+<h2 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h2><p>修改文件属组，只能修改文件的属组。<br>-R:递归；</p>
+<h2 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h2><p>修改文件的属主和属组。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">chown <span class="keyword">owner</span> a.txt</span><br><span class="line">chown <span class="keyword">owner</span>:<span class="keyword">group</span> a.txt</span><br><span class="line">chown :<span class="keyword">group</span>,冒号也可用.替换</span><br><span class="line">-R:递归</span><br><span class="line"><span class="comment">--reference:参照其他文件的属主和属组来设置新文件。</span></span><br><span class="line">[root@CentOS1 ~]# chown <span class="comment">--reference /etc/shadow a.log</span></span><br><span class="line">[root@CentOS1 ~]# ll a.<span class="keyword">log</span></span><br><span class="line"><span class="comment">---------- 1 root root 186 Jul  3 12:37 a.log</span></span><br></pre></td></tr></table></figure>
+<h2 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h2><p>–reference:参照其他文件的权限来设置新文件。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>CentOS1 ~]# ll /etc/shadow</span><br><span class="line">---------- <span class="number">1</span> root root <span class="number">1271</span> Jun <span class="number">21</span> <span class="number">16</span>:<span class="number">32</span> /etc/shadow</span><br><span class="line">[<span class="symbol">root@</span>CentOS1 ~]# ll a.log</span><br><span class="line">---------- <span class="number">1</span> pan pan <span class="number">186</span> Jul  <span class="number">3</span> <span class="number">12</span>:<span class="number">37</span> a.log</span><br><span class="line">[<span class="symbol">root@</span>CentOS1 ~]# chmod --<span class="built_in">ref</span>erence /etc/shadow a.log</span><br><span class="line">[<span class="symbol">root@</span>CentOS1 ~]# ll a.log</span><br><span class="line">---------- <span class="number">1</span> pan pan <span class="number">186</span> Jul  <span class="number">3</span> <span class="number">12</span>:<span class="number">37</span> a.log</span><br></pre></td></tr></table></figure>
+<h2 id="权限数字法："><a href="#权限数字法：" class="headerlink" title="权限数字法："></a>权限数字法：</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rwx rw- r--   都采用八进制表示</span><br><span class="line"><span class="number">111</span> <span class="number">110</span> <span class="number">100</span> </span><br><span class="line"><span class="number">7</span>   <span class="number">5</span>   <span class="number">4</span>     转换成十进制</span><br><span class="line">也就是</span><br><span class="line">r:<span class="number">4</span></span><br><span class="line">w:<span class="number">2</span></span><br><span class="line">x:<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="目录的权限用途："><a href="#目录的权限用途：" class="headerlink" title="目录的权限用途："></a>目录的权限用途：</h2><p>读：可以列出文件名；<br>执行：可以进入目录，可以访问目录的文件内容；<br>写：创建和删除文件；</p>
+<h1 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h1><p><code>mkdir -m /data -m 700:创建文件夹时就设置权限；</code></p>
+<h1 id="linux文件系统上的特殊权限"><a href="#linux文件系统上的特殊权限" class="headerlink" title="linux文件系统上的特殊权限"></a>linux文件系统上的特殊权限</h1><p><i class="fa fa-bolt" aria-hidden="true"> SUID,SGID,Sticky</i><br><i class="fa fa-bolt" aria-hidden="true"> 三种常用权限：r,w,x, user,group,other</i><br><i class="fa fa-bolt" aria-hidden="true"> 安全上下文</i><br>前提：进程</p>
+<p>只针对二进制的可执行文件有效</p>
+
     </div>
 
     
@@ -328,7 +345,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">文件属性</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">文件属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chgrp"><span class="nav-number">1.2.</span> <span class="nav-text">chgrp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chown"><span class="nav-number">1.3.</span> <span class="nav-text">chown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chmod"><span class="nav-number">1.4.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%95%B0%E5%AD%97%E6%B3%95%EF%BC%9A"><span class="nav-number">1.5.</span> <span class="nav-text">权限数字法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%9A%84%E6%9D%83%E9%99%90%E7%94%A8%E9%80%94%EF%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">目录的权限用途：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir"><span class="nav-number">2.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="nav-number">3.</span> <span class="nav-text">linux文件系统上的特殊权限</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
