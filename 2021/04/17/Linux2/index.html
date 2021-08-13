@@ -21,12 +21,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Linux笔记2">
+  <meta name="description" content="Linux基础笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux笔记-2">
+<meta property="og:title" content="linux笔记-基础">
 <meta property="og:url" content="http://example.com/2021/04/17/Linux2/index.html">
 <meta property="og:site_name" content="个人笔记">
-<meta property="og:description" content="Linux笔记2">
+<meta property="og:description" content="Linux基础笔记">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/ll查看时间的意义.png">
 <meta property="og:image" content="http://example.com/images/文件的三种时间.png">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://example.com/images/gshadow.JPG">
 <meta property="og:image" content="http://example.com/images/passwd.png">
 <meta property="article:published_time" content="2021-04-17T14:16:30.000Z">
-<meta property="article:modified_time" content="2021-07-07T09:09:44.201Z">
+<meta property="article:modified_time" content="2021-08-11T12:35:28.762Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -55,7 +55,7 @@
   };
 </script>
 
-  <title>linux笔记-2 | 个人笔记</title>
+  <title>linux笔记-基础 | 个人笔记</title>
   
 
 
@@ -218,7 +218,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          linux笔记-2
+          linux笔记-基础
         </h1>
 
         <div class="post-meta">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-07 17:09:44" itemprop="dateModified" datetime="2021-07-07T17:09:44+08:00">2021-07-07</time>
+                <time title="Modified: 2021-08-11 20:35:28" itemprop="dateModified" datetime="2021-08-11T20:35:28+08:00">2021-08-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <center><font face="FZShuTi">Linux笔记2</font></center>
+        <center><font face="FZShuTi">Linux基础笔记</font></center>
 
 
 <a id="more"></a>
@@ -288,7 +288,9 @@
 <h1 id="幂等性："><a href="#幂等性：" class="headerlink" title="幂等性："></a>幂等性：</h1><p>就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的，不会因为多次点击而产生了副作用。</p>
 <h1 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h1><p>-i:交互式，alias自带；<br>-f:强制删除；<br>-r:递归；</p>
 <h1 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h1><p>-L level:指定显示出来的层级数目</p>
-<h1 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h1><p>删除空目录<br>-p:递归删除父空目录；(往上)<br>-v:显示详细信息；</p>
+<h1 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h1><p>删除空目录<br>-p:是当子目录被删除后使它也成为空目录的话，则顺便一并删除。<br>-v:显示详细信息；</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rmdir</span> -p BBB/<span class="keyword">Test</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="rename"><a href="#rename" class="headerlink" title="rename"></a>rename</h1><p>批量修改文件名<br><code>rename .tcxt .txt ./*</code><br>rename 源文件 目标 文件所在位置或者单独的文件名；</p>
 <h1 id="inode-节点编号"><a href="#inode-节点编号" class="headerlink" title="inode(节点编号)"></a>inode(节点编号)</h1><p>Linux中每个文件分为两个部分，<font color="red">元数据(metadata)</font>和<font color="red">数据</font><br>索引节点：inode(index node)表中包含文件系统所有文件列表。<br>一个节点(索引节点)是在一个表项，包含有关文件的信息(元数据)，包括:<br>文件类型，权限，UID，GID；<br>链接数(指向这个文件名路径名称个数)；<br>改文件的大小和不同的时间戳；<br>有关文件的其他数据；<br><img src="/images/inode.png" width="80%" height="50%" align="center/"><br><img src="/images/指针.jpg" width="80%" height="50%" align="center/"></p>
 <p><font color="red">在Linux中文件的名字是放在文件夹数据块空间中，不是放在元数据中</font><br>也就是说删除文件删除的本质其实就是文件的节点表，并不是文件内容。所以删除一个文件取决于这个文件所在的文件夹。</p>
@@ -321,13 +323,13 @@
 <h2 id="shadow-文件字段"><a href="#shadow-文件字段" class="headerlink" title="shadow 文件字段"></a>shadow 文件字段</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shadow文件</span><br><span class="line"><span class="section">组名:密码:组管理员列表:将这个组视为附加组的用户列表</span></span><br></pre></td></tr></table></figure>
 <img src="/images/gshadow.JPG" width="80%" height="50%" align="center/">
 
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root:$<span class="number">1</span>$xAYRTdnz$epSdRqzLQk/wMF6xQFU5y.:<span class="number">18708</span>:<span class="number">0</span>:<span class="number">99999</span>:<span class="number">7</span>:::</span><br><span class="line"><span class="number">18708</span>:改口令的时间，现在距离<span class="number">1970</span>年多少天. echo `date +%s`/<span class="number">86400</span> | bc</span><br><span class="line"><span class="number">0</span>:这个字段表示用户必须至少过这些天才能改口令。</span><br><span class="line"><span class="number">99999</span>:最大的口令有效时长，最长能使用多久</span><br><span class="line"><span class="number">7</span>:口令到期提前几天警告用户。</span><br><span class="line">倒数第三个字段:密码过期后的宽限期，密码过期多少天内密码还是有效的</span><br><span class="line">倒数第二个字段:帐号失效日期（单位为天，距<span class="number">1970</span>年<span class="number">1</span>月<span class="number">1</span>日的天数）。这个日期后用户帐号将失效，而不会理会密码的问题。</span><br><span class="line">倒数第一个字段:保留</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root:$<span class="number">1</span>$xAYRTdnz$epSdRqzLQk/wMF6xQFU5y.:<span class="number">18708</span>:<span class="number">0</span>:<span class="number">99999</span>:<span class="number">7</span>:::</span><br><span class="line"><span class="number">18708</span>:此字段表示最后一次修改密码的时间的天数，现在距离<span class="number">1970</span>年多少天. echo `date +%s`/<span class="number">86400</span> | bc</span><br><span class="line"><span class="number">0</span>:这个字段表示用户必须至少过这些天才能改口令。</span><br><span class="line"><span class="number">99999</span>:最大的口令有效时长，最长能使用多久</span><br><span class="line"><span class="number">7</span>:口令到期提前几天警告用户。</span><br><span class="line">倒数第三个字段:密码过期后的宽限期，密码过期多少天内密码还是有效的</span><br><span class="line">倒数第二个字段:帐号失效日期（单位为天，距<span class="number">1970</span>年<span class="number">1</span>月<span class="number">1</span>日的天数）。这个日期后用户帐号将失效，而不会理会密码的问题。</span><br><span class="line">倒数第一个字段:保留</span><br></pre></td></tr></table></figure>
 <h2 id="直接查看passwd中的某个用户"><a href="#直接查看passwd中的某个用户" class="headerlink" title="直接查看passwd中的某个用户"></a>直接查看passwd中的某个用户</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">getent passwd root</span> </span><br></pre></td></tr></table></figure>
 
 <h1 id="用户和组管理命令"><a href="#用户和组管理命令" class="headerlink" title="用户和组管理命令"></a>用户和组管理命令</h1><p><i class="fa fa-heartbeat" aria-hidden="true"></i>用户管理命令<br>useradd </p>
 <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u UID</span></span><br><span class="line"><span class="ruby">-o 配合-u选项，不检查UID的唯一性</span></span><br><span class="line"><span class="ruby">-g GID 指明用户所属的基本组，可为组名，也可为GID</span></span><br><span class="line"><span class="ruby">-c <span class="string">&quot;COMMENT&quot;</span> 用户的注释信息</span></span><br><span class="line"><span class="ruby">-d HOME_DIR 以指定的路径(不存在)为家目录</span></span><br><span class="line"><span class="ruby">-s SHELL 指明用户的默认shell程序，可用列表在/etc/shells文件中</span></span><br><span class="line"><span class="ruby">-G 为用户指明附加组，组必须事先存在</span></span><br><span class="line"><span class="ruby">-N 不创建私用组做主组，使用users(默认)组做主组</span></span><br><span class="line"><span class="ruby">-r 创建系统用户centos6 ID &lt;<span class="number">500</span> ,centos7 ID &lt;<span class="number">1000</span>  </span></span><br><span class="line"><span class="ruby">-m 创建家目录，用于系统用户 (系统用户默认不创建家目录)</span></span><br><span class="line"><span class="ruby">-M 不创建家目录，用于非系统用户。</span></span><br></pre></td></tr></table></figure>
 <p>usermod</p>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u <span class="symbol">UID:</span>新UID</span></span><br><span class="line"><span class="ruby">-g <span class="symbol">GID:</span>新GID</span></span><br><span class="line"><span class="ruby">-G GROUP1[,GROUP2...]<span class="symbol">:</span>新附加组，原来的附加组将会呗覆盖；如果要保留，则要同时使用-a选项</span></span><br><span class="line"><span class="ruby">-s <span class="symbol">SHELL:</span>新的默认shell</span></span><br><span class="line"><span class="ruby">-c <span class="string">&#x27;comment&#x27;</span><span class="symbol">:</span>新的注释信息</span></span><br><span class="line"><span class="ruby">-d <span class="symbol">HOME:</span>新家目录不会自动创建；若要创建新家目录并移动原家目录数据，同时使用-m选项</span></span><br><span class="line"><span class="ruby">-l <span class="symbol">login_name:</span>新的名字</span></span><br><span class="line"><span class="ruby">-L lock指定用户，在/etc/shadow 密码栏的增加！</span></span><br><span class="line"><span class="ruby">-U unlock指定用户，将/etc/shadow密码栏的！拿掉</span></span><br><span class="line"><span class="ruby">-e YYYY-MM-<span class="symbol">DD:</span>指明用户账号过期日期：也就是改的倒数第二个字段</span></span><br><span class="line"><span class="ruby">-f <span class="symbol">INACTIVE:</span>设定非活动期限 也就是宽限期 $usermod -f <span class="number">10</span> pan 宽限<span class="number">10</span>天</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u <span class="symbol">UID:</span>新UID</span></span><br><span class="line"><span class="ruby">-g <span class="symbol">GID:</span>新GID</span></span><br><span class="line"><span class="ruby">-G GROUP1[,GROUP2...]<span class="symbol">:</span>新附加组，原来的附加组将会呗覆盖；如果要保留，则要同时使用-a选项</span></span><br><span class="line"><span class="ruby">-s <span class="symbol">SHELL:</span>新的默认shell</span></span><br><span class="line"><span class="ruby">-c <span class="string">&#x27;comment&#x27;</span><span class="symbol">:</span>新的注释信息</span></span><br><span class="line"><span class="ruby">-d <span class="symbol">HOME:</span>新家目录不会自动创建；若要创建新家目录并移动原家目录数据，同时使用-m选项</span></span><br><span class="line"><span class="ruby">    usermod -md /root/data pan 新建pan的家目录，为/root/data </span></span><br><span class="line"><span class="ruby">    新建的时候他会移动旧家目录里面的数据</span></span><br><span class="line"><span class="ruby">-l <span class="symbol">login_name:</span>新的名字</span></span><br><span class="line"><span class="ruby">-L lock指定用户，在/etc/shadow 密码栏的增加！</span></span><br><span class="line"><span class="ruby">-U unlock指定用户，将/etc/shadow密码栏的！拿掉</span></span><br><span class="line"><span class="ruby">-e YYYY-MM-<span class="symbol">DD:</span>指明用户账号过期日期：也就是改的倒数第二个字段</span></span><br><span class="line"><span class="ruby">-f <span class="symbol">INACTIVE:</span>设定非活动期限 也就是宽限期 $usermod -f <span class="number">10</span> pan 宽限<span class="number">10</span>天</span></span><br></pre></td></tr></table></figure>
 <p>linux 默认是不允许没有设置过密码的用户登录，所以新建的用户没有设置过密码他的shadow文件中都会有两个感叹号，只要用户没有设置过密码，也是无法使用-U解锁的。<br>-L锁定用户就会在shadow文件中加一个叹号，解锁使用-U。也就是说没有设置过密码的用户是无法解锁的。</p>
 <p>usderdel;</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">userdel</span> -r username 删除用户以及用户相关的家目录和邮箱</span><br></pre></td></tr></table></figure>
@@ -474,7 +476,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

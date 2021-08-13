@@ -29,7 +29,7 @@
 <meta property="og:description" content="Linux练习题">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-24T08:00:30.000Z">
-<meta property="article:modified_time" content="2021-07-05T16:59:39.774Z">
+<meta property="article:modified_time" content="2021-07-12T10:03:34.594Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-06 00:59:39" itemprop="dateModified" datetime="2021-07-06T00:59:39+08:00">2021-07-06</time>
+                <time title="Modified: 2021-07-12 18:03:34" itemprop="dateModified" datetime="2021-07-12T18:03:34+08:00">2021-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,25 +269,7 @@
 <h1 id="将指定文件中0-9分别替代成a-j"><a href="#将指定文件中0-9分别替代成a-j" class="headerlink" title="将指定文件中0-9分别替代成a-j"></a>将指定文件中0-9分别替代成a-j</h1><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM<span class="number">-0</span><span class="number">-15</span>-centos ~]# echo &#123;<span class="number">0.</span><span class="number">.9</span>&#125; | tr &#x27;<span class="number">0</span><span class="number">-9</span>&#x27; &#x27;a-j&#x27;</span><br></pre></td></tr></table></figure>
 <h1 id="将文件-etc-centos-release中的每个单词-由字母组成-显示在独立一行，并无空行。"><a href="#将文件-etc-centos-release中的每个单词-由字母组成-显示在独立一行，并无空行。" class="headerlink" title="将文件/etc/centos-release中的每个单词(由字母组成)显示在独立一行，并无空行。"></a>将文件/etc/centos-release中的每个单词(由字母组成)显示在独立一行，并无空行。</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /etc/centos-release | <span class="keyword">tr</span> -<span class="keyword">cs</span> <span class="string">&#x27;[:alpha:]&#x27;</span> <span class="string">&#x27;\n&#x27;</span></span><br></pre></td></tr></table></figure>
 <h1 id="将文件-etc-skel下的所有文件都复制到-home-pan-下面，注意"><a href="#将文件-etc-skel下的所有文件都复制到-home-pan-下面，注意" class="headerlink" title="将文件/etc/skel下的所有文件都复制到/home/pan 下面，注意"></a>将文件/etc/skel下的所有文件都复制到/home/pan 下面，注意</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp -r <span class="regexp">/etc/</span>skel<span class="regexp">/.[^..]* /</span>home/pan 这里虽然可以拷贝但是无法拷贝未隐藏文件</span><br><span class="line">这里[^..]是要排除上级文件夹也就是<span class="regexp">/etc/</span>目录。这里是通配符的写法。</span><br><span class="line"></span><br><span class="line">cp -r <span class="regexp">/etc/</span>skel<span class="regexp">/. /</span>home/pan 用这个隐藏和非隐藏文件都可以复制到指定目录。</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p><code>*</code>（星号）是linux中的通配符，代表一个或一个以上的所有字符。linux的隐藏文件和隐藏文件夹都是以.（点号）开头，所以.*应该是代表当前目录下的所有隐藏目录和隐藏文件夹。<br>如果是./*则表示当前目录下的所有文件和所有目录，因为.（点号）还有代表当前目录的意思。</p>
 
     </div>
 
@@ -306,12 +288,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/17/Linux2/" rel="prev" title="linux笔记-2">
-      <i class="fa fa-chevron-left"></i> linux笔记-2
+    <a href="/2021/04/17/Linux2/" rel="prev" title="linux笔记-基础">
+      <i class="fa fa-chevron-left"></i> linux笔记-基础
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/06/22/zabbix/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
+    <a href="/2021/07/03/linux3/" rel="next" title="linux笔记-权限">
+      linux笔记-权限 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -387,7 +369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
