@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="三剑客-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-文本处理">
+<meta property="og:url" content="http://example.com/2021/08/17/Linux%E4%B8%89%E5%89%91%E5%AE%A2/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="三剑客-">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-17T14:22:30.000Z">
+<meta property="article:modified_time" content="2021-08-20T14:51:17.010Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/17/Linux%E4%B8%89%E5%89%91%E5%AE%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>linux-文本处理 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/17/Linux%E4%B8%89%E5%89%91%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux-文本处理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-17 22:22:30" itemprop="dateCreated datePublished" datetime="2021-08-17T22:22:30+08:00">2021-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-20 22:51:17" itemprop="dateModified" datetime="2021-08-20T22:51:17+08:00">2021-08-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">三剑客-</font></center>
+
+<a id="more"></a>
+
+<h1 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h1><p>文本过滤(模式:pattern)工具.打印匹配模式的行<br>作用:文本搜索工具,根据用户指定的”模式”对目标文本逐步进行匹配检查；打印匹配到的行<br>模式:由正则表达式字符及文本字符所编写的过滤条件</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@centos2 data]</span># ifconfig eth0 | grep netmask | tr -s <span class="string">&quot; &quot;</span> | cut -d <span class="string">&quot; &quot;</span> -f3</span><br><span class="line"><span class="number">10.211.55.17</span></span><br></pre></td></tr></table></figure>
+<h2 id="color-auto"><a href="#color-auto" class="headerlink" title="--color=auto"></a><code>--color=auto</code></h2><p>对匹配到的文本着色显示，有些用户有定义别名alias默认显示这个;</p>
+<h2 id="m"><a href="#m" class="headerlink" title="-m"></a><code>-m</code></h2><p>只匹配m次后停止<br>grep的原理是读取文件中的一行，到自己的内存空间中分析，如果有匹配的行就打印到屏幕上，然后把读取到的清理到，再读取下一行。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@centos2</span> data]<span class="comment"># grep -m 3 nologin /etc/passwd</span></span><br><span class="line"><span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">1:1</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">2:2</span><span class="symbol">:daemon</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="symbol">adm:</span><span class="symbol">x:</span><span class="number">3:4</span><span class="symbol">:adm</span><span class="symbol">:/var/adm</span><span class="symbol">:/sbin/nologin</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="v"><a href="#v" class="headerlink" title="-v"></a><code>-v</code></h2><p>显示不包括的行，<code>grep -v root /etc/passwd</code>表示显示不包括root的行;</p>
+<h2 id="i"><a href="#i" class="headerlink" title="-i"></a><code>-i</code></h2><p>忽略字符大小写</p>
+<h2 id="n"><a href="#n" class="headerlink" title="-n"></a><code>-n</code></h2><p>显示匹配到的字符的行号</p>
+<h2 id="c"><a href="#c" class="headerlink" title="-c"></a><code>-c</code></h2><p>显示匹配到的字符有多少行</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 data]# <span class="keyword">grep</span> -c bash <span class="regexp">/etc/</span>passwd</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="o"><a href="#o" class="headerlink" title="-o"></a><code>-o</code></h2><p>只显示匹配到的字符串，可以看到有多少个。</p>
+<h2 id="q"><a href="#q" class="headerlink" title="-q"></a><code>-q</code></h2><p>静默显示，不输出任何信息</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># grep -q root /etc/passwd</span></span><br><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># grep -q dsdjsiofj /etc/passwd</span></span><br><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="A"><a href="#A" class="headerlink" title="-A #"></a><code>-A #</code></h2><p>显示后#行</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@centos2</span> ~]<span class="comment"># grep -n -A 3 root /etc/passwd</span></span><br><span class="line"><span class="number">1</span><span class="symbol">:root</span><span class="symbol">:x</span><span class="symbol">:</span>0<span class="symbol">:</span>0<span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line"><span class="number">2</span>-<span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">1:1</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">3</span>-<span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">2:2</span><span class="symbol">:daemon</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">4</span>-<span class="symbol">adm:</span><span class="symbol">x:</span><span class="number">3:4</span><span class="symbol">:adm</span><span class="symbol">:/var/adm</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line">--</span><br><span class="line"><span class="number">10</span><span class="symbol">:operator</span><span class="symbol">:x</span><span class="symbol">:</span><span class="number">11:0</span><span class="symbol">:operator</span><span class="symbol">:/root</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">11</span>-<span class="symbol">games:</span><span class="symbol">x:</span><span class="number">12:100</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">12</span>-<span class="symbol">ftp:</span><span class="symbol">x:</span><span class="number">14:50</span><span class="symbol">:FTP</span> <span class="symbol">User:</span>/var/<span class="symbol">ftp:</span>/sbin/nologin</span><br><span class="line"><span class="number">13</span>-<span class="symbol">nobody:</span><span class="symbol">x:</span><span class="number">99:99</span><span class="symbol">:Nobody</span><span class="symbol">:/</span><span class="symbol">:/sbin/nologin</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="B"><a href="#B" class="headerlink" title="-B #"></a><code>-B #</code></h2><p>显示前#行</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@centos2</span> ~]<span class="comment"># grep -n -B 3 root /etc/passwd</span></span><br><span class="line"><span class="number">1</span><span class="symbol">:root</span><span class="symbol">:x</span><span class="symbol">:</span>0<span class="symbol">:</span>0<span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line">--</span><br><span class="line"><span class="number">7</span>-<span class="symbol">shutdown:</span><span class="symbol">x:</span><span class="number">6:0</span><span class="symbol">:shutdown</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/shutdown</span></span><br><span class="line"><span class="number">8</span>-<span class="symbol">halt:</span><span class="symbol">x:</span><span class="number">7:0</span><span class="symbol">:halt</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/halt</span></span><br><span class="line"><span class="number">9</span>-<span class="symbol">mail:</span><span class="symbol">x:</span><span class="number">8:12</span><span class="symbol">:mail</span><span class="symbol">:/var/spool/mail</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">10</span><span class="symbol">:operator</span><span class="symbol">:x</span><span class="symbol">:</span><span class="number">11:0</span><span class="symbol">:operator</span><span class="symbol">:/root</span><span class="symbol">:/sbin/nologin</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="C"><a href="#C" class="headerlink" title="-C #"></a><code>-C #</code></h2><p>前后各#行</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@centos2</span> ~]<span class="comment"># grep -n -C 3 root /etc/passwd</span></span><br><span class="line"><span class="number">1</span><span class="symbol">:root</span><span class="symbol">:x</span><span class="symbol">:</span>0<span class="symbol">:</span>0<span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line"><span class="number">2</span>-<span class="symbol">bin:</span><span class="symbol">x:</span><span class="number">1:1</span><span class="symbol">:bin</span><span class="symbol">:/bin</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">3</span>-<span class="symbol">daemon:</span><span class="symbol">x:</span><span class="number">2:2</span><span class="symbol">:daemon</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">4</span>-<span class="symbol">adm:</span><span class="symbol">x:</span><span class="number">3:4</span><span class="symbol">:adm</span><span class="symbol">:/var/adm</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line">--</span><br><span class="line"><span class="number">7</span>-<span class="symbol">shutdown:</span><span class="symbol">x:</span><span class="number">6:0</span><span class="symbol">:shutdown</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/shutdown</span></span><br><span class="line"><span class="number">8</span>-<span class="symbol">halt:</span><span class="symbol">x:</span><span class="number">7:0</span><span class="symbol">:halt</span><span class="symbol">:/sbin</span><span class="symbol">:/sbin/halt</span></span><br><span class="line"><span class="number">9</span>-<span class="symbol">mail:</span><span class="symbol">x:</span><span class="number">8:12</span><span class="symbol">:mail</span><span class="symbol">:/var/spool/mail</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">10</span><span class="symbol">:operator</span><span class="symbol">:x</span><span class="symbol">:</span><span class="number">11:0</span><span class="symbol">:operator</span><span class="symbol">:/root</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">11</span>-<span class="symbol">games:</span><span class="symbol">x:</span><span class="number">12:100</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="number">12</span>-<span class="symbol">ftp:</span><span class="symbol">x:</span><span class="number">14:50</span><span class="symbol">:FTP</span> <span class="symbol">User:</span>/var/<span class="symbol">ftp:</span>/sbin/nologin</span><br><span class="line"><span class="number">13</span>-<span class="symbol">nobody:</span><span class="symbol">x:</span><span class="number">99:99</span><span class="symbol">:Nobody</span><span class="symbol">:/</span><span class="symbol">:/sbin/nologin</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="e"><a href="#e" class="headerlink" title="-e"></a><code>-e</code></h2><p>实现多个选项间的逻辑or关系</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">显示root和ftp的行</span><br><span class="line">[root<span class="variable">@centos2</span> ~]<span class="comment"># grep -e root -e ftp /etc/passwd</span></span><br><span class="line"><span class="symbol">root:</span><span class="symbol">x:</span>0<span class="symbol">:</span>0<span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line"><span class="symbol">operator:</span><span class="symbol">x:</span><span class="number">11:0</span><span class="symbol">:operator</span><span class="symbol">:/root</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="symbol">ftp:</span><span class="symbol">x:</span><span class="number">14:50</span><span class="symbol">:FTP</span> <span class="symbol">User:</span>/var/<span class="symbol">ftp:</span>/sbin/nologin</span><br></pre></td></tr></table></figure>
+
+<h2 id="w"><a href="#w" class="headerlink" title="-w"></a>-w</h2><p>匹配整个单词，数字 字母 下划线才算单词,其他都算分隔符;</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># echo <span class="string">&quot;root;er&quot;</span> | grep -w root</span></span><br><span class="line">root<span class="comment">;er</span></span><br><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># echo <span class="string">&quot;root_er&quot;</span> | grep -w root</span></span><br><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># echo <span class="string">&quot;root1er&quot;</span> | grep -w root</span></span><br><span class="line">[root<span class="symbol">@centos2</span> ~]<span class="meta"># echo <span class="string">&quot;root-1er&quot;</span> | grep -w root</span></span><br><span class="line">root<span class="number">-1</span>er</span><br></pre></td></tr></table></figure>
+
+<h2 id="F"><a href="#F" class="headerlink" title="-F"></a>-F</h2><p>相当于fgrep,不使用正则表达式<br>grep -F root /etc/passwd 相当于搜索的是一个普通的字符串，不是正则表达式</p>
+<h2 id="f"><a href="#f" class="headerlink" title="-f"></a>-f</h2><p>根据模式文件处理</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 ~]<span class="comment"># cat grep.log </span></span><br><span class="line">root</span><br><span class="line">bash		显示包含root或bash的行</span><br><span class="line">[root@centos2 ~]<span class="comment"># grep -f grep.log /etc/passwd</span></span><br><span class="line"><span class="symbol">root:</span><span class="symbol">x:</span><span class="number">0</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:root</span><span class="symbol">:/root</span><span class="symbol">:/bin/bash</span></span><br><span class="line"><span class="symbol">operator:</span><span class="symbol">x:</span><span class="number">11</span><span class="symbol">:</span><span class="number">0</span><span class="symbol">:operator</span><span class="symbol">:/root</span><span class="symbol">:/sbin/nologin</span></span><br><span class="line"><span class="symbol">pan:</span><span class="symbol">x:</span><span class="number">1000</span><span class="symbol">:</span><span class="number">1000</span><span class="symbol">:panxiaohu</span>,dev,<span class="number">100101010</span>,<span class="number">101010101</span><span class="symbol">:/home/pan</span><span class="symbol">:/bin/bash</span></span><br><span class="line"><span class="symbol">p1:</span><span class="symbol">x:</span><span class="number">1001</span><span class="symbol">:</span><span class="number">1001</span><span class="symbol">:</span><span class="symbol">:/home/p1</span><span class="symbol">:/bin/bash</span></span><br></pre></td></tr></table></figure>
+<h2 id="E"><a href="#E" class="headerlink" title="-E"></a>-E</h2><p>使用ERE扩展正则表达式</p>
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p><font color="red"><i class="fa fa-eye" aria-hidden="true"></i></font> REGEXP:Regular Expressions,由一类特殊字符及文本字符所编写的模式，其中有些字符(元字符)不表示字符字面意义，而表示控制或通配的功能。<br><font color="red"><i class="fa fa-eye" aria-hidden="true"></i></font> 程序支持:grep sed awk vim less nginx varnish等<br><font color="red"><i class="fa fa-eye" aria-hidden="true"></i></font> 分两类:<br>基本正则表达式: BRE<br>扩展正则表达式: ERE<br><code>grep -E,egrep</code><br><font color="red"><i class="fa fa-eye" aria-hidden="true"></i></font> 正则表达式引擎:<br>采用不同算法,检查处理正则表达式的软件模块。<br>PCER(Perl Compatible Regular Expressions)<br>元字符分类:字符匹配、匹配次数、位置锚定、分组<br><code>man 7 regex</code></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.   任意单个字符  </span><br><span class="line"><span class="selector-attr">[]</span>  匹配指定范围内的任意单个字符,示例<span class="selector-attr">[wang]</span> <span class="selector-attr">[0-9]</span> <span class="selector-attr">[a-zA-Z]</span></span><br><span class="line"><span class="selector-attr">[^]</span> 指定范围外的任意单个字符</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[:digit:]</span> :任意数字，相当于<span class="selector-tag">0-9</span></span><br><span class="line"><span class="selector-attr">[:lower:]</span> :任意小写字母</span><br><span class="line"><span class="selector-attr">[:upper:]</span> :任意大写字母</span><br><span class="line"><span class="selector-attr">[:alpha:]</span> :任意大小写字母</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[:alnum:]</span> :任意数字或字母</span><br><span class="line"><span class="selector-attr">[:blank:]</span> :水平空白字符</span><br><span class="line"><span class="selector-attr">[:space:]</span> :水平或垂直空白字符(比[:<span class="attribute">black</span>:]包含的范围广)</span><br><span class="line"><span class="selector-attr">[:punct:]</span> :标点符号</span><br><span class="line"><span class="selector-attr">[:print:]</span> :可打印字符</span><br><span class="line"><span class="selector-attr">[:cntrl:]</span> :控制(非打印)字符(退格 删除 警铃)</span><br><span class="line"><span class="selector-attr">[:graph:]</span> :图形字符</span><br><span class="line"><span class="selector-attr">[:xdigit:]</span> :十六进制字符</span><br></pre></td></tr></table></figure>
+<h2 id="匹配次数"><a href="#匹配次数" class="headerlink" title="匹配次数"></a>匹配次数</h2><p>用在要指定次数的字符后面，用于指定前面的字符要出现的的次数</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">* 匹配前面的字符任意次，包括0次</span><br><span class="line">	贪婪模式:尽可能长的匹配</span><br><span class="line">.* 任意长度的任意字符</span><br><span class="line"><span class="tag">\<span class="name">?</span></span> 匹配其前面的字符0或1次</span><br><span class="line"><span class="tag">\<span class="name">+</span></span> 匹配其前面的字符至少1次</span><br><span class="line"><span class="tag">\<span class="name">&#123;</span></span>n<span class="tag">\<span class="name">&#125;</span></span> 匹配前面的字符n次</span><br><span class="line"><span class="tag">\<span class="name">&#123;</span></span>m,n<span class="tag">\<span class="name">&#125;</span></span> 匹配其前面的字符至少m次，至多n次</span><br><span class="line"><span class="tag">\<span class="name">&#123;</span></span>,n<span class="tag">\<span class="name">&#125;</span></span> 匹配前面的字符至多n次</span><br><span class="line"><span class="tag">\<span class="name">&#123;</span></span>n,<span class="tag">\<span class="name">&#125;</span></span> 匹配前面的字符至少n次</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/03/%E6%9D%83%E9%99%90%E5%92%8C%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" rel="prev" title="linux-文本处理">
+      <i class="fa fa-chevron-left"></i> linux-文本处理
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">1.</span> <span class="nav-text">grep</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#color-auto"><span class="nav-number">1.1.</span> <span class="nav-text">--color&#x3D;auto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#m"><span class="nav-number">1.2.</span> <span class="nav-text">-m</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v"><span class="nav-number">1.3.</span> <span class="nav-text">-v</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i"><span class="nav-number">1.4.</span> <span class="nav-text">-i</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#n"><span class="nav-number">1.5.</span> <span class="nav-text">-n</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c"><span class="nav-number">1.6.</span> <span class="nav-text">-c</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#o"><span class="nav-number">1.7.</span> <span class="nav-text">-o</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q"><span class="nav-number">1.8.</span> <span class="nav-text">-q</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A"><span class="nav-number">1.9.</span> <span class="nav-text">-A #</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B"><span class="nav-number">1.10.</span> <span class="nav-text">-B #</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">1.11.</span> <span class="nav-text">-C #</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e"><span class="nav-number">1.12.</span> <span class="nav-text">-e</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#w"><span class="nav-number">1.13.</span> <span class="nav-text">-w</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F"><span class="nav-number">1.14.</span> <span class="nav-text">-F</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#f"><span class="nav-number">1.15.</span> <span class="nav-text">-f</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E"><span class="nav-number">1.16.</span> <span class="nav-text">-E</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E6%AC%A1%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">匹配次数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
