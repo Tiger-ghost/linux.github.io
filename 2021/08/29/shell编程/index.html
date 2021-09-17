@@ -30,7 +30,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/echo.png">
 <meta property="article:published_time" content="2021-08-29T07:37:30.000Z">
-<meta property="article:modified_time" content="2021-09-12T15:13:42.942Z">
+<meta property="article:modified_time" content="2021-09-17T12:27:33.197Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-12 23:13:42" itemprop="dateModified" datetime="2021-09-12T23:13:42+08:00">2021-09-12</time>
+                <time title="Modified: 2021-09-17 20:27:33" itemprop="dateModified" datetime="2021-09-17T20:27:33+08:00">2021-09-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -351,6 +351,10 @@
 <h1 id="bash的字符串测试"><a href="#bash的字符串测试" class="headerlink" title="bash的字符串测试"></a>bash的字符串测试</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 字符串测试:</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">= 是否等于</span><br><span class="line">&gt; ascii码是否大于ascii码</span><br><span class="line">&lt; 是否小于</span><br><span class="line">!= 是否不等于</span><br><span class="line">=~ 左侧字符能否被右侧的PATHRN所匹配，</span><br><span class="line">注意<span class="symbol">:</span>此表达式一般用于[[]]中，扩展的正则表达式</span><br><span class="line">-z <span class="string">&quot;STRING&quot;</span> 字符串是否为空，空为真，不空为假</span><br><span class="line">-<span class="built_in">n</span> <span class="string">&quot;STRING&quot;</span> 字符串是否为空，不空为真，空为假</span><br></pre></td></tr></table></figure>
 <p><font color="red"> 注意:用于字符串比较时的用到的操作数都应该使用引号 </font></p>
+<h1 id="整数比较"><a href="#整数比较" class="headerlink" title="整数比较:"></a>整数比较:</h1><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">eq</span>(equal)     : 测试两个整数是否相等；比如 $A -<span class="keyword">eq</span> $B</span><br><span class="line">-<span class="keyword">ne</span>(inequality) : 测试两个整数是否不等；不等，为真；相等，为假；</span><br><span class="line">-<span class="keyword">gt</span>(greter than) : 测试一个数是否大于另一个数；大于，为真；否则，为假；</span><br><span class="line">-<span class="keyword">lt</span>(less than)  : 测试一个数是否小于另一个数；小于，为真；否则，为假；</span><br><span class="line">-<span class="keyword">ge</span>(greter equal): 大于或等于</span><br><span class="line">-<span class="keyword">le</span>(less equal) ：小于或等于      </span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="Bash的文件属性测试"><a href="#Bash的文件属性测试" class="headerlink" title="Bash的文件属性测试"></a>Bash的文件属性测试</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 文件大小测试:<br>-s file:是否存在且非空<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 文件是否打开:<br>-t fd:fd 文件描述符是否在某终端已经打开<br>-N FIEL: 文件自从上一次被读取之后是否被修改过<br>-O FILE: 当前有效用户是否为文件属主<br>-G FILE: 当前有效用户是否为文件属组</p>
 <p><i class="fa fa-fighter-jet" aria-hidden="true"></i>  双目测试:</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">FILE1</span> -ef FILE<span class="number">2</span>:FILE<span class="number">1</span>是否是FILE<span class="number">2</span>的硬链接</span><br><span class="line"><span class="attribute">FILE1</span> -nf FILE<span class="number">2</span>:FILE<span class="number">1</span>是否新于FILE<span class="number">2</span>(mtime)</span><br><span class="line"><span class="attribute">FILE1</span> -ot FILE<span class="number">2</span>:FILE<span class="number">1</span>是否旧于FILE<span class="number">2</span></span><br></pre></td></tr></table></figure>
@@ -364,46 +368,6 @@
 <h1 id="创建一个创建用户脚本"><a href="#创建一个创建用户脚本" class="headerlink" title="创建一个创建用户脚本"></a>创建一个创建用户脚本</h1><p>创建一个脚本，用于创建用户并且给他一个初始密码，<br>当他没有加参数时要提示用户<br>如果存在用户要提示用户。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">[ <span class="variable">$#</span> -eq <span class="number">0</span> ] &amp;&amp; &#123; echo <span class="string">&quot;Usage: `basename $0` 用户名&quot;</span> ; <span class="keyword">exit</span> <span class="number">5</span>; &#125;</span><br><span class="line">id <span class="variable">$1</span> &amp;&gt; <span class="regexp">/dev/</span>null &amp;&amp; &#123; echo <span class="string">&quot;User $1 is exist&quot;</span> ; <span class="keyword">exit</span> <span class="number">10</span>; &#125;</span><br><span class="line">useradd <span class="variable">$1</span> &amp;&gt; <span class="regexp">/dev/</span>null &amp;&amp; &#123; echo <span class="variable">$1</span> is created ; echo <span class="number">123456</span> | passwd --stdin <span class="variable">$1</span> &amp;&gt; <span class="regexp">/dev/</span>null ; &#125; || &#123; echo <span class="string">&quot;Error&quot;</span>;<span class="keyword">exit</span> <span class="number">30</span>; &#125;</span><br></pre></td></tr></table></figure>
 <h1 id="鸡兔同笼"><a href="#鸡兔同笼" class="headerlink" title="鸡兔同笼"></a>鸡兔同笼</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 shells]<span class="comment"># cat rabbit.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;Input head number: &quot;</span> head</span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;Input head number: &quot;</span> foot</span><br><span class="line">rabbit=$[foot/2-head]</span><br><span class="line">chook=$[head-rabbit]</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;rabbit:<span class="variable">$rabbit</span> chook:<span class="variable">$chook</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="read"><a href="#read" class="headerlink" title="read"></a>read</h1><p>使用read来把输入值分配给一个或多个shell变量</p>
-<div class="alert alert-info">
-
-<p><i class="fa fa-info"></i> 使用read来把输入值分配给一个或多个shell变量<br>-p 指定要显示的提示<br>-s 静默输入(不在屏幕上显示)，一般用于密码<br>-n N 指定输入的字符长度N<br>-d ‘字符’ 输入结束符<br>-t N TIMEOUT为N秒<br>read 从标准输入中读取值，给每个单词分配一个变量，所有剩余单词都被分配给最后最后一个变量<br>read -p “Enter a filename:” FILE</p>
-</div>
-
-<h1 id="yesno-sh"><a href="#yesno-sh" class="headerlink" title="yesno.sh"></a>yesno.sh</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 shells]<span class="comment"># cat yesno.sh </span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">read -p <span class="string">&quot;Do you angree? (yes or no): &quot;</span> ANSWER</span><br><span class="line">[[ <span class="string">&quot;$ANSWER&quot;</span> =~ ^[Yy]([Ee][Ss])?$ ]] &amp;&amp; &#123; echo ok ; <span class="keyword">exit</span>; &#125;</span><br><span class="line">[[ <span class="string">&quot;$ANSWER&quot;</span> =~ ^[Nn][Oo]?$ ]] &amp;&amp; &#123; echo Not ok; <span class="keyword">exit</span>; &#125;</span><br><span class="line">echo <span class="string">&quot;Your input is false&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </div>
 
@@ -425,7 +389,10 @@
     <a href="/2021/08/17/Linux%E4%B8%89%E5%89%91%E5%AE%A2/" rel="prev" title="linux-正则表达式">
       <i class="fa fa-chevron-left"></i> linux-正则表达式
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/16/shell%E7%BC%96%E7%A8%8B2/" rel="next" title="Shell编程2">
+      Shell编程2 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -484,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">文件执行方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo%E9%A2%9C%E8%89%B2%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">echo颜色代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim"><span class="nav-number">3.</span> <span class="nav-text">vim</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%AE%9E%E7%8E%B0%E6%AF%8F%E6%97%A5%E5%B0%86-etc-%E7%9B%AE%E5%BD%95%E5%A4%87%E4%BB%BD%E5%88%B0-backup-etcYYY-mm-dd%E4%B8%AD"><span class="nav-number">6.</span> <span class="nav-text">编写脚本，实现每日将&#x2F;etc&#x2F;目录备份到&#x2F;backup&#x2F;etcYYY-mm-dd中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bash%E5%86%85%E5%BB%BA%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.1.</span> <span class="nav-text">bash内建的环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and"><span class="nav-number">7.2.</span> <span class="nav-text">() and {}</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%92%8C%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="nav-number">8.</span> <span class="nav-text">只读和位置变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%8A%B6%E6%80%81"><span class="nav-number">9.</span> <span class="nav-text">退出状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="nav-number">10.</span> <span class="nav-text">算术运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC"><span class="nav-number">11.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="nav-number">12.</span> <span class="nav-text">逻辑运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%AD%E8%B7%AF%E8%BF%90%E7%AE%97"><span class="nav-number">13.</span> <span class="nav-text">短路运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%88%96"><span class="nav-number">13.1.</span> <span class="nav-text">异或</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">14.</span> <span class="nav-text">条件测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#test-%E6%89%A7%E8%A1%8C%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BE%8B%E5%AD%90"><span class="nav-number">14.1.</span> <span class="nav-text">test 执行条件表达式例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%96IP%E5%9C%B0%E5%9D%80"><span class="nav-number">15.</span> <span class="nav-text">取IP地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bash%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B5%8B%E8%AF%95"><span class="nav-number">16.</span> <span class="nav-text">bash的字符串测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash%E7%9A%84%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E6%B5%8B%E8%AF%95"><span class="nav-number">17.</span> <span class="nav-text">Bash的文件属性测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash%E7%9A%84%E6%96%87%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">18.</span> <span class="nav-text">Bash的文件测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash%E7%9A%84%E7%BB%84%E5%90%88%E6%B5%8B%E8%AF%95"><span class="nav-number">19.</span> <span class="nav-text">Bash的组合测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E8%84%9A%E6%9C%AC"><span class="nav-number">20.</span> <span class="nav-text">创建一个创建用户脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%B8%A1%E5%85%94%E5%90%8C%E7%AC%BC"><span class="nav-number">21.</span> <span class="nav-text">鸡兔同笼</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#read"><span class="nav-number">22.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yesno-sh"><span class="nav-number">23.</span> <span class="nav-text">yesno.sh</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">文件执行方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo%E9%A2%9C%E8%89%B2%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">echo颜色代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim"><span class="nav-number">3.</span> <span class="nav-text">vim</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%AE%9E%E7%8E%B0%E6%AF%8F%E6%97%A5%E5%B0%86-etc-%E7%9B%AE%E5%BD%95%E5%A4%87%E4%BB%BD%E5%88%B0-backup-etcYYY-mm-dd%E4%B8%AD"><span class="nav-number">6.</span> <span class="nav-text">编写脚本，实现每日将&#x2F;etc&#x2F;目录备份到&#x2F;backup&#x2F;etcYYY-mm-dd中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bash%E5%86%85%E5%BB%BA%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.1.</span> <span class="nav-text">bash内建的环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and"><span class="nav-number">7.2.</span> <span class="nav-text">() and {}</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%92%8C%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="nav-number">8.</span> <span class="nav-text">只读和位置变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%8A%B6%E6%80%81"><span class="nav-number">9.</span> <span class="nav-text">退出状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="nav-number">10.</span> <span class="nav-text">算术运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC"><span class="nav-number">11.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="nav-number">12.</span> <span class="nav-text">逻辑运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%AD%E8%B7%AF%E8%BF%90%E7%AE%97"><span class="nav-number">13.</span> <span class="nav-text">短路运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%88%96"><span class="nav-number">13.1.</span> <span class="nav-text">异或</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">14.</span> <span class="nav-text">条件测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#test-%E6%89%A7%E8%A1%8C%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BE%8B%E5%AD%90"><span class="nav-number">14.1.</span> <span class="nav-text">test 执行条件表达式例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%96IP%E5%9C%B0%E5%9D%80"><span class="nav-number">15.</span> <span class="nav-text">取IP地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bash%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B5%8B%E8%AF%95"><span class="nav-number">16.</span> <span class="nav-text">bash的字符串测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%AF%94%E8%BE%83"><span class="nav-number">17.</span> <span class="nav-text">整数比较:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash%E7%9A%84%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E6%B5%8B%E8%AF%95"><span class="nav-number">18.</span> <span class="nav-text">Bash的文件属性测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash%E7%9A%84%E6%96%87%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">19.</span> <span class="nav-text">Bash的文件测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash%E7%9A%84%E7%BB%84%E5%90%88%E6%B5%8B%E8%AF%95"><span class="nav-number">20.</span> <span class="nav-text">Bash的组合测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E8%84%9A%E6%9C%AC"><span class="nav-number">21.</span> <span class="nav-text">创建一个创建用户脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%B8%A1%E5%85%94%E5%90%8C%E7%AC%BC"><span class="nav-number">22.</span> <span class="nav-text">鸡兔同笼</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -500,7 +467,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

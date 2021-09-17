@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="shell编程 2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell编程2">
+<meta property="og:url" content="http://example.com/2021/09/16/shell%E7%BC%96%E7%A8%8B2/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="shell编程 2">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-16T11:54:30.000Z">
+<meta property="article:modified_time" content="2021-09-17T14:09:05.828Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/09/16/shell%E7%BC%96%E7%A8%8B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Shell编程2 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/16/shell%E7%BC%96%E7%A8%8B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shell编程2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-16 19:54:30" itemprop="dateCreated datePublished" datetime="2021-09-16T19:54:30+08:00">2021-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-17 22:09:05" itemprop="dateModified" datetime="2021-09-17T22:09:05+08:00">2021-09-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">shell编程 2</font></center>
+
+<a id="more"></a>
+
+<h1 id="read"><a href="#read" class="headerlink" title="read"></a>read</h1><p>使用read来把输入值分配给一个或多个shell变量</p>
+<div class="alert alert-info">
+
+<p><i class="fa fa-info"></i> 使用read来把输入值分配给一个或多个shell变量<br>-p 指定要显示的提示<br>-s 静默输入(不在屏幕上显示)，一般用于密码<br>-n N 指定输入的字符长度N<br>-d ‘字符’ 输入结束符<br>-t N TIMEOUT为N秒<br>read 从标准输入中读取值，给每个单词分配一个变量，所有剩余单词都被分配给最后最后一个变量<br>read -p “Enter a filename:” FILE</p>
+</div>
+
+<h1 id="yesno-sh"><a href="#yesno-sh" class="headerlink" title="yesno.sh"></a>yesno.sh</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 shells]<span class="comment"># cat yesno.sh </span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">read -p <span class="string">&quot;Do you angree? (yes or no): &quot;</span> ANSWER</span><br><span class="line">[[ <span class="string">&quot;$ANSWER&quot;</span> =~ ^[Yy]([Ee][Ss])?$ ]] &amp;&amp; &#123; echo ok ; <span class="keyword">exit</span>; &#125;</span><br><span class="line">[[ <span class="string">&quot;$ANSWER&quot;</span> =~ ^[Nn][Oo]?$ ]] &amp;&amp; &#123; echo Not ok; <span class="keyword">exit</span>; &#125;</span><br><span class="line">echo <span class="string">&quot;Your input is false&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h1><p>输入你的年龄</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;Input your age: &quot;</span> AGE</span><br><span class="line"><span class="keyword">if</span> [[ ! <span class="string">&quot;<span class="variable">$AGE</span>&quot;</span> =~ ^[0-9]+$ ]];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Please input a digit age&quot;</span></span><br><span class="line">        <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$AGE</span> -lt 18 ];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Good good study&quot;</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$AGE</span> -le 60 ];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;good good work&quot;</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$AGE</span> -le 120 ];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;enjoy life&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;welcome to the earth&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<details>
+  <summary>if 多分枝</summary>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 判断条件<span class="number">1</span>;then</span><br><span class="line">	条件<span class="number">1</span>为真的分支代码</span><br><span class="line">elif 判断条件<span class="number">2</span>;then</span><br><span class="line">	条件<span class="number">2</span>为真的分支代码</span><br><span class="line">elif 判断条件<span class="number">3</span>;then</span><br><span class="line">	条件<span class="number">3</span>为真的分支代码</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	以上条件都为假的分支代码</span><br><span class="line">fi</span><br><span class="line">逐条件进行判断，第一次遇为“真”条件时，执行其分支，而后结束整个<span class="keyword">if</span>语句</span><br></pre></td></tr></table></figure>
+</details>
+
+
+<h1 id="case"><a href="#case" class="headerlink" title="case"></a>case</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 shells]# cat yesno.case </span><br><span class="line"><span class="section">#!/bin/bash</span></span><br><span class="line">read -p &quot;Do you arage?(yes or no):&quot; ANSWER</span><br><span class="line">case $ANSWER in </span><br><span class="line">[<span class="string">Yy</span>]|[<span class="string">Yy</span>][<span class="symbol">Ee</span>][<span class="string">Ss</span>])</span><br><span class="line"><span class="code">        echo YES</span></span><br><span class="line"><span class="code">        ;;</span></span><br><span class="line"><span class="code">[Nn]|[Nn][Oo])</span></span><br><span class="line"><span class="code">        echo NO</span></span><br><span class="line"><span class="code">        ;;</span></span><br><span class="line"><span class="code">*)</span></span><br><span class="line"><span class="code">        echo input false</span></span><br><span class="line"><span class="code">esac</span></span><br></pre></td></tr></table></figure>
+<details>
+  <summary>case语句</summary>
+
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">case 支持glob风格的通配符</span><br><span class="line"><span class="section">*:任意长度的任意字符</span></span><br><span class="line"><span class="section">？:任意单个字符</span></span><br><span class="line"><span class="section">[]:指定范围内的任意单个字符</span></span><br><span class="line"><span class="section">a｜b:a或b</span></span><br></pre></td></tr></table></figure>
+</details>
+
+<h1 id="bash如何展开命令行-优先级"><a href="#bash如何展开命令行-优先级" class="headerlink" title="bash如何展开命令行 优先级"></a>bash如何展开命令行 优先级</h1><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">把命令行分成单个命令词</span><br><span class="line">展开别名</span><br><span class="line">展开大括号的声明<span class="comment">(&#123;&#125;)</span></span><br><span class="line">展开波浪符声明<span class="comment">(~)</span></span><br><span class="line">命令替换$<span class="comment">()</span>和 ``）</span><br><span class="line">再次把命令行分成命令词</span><br><span class="line">展开文件通配<span class="comment">(* ？ [abc]等等)</span></span><br><span class="line">准备I/O重导向<span class="comment">(&lt; &gt;)</span></span><br><span class="line">运行命令</span><br></pre></td></tr></table></figure>
+<h1 id="防止扩展"><a href="#防止扩展" class="headerlink" title="防止扩展"></a>防止扩展</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">反斜线(\)会使随后的字符按原意解释</span><br><span class="line"><span class="keyword">echo</span> Your <span class="built_in">cos</span><span class="variable">t:</span>\$<span class="number">5.00</span></span><br><span class="line">	Your <span class="built_in">cos</span><span class="variable">t:</span>$<span class="number">5.00</span></span><br><span class="line">加引号来防止扩展</span><br><span class="line">单引号(<span class="string">&#x27; &#x27;</span>) 防止扩展</span><br><span class="line">双引号(<span class="string">&quot; &quot;</span>) 也可以防止扩展，但是以下情况例外:</span><br><span class="line"> $(美元符号) 变量扩展</span><br><span class="line"> ``（反引号）变量扩展</span><br><span class="line"> \(反斜线) 禁止单个字符扩展</span><br><span class="line"> !(叹号) 厉害命令替换:!<span class="number">102</span> 表示执行历史命令中第<span class="number">102</span>个命令</span><br></pre></td></tr></table></figure>
+
+<h1 id="bash的配置文件"><a href="#bash的配置文件" class="headerlink" title="bash的配置文件"></a>bash的配置文件</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">按生效范围划分,存在两类:</span><br><span class="line">按全局划分:</span><br><span class="line">	<span class="regexp">/etc/</span>profile </span><br><span class="line">	<span class="regexp">/etc/</span>profile.d/*.sh</span><br><span class="line">	<span class="regexp">/etc/</span>bashrc</span><br><span class="line">个人配置:</span><br><span class="line">	~/.bash_profile</span><br><span class="line">	~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h1 id="shell登录两种方式"><a href="#shell登录两种方式" class="headerlink" title="shell登录两种方式"></a>shell登录两种方式</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 交互式登录:<br>(1)直接通过终端输入账号密码登录<br>(2)使用”su - UserName” 切换的用户<br>执行顺序:<code>/etc/profile.d --&gt; /etc/prifile.d/*.sh --&gt; ~/.bash_profile --&gt; ~/.bashrc --&gt; /etc/bashrc</code><br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 非交互式登录:<br>(1)su Username<br>(2)图形界面打开终端<br>(3)执行脚本<br>(4)任何其他的bash实例<br>执行顺序:<code>/etc/profile.d/*.sh --&gt; /etc/bashrc --&gt; ~/.bashrc</code></p>
+<h1 id="Profile类"><a href="#Profile类" class="headerlink" title="Profile类"></a>Profile类</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 按功能划分，存在两类:<br><code>profile 类 和 bashrc 类</code><br><i class="fa fa-fighter-jet" aria-hidden="true"></i> profile类:为交互式登录的shell提供配置</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">全局: <span class="regexp">/etc/</span>profile,<span class="regexp">/etc/</span>profile.d/*.sh</span><br><span class="line">个人: ~/.bash_profile</span><br><span class="line">功用:</span><br><span class="line">(<span class="number">1</span>)用于定于环境变量</span><br><span class="line">(<span class="number">2</span>)运行命令或脚本</span><br></pre></td></tr></table></figure>
+
+<h1 id="Bashrc类"><a href="#Bashrc类" class="headerlink" title="Bashrc类"></a>Bashrc类</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> bashrc类:为非交互式和交互式登录的shell提供配置</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">全局<span class="symbol">:/etc/bashrc</span></span><br><span class="line">个人<span class="symbol">:~/</span>.bashrc</span><br><span class="line">功用<span class="symbol">:</span></span><br><span class="line">(<span class="number">1</span>)定义命令别名和函数</span><br><span class="line">(<span class="number">2</span>)定义本地变量</span><br></pre></td></tr></table></figure>
+<h1 id="编辑文件生效"><a href="#编辑文件生效" class="headerlink" title="编辑文件生效"></a>编辑文件生效</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 修改profile和bashrc文件后需生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sorce 会在当前bash里面，可能会影响当前环境，所以如果希望影响当前环境就用<span class="built_in">source</span></span><br><span class="line">bash 会开启一个子进程</span><br><span class="line">两种方法:</span><br><span class="line">重新启动Shell进程</span><br><span class="line">.或<span class="built_in">source</span></span><br><span class="line">例如:.~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h1 id="Bash-退出任务"><a href="#Bash-退出任务" class="headerlink" title="Bash 退出任务"></a>Bash 退出任务</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 保存在<code>~/.bash_logout</code>文件中(用户)<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 在退出登录shell运行<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 用于<br>-创建自动备份<br>-清除临时文件<br><font color="red">这个文件就是当用户退出时，自动运行此文件里面的命令</font></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">centos2</span> ~]<span class="comment"># cat .bash_logout </span></span><br><span class="line"><span class="comment"># ~/.bash_logout</span></span><br><span class="line"><span class="built_in">rm</span> <span class="operator">-f</span> /root/<span class="keyword">data</span>/*.txt</span><br></pre></td></tr></table></figure>
+
+<h1 id="set命令"><a href="#set命令" class="headerlink" title="set命令"></a>set命令</h1><p>$- 变量<br><code>h</code>:hashall，打开这个选项后，shell会外部命令的路径hash下来,避免每次都要查询。通过set +h讲h选项关闭。<br><code>i</code>:interactive-comments，包含这个选项说明当前的shell是一个交互式的shell。所谓的交互式shell,在脚本中，i选项是关闭的。<br><code>m</code>:monitor，打开监控模式，就可以通过Job control来控制进程的停止、继续，后台或者前台执行等。<br><code>B</code>:braceexpand,大括号扩展<br><code>H</code>:history,H选项打开，可以展开历史列表中的命令，可以通过!感叹号来完成，例如<code>!!</code> 返回上最近的一个历史命令，<code>!n</code>返回第n个历史命令。</p>
+<h1 id="脚本安全"><a href="#脚本安全" class="headerlink" title="脚本安全"></a>脚本安全</h1><p>set命令:<br>-u: 当使用一个没有定义的变量的时候，显示错误信息， 等同set -o nounset<br>-e: 如果一个命令返回一个非0退出状态值(失败)就退出等同set -o errexit</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">centos2</span> <span class="type">shells</span>]<span class="comment"># cat s.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> <span class="literal">-u</span></span><br><span class="line">DR=/root/<span class="keyword">data</span>  </span><br><span class="line"><span class="built_in">rm</span> <span class="literal">-fr</span> <span class="variable">$DIR</span>/*.txt  这里写的变量有问题，他执行就会报错</span><br><span class="line"></span><br><span class="line">[<span class="type">root</span>@<span class="type">centos2</span> <span class="type">shells</span>]<span class="comment"># cat s.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#set -e</span></span><br><span class="line"><span class="built_in">DIR</span>=/root/<span class="keyword">data</span></span><br><span class="line">error          如果命令执行有错误那么后续就不会执行了，直接退出</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;toto &quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/29/shell%E7%BC%96%E7%A8%8B/" rel="prev" title="linux-Shell编程">
+      <i class="fa fa-chevron-left"></i> linux-Shell编程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#read"><span class="nav-number">1.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yesno-sh"><span class="nav-number">2.</span> <span class="nav-text">yesno.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#case"><span class="nav-number">4.</span> <span class="nav-text">case</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bash%E5%A6%82%E4%BD%95%E5%B1%95%E5%BC%80%E5%91%BD%E4%BB%A4%E8%A1%8C-%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">5.</span> <span class="nav-text">bash如何展开命令行 优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E6%89%A9%E5%B1%95"><span class="nav-number">6.</span> <span class="nav-text">防止扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bash%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">bash的配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell%E7%99%BB%E5%BD%95%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">shell登录两种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Profile%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">Profile类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bashrc%E7%B1%BB"><span class="nav-number">10.</span> <span class="nav-text">Bashrc类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E7%94%9F%E6%95%88"><span class="nav-number">11.</span> <span class="nav-text">编辑文件生效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash-%E9%80%80%E5%87%BA%E4%BB%BB%E5%8A%A1"><span class="nav-number">12.</span> <span class="nav-text">Bash 退出任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#set%E5%91%BD%E4%BB%A4"><span class="nav-number">13.</span> <span class="nav-text">set命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E5%AE%89%E5%85%A8"><span class="nav-number">14.</span> <span class="nav-text">脚本安全</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
