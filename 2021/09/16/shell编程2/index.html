@@ -29,7 +29,7 @@
 <meta property="og:description" content="shell编程 2">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-16T11:54:30.000Z">
-<meta property="article:modified_time" content="2021-09-17T14:09:05.828Z">
+<meta property="article:modified_time" content="2021-10-24T01:18:35.328Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-17 22:09:05" itemprop="dateModified" datetime="2021-09-17T22:09:05+08:00">2021-09-17</time>
+                <time title="Modified: 2021-10-24 09:18:35" itemprop="dateModified" datetime="2021-10-24T09:18:35+08:00">2021-10-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,12 +278,13 @@
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">case 支持glob风格的通配符</span><br><span class="line"><span class="section">*:任意长度的任意字符</span></span><br><span class="line"><span class="section">？:任意单个字符</span></span><br><span class="line"><span class="section">[]:指定范围内的任意单个字符</span></span><br><span class="line"><span class="section">a｜b:a或b</span></span><br></pre></td></tr></table></figure>
 </details>
 
-<h1 id="bash如何展开命令行-优先级"><a href="#bash如何展开命令行-优先级" class="headerlink" title="bash如何展开命令行 优先级"></a>bash如何展开命令行 优先级</h1><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">把命令行分成单个命令词</span><br><span class="line">展开别名</span><br><span class="line">展开大括号的声明<span class="comment">(&#123;&#125;)</span></span><br><span class="line">展开波浪符声明<span class="comment">(~)</span></span><br><span class="line">命令替换$<span class="comment">()</span>和 ``）</span><br><span class="line">再次把命令行分成命令词</span><br><span class="line">展开文件通配<span class="comment">(* ？ [abc]等等)</span></span><br><span class="line">准备I/O重导向<span class="comment">(&lt; &gt;)</span></span><br><span class="line">运行命令</span><br></pre></td></tr></table></figure>
+<h1 id="bash如何展开命令行-优先级"><a href="#bash如何展开命令行-优先级" class="headerlink" title="bash如何展开命令行 优先级"></a>bash如何展开命令行 优先级</h1><p>shell命令的执行顺序</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">把命令行分成单个命令词</span><br><span class="line">展开别名</span><br><span class="line">展开大括号的声明<span class="comment">(&#123;&#125;)</span></span><br><span class="line">展开波浪符声明<span class="comment">(~)</span></span><br><span class="line">命令替换$<span class="comment">()</span>和 <span class="comment">(``）</span></span><br><span class="line"><span class="comment">再次把命令行分成命令词</span></span><br><span class="line"><span class="comment">展开文件通配(* ？ [abc]等等)</span></span><br><span class="line">准备I/O重导向<span class="comment">(&lt; 、&gt;)</span></span><br><span class="line">运行命令</span><br></pre></td></tr></table></figure>
 <h1 id="防止扩展"><a href="#防止扩展" class="headerlink" title="防止扩展"></a>防止扩展</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">反斜线(\)会使随后的字符按原意解释</span><br><span class="line"><span class="keyword">echo</span> Your <span class="built_in">cos</span><span class="variable">t:</span>\$<span class="number">5.00</span></span><br><span class="line">	Your <span class="built_in">cos</span><span class="variable">t:</span>$<span class="number">5.00</span></span><br><span class="line">加引号来防止扩展</span><br><span class="line">单引号(<span class="string">&#x27; &#x27;</span>) 防止扩展</span><br><span class="line">双引号(<span class="string">&quot; &quot;</span>) 也可以防止扩展，但是以下情况例外:</span><br><span class="line"> $(美元符号) 变量扩展</span><br><span class="line"> ``（反引号）变量扩展</span><br><span class="line"> \(反斜线) 禁止单个字符扩展</span><br><span class="line"> !(叹号) 厉害命令替换:!<span class="number">102</span> 表示执行历史命令中第<span class="number">102</span>个命令</span><br></pre></td></tr></table></figure>
 
 <h1 id="bash的配置文件"><a href="#bash的配置文件" class="headerlink" title="bash的配置文件"></a>bash的配置文件</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">按生效范围划分,存在两类:</span><br><span class="line">按全局划分:</span><br><span class="line">	<span class="regexp">/etc/</span>profile </span><br><span class="line">	<span class="regexp">/etc/</span>profile.d/*.sh</span><br><span class="line">	<span class="regexp">/etc/</span>bashrc</span><br><span class="line">个人配置:</span><br><span class="line">	~/.bash_profile</span><br><span class="line">	~/.bashrc</span><br></pre></td></tr></table></figure>
 
-<h1 id="shell登录两种方式"><a href="#shell登录两种方式" class="headerlink" title="shell登录两种方式"></a>shell登录两种方式</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 交互式登录:<br>(1)直接通过终端输入账号密码登录<br>(2)使用”su - UserName” 切换的用户<br>执行顺序:<code>/etc/profile.d --&gt; /etc/prifile.d/*.sh --&gt; ~/.bash_profile --&gt; ~/.bashrc --&gt; /etc/bashrc</code><br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 非交互式登录:<br>(1)su Username<br>(2)图形界面打开终端<br>(3)执行脚本<br>(4)任何其他的bash实例<br>执行顺序:<code>/etc/profile.d/*.sh --&gt; /etc/bashrc --&gt; ~/.bashrc</code></p>
+<h1 id="shell登录两种方式"><a href="#shell登录两种方式" class="headerlink" title="shell登录两种方式"></a>shell登录两种方式</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 交互式登录:<br>(1)直接通过终端输入账号密码登录<br>(2)使用”su - UserName” 切换的用户<br>执行顺序:<code>/etc/profile --&gt; /etc/prifile.d/*.sh --&gt; ~/.bash_profile --&gt; ~/.bashrc --&gt; /etc/bashrc</code><br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 非交互式登录:<br>(1)su Username<br>(2)图形界面打开终端<br>(3)执行脚本<br>(4)任何其他的bash实例<br>执行顺序:<code>/etc/profile.d/*.sh --&gt; /etc/bashrc --&gt; ~/.bashrc</code></p>
 <h1 id="Profile类"><a href="#Profile类" class="headerlink" title="Profile类"></a>Profile类</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 按功能划分，存在两类:<br><code>profile 类 和 bashrc 类</code><br><i class="fa fa-fighter-jet" aria-hidden="true"></i> profile类:为交互式登录的shell提供配置</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">全局: <span class="regexp">/etc/</span>profile,<span class="regexp">/etc/</span>profile.d/*.sh</span><br><span class="line">个人: ~/.bash_profile</span><br><span class="line">功用:</span><br><span class="line">(<span class="number">1</span>)用于定于环境变量</span><br><span class="line">(<span class="number">2</span>)运行命令或脚本</span><br></pre></td></tr></table></figure>
 
@@ -295,7 +296,7 @@
 <h1 id="Bash-退出任务"><a href="#Bash-退出任务" class="headerlink" title="Bash 退出任务"></a>Bash 退出任务</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 保存在<code>~/.bash_logout</code>文件中(用户)<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 在退出登录shell运行<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 用于<br>-创建自动备份<br>-清除临时文件<br><font color="red">这个文件就是当用户退出时，自动运行此文件里面的命令</font></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">centos2</span> ~]<span class="comment"># cat .bash_logout </span></span><br><span class="line"><span class="comment"># ~/.bash_logout</span></span><br><span class="line"><span class="built_in">rm</span> <span class="operator">-f</span> /root/<span class="keyword">data</span>/*.txt</span><br></pre></td></tr></table></figure>
 
-<h1 id="set命令"><a href="#set命令" class="headerlink" title="set命令"></a>set命令</h1><p>$- 变量<br><code>h</code>:hashall，打开这个选项后，shell会外部命令的路径hash下来,避免每次都要查询。通过set +h讲h选项关闭。<br><code>i</code>:interactive-comments，包含这个选项说明当前的shell是一个交互式的shell。所谓的交互式shell,在脚本中，i选项是关闭的。<br><code>m</code>:monitor，打开监控模式，就可以通过Job control来控制进程的停止、继续，后台或者前台执行等。<br><code>B</code>:braceexpand,大括号扩展<br><code>H</code>:history,H选项打开，可以展开历史列表中的命令，可以通过!感叹号来完成，例如<code>!!</code> 返回上最近的一个历史命令，<code>!n</code>返回第n个历史命令。</p>
+<h1 id="set命令"><a href="#set命令" class="headerlink" title="set命令"></a>set命令</h1><p>$- 变量<br><code>h</code>:hashall，打开这个选项后，shell会外部命令的路径hash下来,避免每次都要查询。通过set +h将h选项关闭。查看缓存命令:hash<br><code>i</code>:interactive-comments，包含这个选项说明当前的shell是一个交互式的shell。所谓的交互式shell,在脚本中，i选项是关闭的。<br><code>m</code>:monitor，打开监控模式，就可以通过Job control来控制进程的停止、继续，后台或者前台执行等。<br><code>B</code>:braceexpand,大括号扩展<br><code>H</code>:history,H选项打开，可以展开历史列表中的命令，可以通过!感叹号来完成，例如<code>!!</code> 返回上最近的一个历史命令，<code>!n</code>返回第n个历史命令。</p>
 <h1 id="脚本安全"><a href="#脚本安全" class="headerlink" title="脚本安全"></a>脚本安全</h1><p>set命令:<br>-u: 当使用一个没有定义的变量的时候，显示错误信息， 等同set -o nounset<br>-e: 如果一个命令返回一个非0退出状态值(失败)就退出等同set -o errexit</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">root</span>@<span class="type">centos2</span> <span class="type">shells</span>]<span class="comment"># cat s.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> <span class="literal">-u</span></span><br><span class="line">DR=/root/<span class="keyword">data</span>  </span><br><span class="line"><span class="built_in">rm</span> <span class="literal">-fr</span> <span class="variable">$DIR</span>/*.txt  这里写的变量有问题，他执行就会报错</span><br><span class="line"></span><br><span class="line">[<span class="type">root</span>@<span class="type">centos2</span> <span class="type">shells</span>]<span class="comment"># cat s.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#set -e</span></span><br><span class="line"><span class="built_in">DIR</span>=/root/<span class="keyword">data</span></span><br><span class="line">error          如果命令执行有错误那么后续就不会执行了，直接退出</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;toto &quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -303,44 +304,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p>linux中()中的命令不是在子shell中执行，但是为什么可以使用父shell中的变量？</p>
 
     </div>
 
@@ -362,7 +326,10 @@
     <a href="/2021/08/29/shell%E7%BC%96%E7%A8%8B/" rel="prev" title="linux-Shell编程">
       <i class="fa fa-chevron-left"></i> linux-Shell编程
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="next" title="虚拟化技术">
+      虚拟化技术 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -437,14 +404,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

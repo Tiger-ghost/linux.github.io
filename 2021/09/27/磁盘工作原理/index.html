@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="磁盘工作原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="磁盘工作原理">
+<meta property="og:url" content="http://example.com/2021/09/27/%E7%A3%81%E7%9B%98%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="磁盘工作原理">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/设备文件.png">
+<meta property="og:image" content="http://example.com/images/磁盘信息.png">
+<meta property="og:image" content="http://example.com/images/MBR分区结构.jpeg">
+<meta property="og:image" content="http://example.com/images/fstab.png">
+<meta property="article:published_time" content="2021-09-27T09:33:30.000Z">
+<meta property="article:modified_time" content="2021-11-04T02:03:24.208Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/设备文件.png">
+
+<link rel="canonical" href="http://example.com/2021/09/27/%E7%A3%81%E7%9B%98%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>磁盘工作原理 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/27/%E7%A3%81%E7%9B%98%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          磁盘工作原理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-27 17:33:30" itemprop="dateCreated datePublished" datetime="2021-09-27T17:33:30+08:00">2021-09-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-04 10:03:24" itemprop="dateModified" datetime="2021-11-04T10:03:24+08:00">2021-11-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">磁盘工作原理</font></center>
+
+<a id="more"></a>
+
+<h1 id="查看硬盘是机械硬盘还是固态硬盘"><a href="#查看硬盘是机械硬盘还是固态硬盘" class="headerlink" title="查看硬盘是机械硬盘还是固态硬盘"></a>查看硬盘是机械硬盘还是固态硬盘</h1><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 ~]# cat <span class="regexp">/sys/</span>block<span class="regexp">/sda/</span>queue/rotational </span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>这里1表示机械硬盘，0表示固态硬盘。</p>
+<h1 id="设备文件"><a href="#设备文件" class="headerlink" title="设备文件"></a>设备文件</h1><img src="/images/设备文件.png" width="80%" height="50%" align="center/">
+虚拟磁盘:/dev/vd 一般基于KVM技术、/dev/xvd 一般基于Xen技术
+
+<h1 id="磁盘信息解释"><a href="#磁盘信息解释" class="headerlink" title="磁盘信息解释"></a>磁盘信息解释</h1><img src="/images/磁盘信息.png" width="80%" height="50%" align="center/">
+
+<p>Start: 开始扇区<br>End: 结束扇区<br>Blocks: 以块为单位，一共有多少块<br>Blocks是以字节为大小。 51379200表示51G<br>Extended表示扩展分区，那么/dev/sda5的扇区一定在扩展分区里面。</p>
+<h1 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h1><p>为什么分区:隔离不同的数据，文件。划分不同的文件系统。</p>
+<h1 id="分区的两种方式"><a href="#分区的两种方式" class="headerlink" title="分区的两种方式"></a>分区的两种方式</h1><p>MBR,GPT<br>MBR:使用32位表示扇区数，分区不超过2T。<br>如果分区:按柱面<br>0磁道0扇区:512bytes,里面放的分区表，不属于某个分区。</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">446 </span>bytes:boot loader </span><br><span class="line"><span class="symbol">64 </span>bytes:分区表，其中每<span class="number">16</span>bytes标识一个分区</span><br><span class="line"><span class="symbol">2 </span>bytes: <span class="number">55</span>AA (<span class="number">16</span>进制)标记位</span><br></pre></td></tr></table></figure>
+<p>MBR:分区中一块硬盘最多有4个主分区，也可以3主分区+1扩展分区(N个逻辑分区)<br><img src="/images/MBR分区结构.jpeg" width="80%" height="50%" align="center/"></p>
+<h1 id="备份分区表"><a href="#备份分区表" class="headerlink" title="备份分区表:"></a>备份分区表:</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/dev/sda <span class="attribute">of</span>=/data/dpt <span class="attribute">bs</span>=1 <span class="attribute">count</span>=66 <span class="attribute">skip</span>=446</span><br></pre></td></tr></table></figure>
+<p>dd作用是用指定大小的块拷贝一个文件<br>if:表示源文件，<br>of:表示目标文件，<br>bs:同时设置读入/输出的块大小为bytes个字节。<br>count:仅拷多少个块，块大小等于前面指定的字节数。<br>skip:表示从输入文件开头跳过blocks个块后再开始复制。<br>-v:有些使用的*号是因为都是0,他就省略了，想看详细信息就加v查看</p>
+<h1 id="破坏分区表"><a href="#破坏分区表" class="headerlink" title="破坏分区表"></a>破坏分区表</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">最后的两个结束标志位置0</span><br><span class="line">dd <span class="attribute">if</span>=/dev/zero <span class="attribute">of</span>=/dev/sda <span class="attribute">bs</span>=1 <span class="attribute">count</span>=2 <span class="attribute">seek</span>=510</span><br><span class="line">seek表示的是跳过of的字节数。区分skip</span><br></pre></td></tr></table></figure>
+<p>现在使用fdisk进行查看会看不到分区表，但是使用lsblk又会显示出来。目前破坏的是硬盘中的分区表，内存中的还没有被破坏。<br>lsblk 查看的是内存的分区表<br>fdisk -l /dev/sda 查看的是硬盘里面的分区表<br>真正生效的是在内存中，数据也都是在内存中处理的，目前只要不重启那么就还可以使用。</p>
+<h1 id="恢复分区表"><a href="#恢复分区表" class="headerlink" title="恢复分区表"></a>恢复分区表</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/data/dpt <span class="attribute">of</span>=/dev/sda <span class="attribute">bs</span>=1 <span class="attribute">count</span>=2 <span class="attribute">skip</span>=64 <span class="attribute">seek</span>=510</span><br></pre></td></tr></table></figure>
+
+<h1 id="hexdump-查看-dev-sda-分区表数据"><a href="#hexdump-查看-dev-sda-分区表数据" class="headerlink" title="hexdump 查看/dev/sda 分区表数据"></a>hexdump 查看/dev/sda 分区表数据</h1><details>
+  <summary>hexdump 查看/dev/sda分区表的前512个字节</summary>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>centos7 data]# hexdump -C -n <span class="number">512</span> /dev/sda</span><br><span class="line"><span class="number">00000000</span>  eb <span class="number">63</span> <span class="number">90</span> <span class="number">10</span> <span class="number">8</span>e d0 bc <span class="number">00</span>  b0 b8 <span class="number">00</span> <span class="number">00</span> <span class="number">8</span>e d8 <span class="number">8</span>e c0  |.c..............|</span><br><span class="line"><span class="number">00000010</span>  fb be <span class="number">00</span> <span class="number">7</span>c bf <span class="number">00</span> <span class="number">06</span> b9  <span class="number">00</span> <span class="number">02</span> f3 a4 ea <span class="number">21</span> <span class="number">06</span> <span class="number">00</span>  |...|.........!..|</span><br><span class="line"><span class="number">00000020</span>  <span class="number">00</span> be be <span class="number">07</span> <span class="number">38</span> <span class="number">04</span> <span class="number">75</span> <span class="number">0</span>b  <span class="number">83</span> c6 <span class="number">10</span> <span class="number">81</span> fe fe <span class="number">07</span> <span class="number">75</span>  |...<span class="number">.8</span>.u........u|</span><br><span class="line"><span class="number">00000030</span>  f3 eb <span class="number">16</span> b4 <span class="number">02</span> b0 <span class="number">01</span> bb  <span class="number">00</span> <span class="number">7</span>c b2 <span class="number">80</span> <span class="number">8</span>a <span class="number">74</span> <span class="number">01</span> <span class="number">8</span>b  |.........|...t..|</span><br><span class="line"><span class="number">00000040</span>  <span class="number">4</span>c <span class="number">02</span> cd <span class="number">13</span> ea <span class="number">00</span> <span class="number">7</span>c <span class="number">00</span>  <span class="number">00</span> eb fe <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  |L.....|.........|</span><br><span class="line"><span class="number">00000050</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">80</span> <span class="number">01</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  |................|</span><br><span class="line"><span class="number">00000060</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> ff fa <span class="number">90</span> <span class="number">90</span>  f6 c2 <span class="number">80</span> <span class="number">74</span> <span class="number">05</span> f6 c2 <span class="number">70</span>  |...........t...p|</span><br><span class="line"><span class="number">00000070</span>  <span class="number">74</span> <span class="number">02</span> b2 <span class="number">80</span> ea <span class="number">79</span> <span class="number">7</span>c <span class="number">00</span>  <span class="number">00</span> <span class="number">31</span> c0 <span class="number">8</span>e d8 <span class="number">8</span>e d0 bc  |t....y|.<span class="number">.1</span>......|</span><br><span class="line"><span class="number">00000080</span>  <span class="number">00</span> <span class="number">20</span> fb a0 <span class="number">64</span> <span class="number">7</span>c <span class="number">3</span>c ff  <span class="number">74</span> <span class="number">02</span> <span class="number">88</span> c2 <span class="number">52</span> be <span class="number">05</span> <span class="number">7</span>c  |. ..d|&lt;.t...R..||</span><br><span class="line"><span class="number">00000090</span>  b4 <span class="number">41</span> bb aa <span class="number">55</span> cd <span class="number">13</span> <span class="number">5</span>a  <span class="number">52</span> <span class="number">72</span> <span class="number">3</span>d <span class="number">81</span> fb <span class="number">55</span> aa <span class="number">75</span>  |.A..U..ZRr=..U.u|</span><br><span class="line"><span class="number">000000</span>a0  <span class="number">37</span> <span class="number">83</span> e1 <span class="number">01</span> <span class="number">74</span> <span class="number">32</span> <span class="number">31</span> c0  <span class="number">89</span> <span class="number">44</span> <span class="number">04</span> <span class="number">40</span> <span class="number">88</span> <span class="number">44</span> ff <span class="number">89</span>  |<span class="number">7.</span>..t21..D.@.D..|</span><br><span class="line"><span class="number">000000</span>b0  <span class="number">44</span> <span class="number">02</span> c7 <span class="number">04</span> <span class="number">10</span> <span class="number">00</span> <span class="number">66</span> <span class="number">8</span>b  <span class="number">1</span>e <span class="number">5</span>c <span class="number">7</span>c <span class="number">66</span> <span class="number">89</span> <span class="number">5</span>c <span class="number">08</span> <span class="number">66</span>  |D.....f..\|f.\.f|</span><br><span class="line"><span class="number">000000</span>c0  <span class="number">8</span>b <span class="number">1</span>e <span class="number">60</span> <span class="number">7</span>c <span class="number">66</span> <span class="number">89</span> <span class="number">5</span>c <span class="number">0</span>c  c7 <span class="number">44</span> <span class="number">06</span> <span class="number">00</span> <span class="number">70</span> b4 <span class="number">42</span> cd  |..`|f.\..D..p.B.|</span><br><span class="line"><span class="number">000000</span>d0  <span class="number">13</span> <span class="number">72</span> <span class="number">05</span> bb <span class="number">00</span> <span class="number">70</span> eb <span class="number">76</span>  b4 <span class="number">08</span> cd <span class="number">13</span> <span class="number">73</span> <span class="number">0</span>d <span class="number">5</span>a <span class="number">84</span>  |.r...p.v....s.Z.|</span><br><span class="line"><span class="number">000000e0</span>  d2 <span class="number">0f</span> <span class="number">83</span> de <span class="number">00</span> be <span class="number">85</span> <span class="number">7</span>d  e9 <span class="number">82</span> <span class="number">00</span> <span class="number">66</span> <span class="number">0f</span> b6 c6 <span class="number">88</span>  |.......&#125;...f....|</span><br><span class="line"><span class="number">000000f</span>0  <span class="number">64</span> ff <span class="number">40</span> <span class="number">66</span> <span class="number">89</span> <span class="number">44</span> <span class="number">04</span> <span class="number">0f</span>  b6 d1 c1 e2 <span class="number">02</span> <span class="number">88</span> e8 <span class="number">88</span>  |d.@f.D..........|</span><br><span class="line"><span class="number">00000100</span>  f4 <span class="number">40</span> <span class="number">89</span> <span class="number">44</span> <span class="number">08</span> <span class="number">0f</span> b6 c2  c0 e8 <span class="number">02</span> <span class="number">66</span> <span class="number">89</span> <span class="number">04</span> <span class="number">66</span> a1  |.@.D.......f..f.|</span><br><span class="line"><span class="number">00000110</span>  <span class="number">60</span> <span class="number">7</span>c <span class="number">66</span> <span class="number">09</span> c0 <span class="number">75</span> <span class="number">4</span>e <span class="number">66</span>  a1 <span class="number">5</span>c <span class="number">7</span>c <span class="number">66</span> <span class="number">31</span> d2 <span class="number">66</span> f7  |`|f..uNf.\|f1.f.|</span><br><span class="line"><span class="number">00000120</span>  <span class="number">34</span> <span class="number">88</span> d1 <span class="number">31</span> d2 <span class="number">66</span> f7 <span class="number">74</span>  <span class="number">04</span> <span class="number">3</span>b <span class="number">44</span> <span class="number">08</span> <span class="number">7</span>d <span class="number">37</span> fe c1  |<span class="number">4.</span><span class="number">.1</span>.f.t.;D.&#125;<span class="number">7.</span>.|</span><br><span class="line"><span class="number">00000130</span>  <span class="number">88</span> c5 <span class="number">30</span> c0 c1 e8 <span class="number">02</span> <span class="number">08</span>  c1 <span class="number">88</span> d0 <span class="number">5</span>a <span class="number">88</span> c6 bb <span class="number">00</span>  |.<span class="number">.0</span>........Z....|</span><br><span class="line"><span class="number">00000140</span>  <span class="number">70</span> <span class="number">8</span>e c3 <span class="number">31</span> db b8 <span class="number">01</span> <span class="number">02</span>  cd <span class="number">13</span> <span class="number">72</span> <span class="number">1</span>e <span class="number">8</span>c c3 <span class="number">60</span> <span class="number">1</span>e  |p.<span class="number">.1</span>......r...`.|</span><br><span class="line"><span class="number">00000150</span>  b9 <span class="number">00</span> <span class="number">01</span> <span class="number">8</span>e db <span class="number">31</span> f6 bf  <span class="number">00</span> <span class="number">80</span> <span class="number">8</span>e c6 fc f3 a5 <span class="number">1f</span>  |....<span class="number">.1</span>..........|</span><br><span class="line"><span class="number">00000160</span>  <span class="number">61</span> ff <span class="number">26</span> <span class="number">5</span>a <span class="number">7</span>c be <span class="number">80</span> <span class="number">7</span>d  eb <span class="number">03</span> be <span class="number">8f</span> <span class="number">7</span>d e8 <span class="number">34</span> <span class="number">00</span>  |a.&amp;Z|..&#125;....&#125;<span class="number">.4</span>.|</span><br><span class="line"><span class="number">00000170</span>  be <span class="number">94</span> <span class="number">7</span>d e8 <span class="number">2</span>e <span class="number">00</span> cd <span class="number">18</span>  eb fe <span class="number">47</span> <span class="number">52</span> <span class="number">55</span> <span class="number">42</span> <span class="number">20</span> <span class="number">00</span>  |..&#125;.......GRUB .|</span><br><span class="line"><span class="number">00000180</span>  <span class="number">47</span> <span class="number">65</span> <span class="number">6f</span> <span class="number">6</span>d <span class="number">00</span> <span class="number">48</span> <span class="number">61</span> <span class="number">72</span>  <span class="number">64</span> <span class="number">20</span> <span class="number">44</span> <span class="number">69</span> <span class="number">73</span> <span class="number">6</span>b <span class="number">00</span> <span class="number">52</span>  |Geom.Hard Disk.R|</span><br><span class="line"><span class="number">00000190</span>  <span class="number">65</span> <span class="number">61</span> <span class="number">64</span> <span class="number">00</span> <span class="number">20</span> <span class="number">45</span> <span class="number">72</span> <span class="number">72</span>  <span class="number">6f</span> <span class="number">72</span> <span class="number">0</span>d <span class="number">0</span>a <span class="number">00</span> bb <span class="number">01</span> <span class="number">00</span>  |ead. Error......|</span><br><span class="line"><span class="number">000001</span>a0  b4 <span class="number">0</span>e cd <span class="number">10</span> ac <span class="number">3</span>c <span class="number">00</span> <span class="number">75</span>  f4 c3 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  |.....&lt;.u........|</span><br><span class="line"><span class="number">000001</span>b0  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  <span class="number">1f</span> <span class="number">6</span>d <span class="number">0</span>a <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">80</span> <span class="number">20</span>  |.........m..... |</span><br><span class="line"><span class="number">000001</span>c0  <span class="number">21</span> <span class="number">00</span> <span class="number">83</span> aa <span class="number">28</span> <span class="number">82</span> <span class="number">00</span> <span class="number">08</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">20</span> <span class="number">00</span> <span class="number">00</span> aa  |!...(....... ...|</span><br><span class="line"><span class="number">000001</span>d0  <span class="number">29</span> <span class="number">82</span> <span class="number">8</span>e fe ff ff <span class="number">00</span> <span class="number">08</span>  <span class="number">20</span> <span class="number">00</span> <span class="number">00</span> f8 <span class="number">5f</span> <span class="number">02</span> <span class="number">00</span> <span class="number">00</span>  |)....... ..._...|</span><br><span class="line"><span class="number">000001e0</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  |................|</span><br><span class="line"><span class="number">000001f</span>0  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>  <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">55</span> aa  |..............U.|</span><br><span class="line"><span class="number">00000200</span></span><br><span class="line">最后的主分区表<span class="number">64</span>个字节 和 结束标志位<span class="number">2</span>个字节 一共<span class="number">66</span>个字节。</span><br></pre></td></tr></table></figure>
+</details>
+
+
+<h1 id="查看硬盘MBR分区还是GPT分区"><a href="#查看硬盘MBR分区还是GPT分区" class="headerlink" title="查看硬盘MBR分区还是GPT分区"></a>查看硬盘MBR分区还是GPT分区</h1><p><font color="red"> dos就表示MBR分区。</font></p>
+<details>
+  <summary>查看硬盘是MBR分区还是GPT分区</summary>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@centos2</span> <span class="string">~</span>]<span class="comment"># fdisk -l /dev/sda</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Disk /dev/sda:</span> <span class="number">68.7</span> <span class="string">GB,</span> <span class="number">68719476736</span> <span class="string">bytes,</span> <span class="number">134217728</span> <span class="string">sectors</span></span><br><span class="line"><span class="string">Units</span> <span class="string">=</span> <span class="string">sectors</span> <span class="string">of</span> <span class="number">1</span> <span class="string">*</span> <span class="number">512</span> <span class="string">=</span> <span class="number">512</span> <span class="string">bytes</span></span><br><span class="line"><span class="string">Sector</span> <span class="string">size</span> <span class="string">(logical/physical):</span> <span class="number">512</span> <span class="string">bytes</span> <span class="string">/</span> <span class="number">4096 </span><span class="string">bytes</span></span><br><span class="line"><span class="string">I/O</span> <span class="string">size</span> <span class="string">(minimum/optimal):</span> <span class="number">4096 </span><span class="string">bytes</span> <span class="string">/</span> <span class="number">4096 </span><span class="string">bytes</span></span><br><span class="line"><span class="attr">Disk label type:</span> <span class="string">dos</span></span><br><span class="line"><span class="attr">Disk identifier:</span> <span class="number">0x00095a57</span></span><br><span class="line"></span><br><span class="line">   <span class="string">Device</span> <span class="string">Boot</span>      <span class="string">Start</span>         <span class="string">End</span>      <span class="string">Blocks</span>   <span class="string">Id</span>  <span class="string">System</span></span><br><span class="line"><span class="string">/dev/sda1</span>   <span class="string">*</span>        <span class="number">2048     </span><span class="number">1026047</span>      <span class="number">512000</span>   <span class="number">83</span>  <span class="string">Linux</span></span><br><span class="line"><span class="string">/dev/sda2</span>         <span class="number">1026048</span>   <span class="number">134217727</span>    <span class="number">66595840</span>   <span class="string">8e</span>  <span class="string">Linux</span> <span class="string">LVM</span></span><br></pre></td></tr></table></figure>
+</details>
+
+<h1 id="管理分区"><a href="#管理分区" class="headerlink" title="管理分区"></a>管理分区</h1><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">列出块设备:lsblk</span></span><br><span class="line"><span class="section">创建分区使用:</span></span><br><span class="line">	fdisk 创建MBR分区</span><br><span class="line">	gdisk 创建GPT分区</span><br><span class="line">	parted 高级分区操作</span><br><span class="line"><span class="section">重新设置内存中的内核分区表版本:partprobe </span></span><br></pre></td></tr></table></figure>
+<h2 id="parted-命令"><a href="#parted-命令" class="headerlink" title="parted 命令"></a>parted 命令</h2><p>parted的操作都是实时生效的，请小心使用</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">parted <span class="regexp">/dev/</span>sdb mklabel gpt|msdos </span><br><span class="line">创建分区:gpt或者msdos分区。相当于打上一个标签，使用fdisk可以看到。</span><br><span class="line"></span><br><span class="line">parted <span class="regexp">/dev/</span>sdb <span class="keyword">print</span> 打印分区</span><br><span class="line">parted <span class="regexp">/dev/</span>sdb mkpart primary <span class="number">1</span> <span class="number">1000</span> (单位默认M)	</span><br><span class="line">parted <span class="regexp">/dev/</span>sdb rm <span class="number">1</span> 删除分区</span><br><span class="line">parted -l 列出分区信息</span><br></pre></td></tr></table></figure>
+<h2 id="分区工具fdisk和gdisk"><a href="#分区工具fdisk和gdisk" class="headerlink" title="分区工具fdisk和gdisk"></a>分区工具fdisk和gdisk</h2><p>gdisk /dev/sdb 类似fdisk的GPT分区工具</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">fdisk</span> <span class="string">/dev/sdb 管理分区</span></span><br><span class="line"><span class="meta">子命令</span>:<span class="string"></span></span><br><span class="line"><span class="attr">p</span> <span class="string">分区列表</span></span><br><span class="line"><span class="attr">t</span> <span class="string">更改分区类型</span></span><br><span class="line"><span class="attr">n</span> <span class="string">创建分区</span></span><br><span class="line"><span class="attr">d</span> <span class="string">删除分区</span></span><br><span class="line"><span class="attr">v</span> <span class="string">校验分区</span></span><br><span class="line"><span class="attr">u</span> <span class="string">转换单位</span></span><br><span class="line"><span class="attr">w</span> <span class="string">保存并退出</span></span><br><span class="line"><span class="attr">q</span> <span class="string">不保存退出</span></span><br></pre></td></tr></table></figure>
+<h2 id="同步分区表"><a href="#同步分区表" class="headerlink" title="同步分区表"></a>同步分区表</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">查看内核是否已经识别新的分区</span><br><span class="line">cat <span class="regexp">/proc/</span>partations</span><br><span class="line">centos6重新读取硬盘分区表:</span><br><span class="line">加分区: partx -a <span class="regexp">/dev/</span>sda</span><br><span class="line">删除分区: partx -d --nr <span class="number">5</span>-<span class="number">7</span> <span class="regexp">/dev/</span>sda</span><br><span class="line">centos5,<span class="number">7</span>:</span><br><span class="line">partprobe</span><br></pre></td></tr></table></figure>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查看linux所支持的文件系统</span><br><span class="line">[<span class="symbol">root@</span>centos2 data]# ls /lib/modules/<span class="number">3.10</span><span class="number">.0</span><span class="number">-693.</span>el7.x86_64/kernel/fs</span><br></pre></td></tr></table></figure>
+<h2 id="文件系统分类"><a href="#文件系统分类" class="headerlink" title="文件系统分类"></a>文件系统分类</h2><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 根据其是否支持”journal”功能:<br>日志型文件系统:ext3,ext4,xfs,……<br>非日志型文件系统:ext2,vfat<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 文件系统的组成部分:<br>内核中的模块:ext4,xfs,vfat<br>用户空间的管理工具:mkfs.ext4,mkfs.xfs,mkfs.vfat<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> linux的虚拟文件系统:VFS<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 查看支持的文件系统:cat /proc/filesystems</p>
+<h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">重新挂载: mount -o remount,rw <span class="regexp">/mnt/</span>sdb1</span><br><span class="line">-a 将 <span class="regexp">/etc/</span>fstab 中定义的所有档案系统挂上。（且挂载选项中有auto功能)</span><br><span class="line">-B 将文件夹往文件夹上挂</span><br></pre></td></tr></table></figure>
+<p>一个设备可以同时挂载多个文件夹，但是一个文件夹只允许挂载一个设备</p>
+<p>mount命令看到的实际就是cat /etc/mtab里面的内容</p>
+<h2 id="文件里面嵌套一个文件系统"><a href="#文件里面嵌套一个文件系统" class="headerlink" title="文件里面嵌套一个文件系统"></a>文件里面嵌套一个文件系统</h2><p>将一个块文件，建立文件系统并储存数据</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="keyword">if</span>=<span class="regexp">/dev/</span>zero of=<span class="regexp">/data/</span>disk bs=<span class="number">1</span>M <span class="keyword">count</span>=<span class="number">100</span></span><br><span class="line">mkfs.xfs <span class="regexp">/data/</span>disk</span><br><span class="line">blkid <span class="regexp">/data/</span>disk 查看</span><br></pre></td></tr></table></figure>
+<p>centos6设备名不够用时添加这一行后重启<br>vim /boot/grub/grub.conf<br>max_loop=100<br>人为指定设备号:<br>lostep /dev/loop66 /data/disk2<br>mount /dev/loop66 /data/disk2</p>
+<h2 id="查看挂载情况"><a href="#查看挂载情况" class="headerlink" title="查看挂载情况"></a>查看挂载情况</h2><p>查看挂载情况:<br>findmnt /db1 (挂载文件夹)<br>echo $?<br>返回值如果为0则为挂载点，返回一个非0的数就表示此文件夹没有被挂载</p>
+<p>查看正在访问指定文件系统的进程(被挂载的文件夹是否正在被使用)<br>fuser -v /db1 (挂载文件夹)  查看是否有人占用<br>lsof /db1</p>
+<p>终止所有正在访问的文件系统的进程<br>fuser -km /db1 强制删除进程(慎用)</p>
+<h2 id="挂载点和-etc-fstab"><a href="#挂载点和-etc-fstab" class="headerlink" title="挂载点和/etc/fstab"></a>挂载点和/etc/fstab</h2><img src="/images/fstab.png" width="80%" height="50%" align="center/">
+
+<p>UUID<br>挂载点<br>文件系统<br>挂载选项：比如 ro,acl,这里是默认<br>转存储频率:0不做备份 1:每天存储 2:每隔一天转储<br>fsck检查的文件系统的顺序:允许的数字是0 1 2<br>0 不自检查<br>1 首先自检查；一般只有rootfs才用<br>2 非rootfs使用</p>
+<h2 id="添加交换分区"><a href="#添加交换分区" class="headerlink" title="添加交换分区"></a>添加交换分区</h2><p>添加交换分区或文件<br>fdisk /dev/sdb 创建分区大小<br>t 82 修改类型<br>mkswap /dev/sdb1 创建文件系统<br>/etc/fstab 写到开机启动项 调整优先级是在default换成pri=0-32767 数值越大优先级越高</p>
+<p>指定swap分区0到32767的优先级，值越大优先级越高。如果用户没有指定，那么核心会自动给swap指定一个优先级，这个优先级从-1开始，每加入一个新的没有用户指定优先级的swap,会给这个优先级减一。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">swapon -a 就是读取fstab文件如果有swap就挂载生效(这里使用mount -a 无法生效)</span><br><span class="line">swapn -s（cat <span class="regexp">/proc/</span>swaps 里面可查看优先级） 查看swap使用情况</span><br><span class="line">如果改变优先级后 使用 swapon -a后，swapon -s 查看优先级还是没有生效，那么则就禁用swap再启用。</span><br><span class="line">swapoff <span class="regexp">/dev/</span>sdb1 关闭，swapon <span class="regexp">/dev/</span>sdb1 启用</span><br></pre></td></tr></table></figure>
+<p>文件作swap分区:<br>dd id=/dev/zero of=/swapfile bs=1M count=2048<br>mkswap /swapfile</p>
+<h2 id="神奇文件夹"><a href="#神奇文件夹" class="headerlink" title="神奇文件夹"></a>神奇文件夹</h2><p>/misc/cd 实现自动挂载<br>如果没有文件夹需要先安装autofs<br>systemctl restart autofs</p>
+<h2 id="创建iso文件"><a href="#创建iso文件" class="headerlink" title="创建iso文件"></a>创建iso文件</h2><p><code>cp /dev/sr0 /data/centos7.iso </code> 将现有光盘文件制作成iso文件<br><code>mkisofs -r -o /data/etc.iso /etc/</code> 将文件夹打包制作成iso文件</p>
+<h2 id="linux稀疏文件"><a href="#linux稀疏文件" class="headerlink" title="linux稀疏文件"></a>linux稀疏文件</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/dev/zero <span class="attribute">of</span>=/data/test1 <span class="attribute">bs</span>=1G <span class="attribute">count</span>=1 <span class="attribute">seek</span>=10</span><br></pre></td></tr></table></figure>
+<p>创建一个文件，实际其实只有1G的大小，但是ls显示他会有11G的大小，du df才能看到占用磁盘大小</p>
+<h2 id="工具dd"><a href="#工具dd" class="headerlink" title="工具dd"></a>工具dd</h2><p>销毁磁盘数据：<br>dd if=/dev/urandom of=/dev/sda1<br>利用随机的数据填充硬盘，在某些必要的场合可以用来销毁数据，执行此操作以后，/dev/sda1将无法挂载，将创建和拷贝操作无法执行</p>
+<h1 id="LVM"><a href="#LVM" class="headerlink" title="LVM"></a>LVM</h1><div class="alert alert-success"><i class="fa fa-registered"></i>
+实验:使用一个分区和一块一盘创建LVM
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">pvs 查看现有PV</span><br><span class="line">pvdisplay 查看pv的详细信息</span><br><span class="line">pvcreate 创建PV</span><br><span class="line"></span><br><span class="line">sdb                    <span class="number">8</span>:<span class="number">16</span>   <span class="number">0</span>   <span class="number">20</span>G  <span class="number">0</span> disk </span><br><span class="line">└─sdb1                 <span class="number">8</span>:<span class="number">17</span>   <span class="number">0</span>    <span class="number">4</span>G  <span class="number">0</span> part </span><br><span class="line">sdc                    <span class="number">8</span>:<span class="number">32</span>   <span class="number">0</span>   <span class="number">20</span>G  <span class="number">0</span> disk </span><br><span class="line"></span><br><span class="line"><span class="number">1.</span>首先创建物理卷(PV)</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# pvcreate /dev/sd&#123;b1,c&#125;</span><br><span class="line"> Physical volume <span class="string">&quot;/dev/sdb1&quot;</span> successfully created.</span><br><span class="line"> Physical volume <span class="string">&quot;/dev/sdc&quot;</span> successfully created.</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>创建卷组(VG)</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# vgcreate vg0 /dev/sd&#123;b1,c&#125;</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# vgs</span><br><span class="line">  VG       #PV #LV #SN Attr   VSize   VFree </span><br><span class="line">  vg0        <span class="number">2</span>   <span class="number">0</span>   <span class="number">0</span> wz--n-  <span class="number">23.99</span>g <span class="number">23.99</span>g</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>创建LV(逻辑卷)</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# lvcreate  -n mysql -L <span class="number">8</span>G vg0</span><br><span class="line">  Logical volume <span class="string">&quot;mysql&quot;</span> created.</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>localhost ~]# lvcreate -l +<span class="number">100</span>%free -n mysql vg0 使用vg0的所有空间大小</span><br><span class="line"></span><br><span class="line"><span class="number">4.</span>创建文件系统</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# mkfs.xfs /dev/vg0/mysql </span><br><span class="line"></span><br><span class="line"><span class="number">5.</span>挂载</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# mount /dev/vg0/mysql /mnt/mysql/ß</span><br><span class="line"></span><br><span class="line"><span class="number">6.</span>扩展</span><br><span class="line">将剩下所有的空间都增加到逻辑卷中</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# lvextend -l +<span class="number">100</span>%free /dev/vg0/mysql</span><br><span class="line">  Size of logical volume vg0/mysql changed <span class="keyword">from</span> <span class="number">8.00</span> GiB (<span class="number">2048</span> extents) to <span class="number">23.99</span> GiB (<span class="number">6142</span> extents).</span><br><span class="line">  Logical volume vg0/mysql successfully resized.</span><br><span class="line">此时虽然已经逻辑卷大小已经扩充但是还没有文件系统，df查看到的是文件系统的大小</span><br><span class="line"></span><br><span class="line"><span class="number">7.</span>同步文件系统</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# xfs_growfs /mnt/mysql/</span><br><span class="line"></span><br><span class="line"><span class="number">8.</span>新添加一块硬盘进去</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# pvcreate /dev/sdd 创建物理卷</span><br><span class="line">  Physical volume <span class="string">&quot;/dev/sdd&quot;</span> successfully created.</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# vgextend vg0 /dev/sdd 扩展到卷组vg0</span><br><span class="line">  Volume group <span class="string">&quot;vg0&quot;</span> successfully extended</span><br><span class="line"></span><br><span class="line"><span class="number">9.</span>再新建一个新的逻辑卷</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# lvcreate -n binglog -L <span class="number">4</span>G vg0</span><br><span class="line">  Logical volume <span class="string">&quot;binglog&quot;</span> created. </span><br><span class="line">创建文件系统:</span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# mkfs.ext4  /dev/vg0/binglog</span><br><span class="line">挂载: </span><br><span class="line">[<span class="symbol">root@</span>centos2 ~]# mount /dev/vg0/binglog /mnt/binglong</span><br><span class="line">扩展</span><br><span class="line">lvextend -l +<span class="number">1000</span> /dev/vg0/binglong 这里的<span class="number">1000</span>是空闲的PE,也就是<span class="number">4</span>G大小</span><br><span class="line">resize2fs /dev/vg0/binglog 同步文件系统</span><br></pre></td></tr></table></figure>
+<p>文件系统的不同，同步命令也不同。但是可以使用一条命令<br>lvextend -r -l +500 /dev/vg0/binglog 扩展的同时还可以直接同步文件系统</p>
+<p>缩减（只能缩减ext4文件系统，xfs只能扩展 不能缩减）:<br>首先要取消挂载:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centos2 ~]# umount <span class="regexp">/mnt/</span>binglong</span><br><span class="line">[root@centos2 ~]# resize2fs <span class="regexp">/dev/</span>vg0/binglog <span class="number">1</span>G 文件系统缩减到<span class="number">1</span>G</span><br><span class="line">[root@centos2 ~]# lvreduce -L <span class="number">1</span>G <span class="regexp">/dev/</span>vg0/binglog 空间缩减</span><br><span class="line">[root@centos2 ~]# mount <span class="regexp">/dev/</span>vg0<span class="regexp">/binglog /m</span>nt<span class="regexp">/binglong/</span></span><br></pre></td></tr></table></figure>
+</div>
+
+<h2 id="跨主机迁移卷组"><a href="#跨主机迁移卷组" class="headerlink" title="跨主机迁移卷组"></a>跨主机迁移卷组</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS1 ~]# pvcreate /dev/sdb</span><br><span class="line">  Physical volume <span class="string">&quot;/dev/sdb&quot;</span> successfully created.</span><br><span class="line">[root@CentOS1 ~]# vgcreate -s 16M vg0 /dev/sdb</span><br><span class="line">  Volume<span class="built_in"> group </span><span class="string">&quot;vg0&quot;</span> successfully created</span><br><span class="line">[root@CentOS1 ~]# lvcreate -n mysql -L 2G vg0</span><br><span class="line">  Logical volume <span class="string">&quot;mysql&quot;</span> created.</span><br><span class="line">[root@CentOS1 ~]# mkfs.ext4 /dev/vg0/mysql</span><br><span class="line">[root@CentOS1 ~]# vgrename vg0 vg1</span><br><span class="line">  Volume<span class="built_in"> group </span><span class="string">&quot;vg0&quot;</span> successfully renamed <span class="keyword">to</span> <span class="string">&quot;vg1&quot;</span></span><br><span class="line"></span><br><span class="line">禁用</span><br><span class="line">[root@CentOS1 ~]# vgchange -an vg1</span><br><span class="line">  0 logical volume(s) <span class="keyword">in</span> volume<span class="built_in"> group </span><span class="string">&quot;vg1&quot;</span> now active</span><br><span class="line">导出</span><br><span class="line">[root@CentOS1 ~]# vgexport vg1</span><br><span class="line">  Volume<span class="built_in"> group </span><span class="string">&quot;vg1&quot;</span> successfully exported</span><br><span class="line">将硬盘插到其他机器上</span><br><span class="line">[root@centos2 ~]# vgimport vg1  导入</span><br><span class="line">  Volume<span class="built_in"> group </span><span class="string">&quot;vg1&quot;</span> successfully imported</span><br><span class="line">启用</span><br><span class="line">[root@centos2 ~]# vgchange -ay </span><br><span class="line">挂载使用:</span><br><span class="line">[root@centos2 ~]# mkdir /mnt/vg1-mysql</span><br><span class="line">[root@centos2 ~]# mount /dev/vg1/mysql /mnt/vg1-mysql/</span><br></pre></td></tr></table></figure>
+<h2 id="拆除pv对应的硬盘"><a href="#拆除pv对应的硬盘" class="headerlink" title="拆除pv对应的硬盘"></a>拆除pv对应的硬盘</h2><p>如果想要拆除某块硬盘，但是硬盘上又有逻辑卷，首先需要把这块硬盘上的PE给到相同的卷组里面，也就相当于把数据全部移动到其他硬盘上。</p>
+<ol>
+<li><code>pvmove /dev/sdd</code> 将这块硬盘上的所使用的PE移动到同一个卷组上。移动完成以后，可查看空间进行验证，空间大小为未使用。</li>
+<li><code>vgreduce vg0 /dev /sdd</code> 那么现在这块硬盘就是没有在逻辑卷里面使用的了，要拆走它，使用这条命令，从vg0里面移走。卷组的成员就少了一个,它也不属于任何卷组。vgdisplay验证</li>
+<li>现在使用blkid查看还有LVM的标签，使用 <code>pvremove /dev/sdd </code>就删除了，变成了普通硬盘</li>
+</ol>
+<h2 id="删除逻辑卷，卷组，PV"><a href="#删除逻辑卷，卷组，PV" class="headerlink" title="删除逻辑卷，卷组，PV"></a>删除逻辑卷，卷组，PV</h2><p>首先取消挂载然后再删除<br>lvremove /dev/vg1/mysql<br>vgremove vg1<br>pvremove /dev/sde</p>
+<h2 id="LVM快照"><a href="#LVM快照" class="headerlink" title="LVM快照"></a>LVM快照</h2><p>逻辑卷快照保存的文件是，快照创建的时候，已经存在逻辑卷里面的文件。如果恢复时有其他文件会直接删除掉。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">lvcreate</span> -n mysql_snapshot -s -L <span class="number">1</span>G -p r /dev/vg<span class="number">0</span>/mysql</span><br></pre></td></tr></table></figure>
+<p>-s:表示快照属性<br>-L:指定大小<br>-P:指定属性 r只读(xfs文件系统加了r属性会无法挂载)<br>(xfs文件系统最好不要加只读属性否则会无法挂载，可以在mount -o ro 挂载时使用只读)<br>快照建立好了以后挂载查看，只要原文件有更改，就会被同步到快照中去。<br>如果是采用的xfs文件系统，逻辑卷和快照就会有相同的UUID，则无法同时挂载，使用 -o nouuid 选项可以挂载。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将快照还原，是指快照建立的时候当时存在的文件，如果有修改就会被还原，那么新建立的文件则会被删除。</span><br><span class="line"><span class="number">1.</span>首先取消他们两个的挂载</span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># umount /mnt/mysql/</span></span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># umount /mnt/snap/</span></span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># lvconvert --merge /dev/vg0/mysql_snapshot 还原快照</span></span><br><span class="line">最后再把 逻辑卷挂回去 就可以看到原来的文件了。</span><br></pre></td></tr></table></figure>
+
+<h2 id="boot不能作为逻辑卷"><a href="#boot不能作为逻辑卷" class="headerlink" title="boot不能作为逻辑卷"></a>boot不能作为逻辑卷</h2><p>因为boot是开机启动挂载的，系统在启动的时候还不知道什么时候逻辑卷。逻辑卷需要系统支持模块的，刚启动时，系统还没有加载逻辑卷的驱动模块，所以无法使用。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="prev" title="虚拟化技术">
+      <i class="fa fa-chevron-left"></i> 虚拟化技术
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/23/%E7%BD%91%E7%BB%9C/" rel="next" title="网络详解">
+      网络详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E6%98%AF%E6%9C%BA%E6%A2%B0%E7%A1%AC%E7%9B%98%E8%BF%98%E6%98%AF%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98"><span class="nav-number">1.</span> <span class="nav-text">查看硬盘是机械硬盘还是固态硬盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">设备文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E4%BF%A1%E6%81%AF%E8%A7%A3%E9%87%8A"><span class="nav-number">3.</span> <span class="nav-text">磁盘信息解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="nav-number">4.</span> <span class="nav-text">磁盘分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">分区的两种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">备份分区表:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">7.</span> <span class="nav-text">破坏分区表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">恢复分区表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hexdump-%E6%9F%A5%E7%9C%8B-dev-sda-%E5%88%86%E5%8C%BA%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">9.</span> <span class="nav-text">hexdump 查看&#x2F;dev&#x2F;sda 分区表数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98MBR%E5%88%86%E5%8C%BA%E8%BF%98%E6%98%AFGPT%E5%88%86%E5%8C%BA"><span class="nav-number">10.</span> <span class="nav-text">查看硬盘MBR分区还是GPT分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%88%86%E5%8C%BA"><span class="nav-number">11.</span> <span class="nav-text">管理分区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#parted-%E5%91%BD%E4%BB%A4"><span class="nav-number">11.1.</span> <span class="nav-text">parted 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%B7%A5%E5%85%B7fdisk%E5%92%8Cgdisk"><span class="nav-number">11.2.</span> <span class="nav-text">分区工具fdisk和gdisk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">11.3.</span> <span class="nav-text">同步分区表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">11.4.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E7%B1%BB"><span class="nav-number">11.5.</span> <span class="nav-text">文件系统分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD"><span class="nav-number">11.6.</span> <span class="nav-text">挂载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%87%8C%E9%9D%A2%E5%B5%8C%E5%A5%97%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">11.7.</span> <span class="nav-text">文件里面嵌套一个文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8C%82%E8%BD%BD%E6%83%85%E5%86%B5"><span class="nav-number">11.8.</span> <span class="nav-text">查看挂载情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD%E7%82%B9%E5%92%8C-etc-fstab"><span class="nav-number">11.9.</span> <span class="nav-text">挂载点和&#x2F;etc&#x2F;fstab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA"><span class="nav-number">11.10.</span> <span class="nav-text">添加交换分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E5%A5%87%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">11.11.</span> <span class="nav-text">神奇文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAiso%E6%96%87%E4%BB%B6"><span class="nav-number">11.12.</span> <span class="nav-text">创建iso文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E7%A8%80%E7%96%8F%E6%96%87%E4%BB%B6"><span class="nav-number">11.13.</span> <span class="nav-text">linux稀疏文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7dd"><span class="nav-number">11.14.</span> <span class="nav-text">工具dd</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVM"><span class="nav-number">12.</span> <span class="nav-text">LVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E4%B8%BB%E6%9C%BA%E8%BF%81%E7%A7%BB%E5%8D%B7%E7%BB%84"><span class="nav-number">12.1.</span> <span class="nav-text">跨主机迁移卷组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%86%E9%99%A4pv%E5%AF%B9%E5%BA%94%E7%9A%84%E7%A1%AC%E7%9B%98"><span class="nav-number">12.2.</span> <span class="nav-text">拆除pv对应的硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E9%80%BB%E8%BE%91%E5%8D%B7%EF%BC%8C%E5%8D%B7%E7%BB%84%EF%BC%8CPV"><span class="nav-number">12.3.</span> <span class="nav-text">删除逻辑卷，卷组，PV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LVM%E5%BF%AB%E7%85%A7"><span class="nav-number">12.4.</span> <span class="nav-text">LVM快照</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boot%E4%B8%8D%E8%83%BD%E4%BD%9C%E4%B8%BA%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="nav-number">12.5.</span> <span class="nav-text">boot不能作为逻辑卷</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

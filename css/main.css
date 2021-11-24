@@ -1239,7 +1239,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffed93;
+  background: #ffd1d1;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2899,6 +2899,17 @@ a#download {
 .posts-expand .post {
   margin-top: 30px;
   margin-bottom: 30px;
+}
+.alert-pan {
+  color: #2a614e;
+  background-color: #66cdaa;
+  border-color: #499e9d;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 @-moz-keyframes animate-yu-1 {
   0% {
