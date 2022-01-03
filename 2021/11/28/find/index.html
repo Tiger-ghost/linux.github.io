@@ -28,11 +28,15 @@
 <meta property="og:site_name" content="个人笔记">
 <meta property="og:description" content="文件查找和压缩">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/德摩根定律.png">
+<meta property="og:image" content="http://example.com/images/find时间.jpg">
+<meta property="og:image" content="http://example.com/images/find例子.png">
 <meta property="article:published_time" content="2021-11-28T07:39:30.000Z">
-<meta property="article:modified_time" content="2021-12-09T14:40:34.167Z">
+<meta property="article:modified_time" content="2022-01-03T06:20:55.768Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/德摩根定律.png">
 
 <link rel="canonical" href="http://example.com/2021/11/28/find/">
 
@@ -227,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-09 22:40:34" itemprop="dateModified" datetime="2021-12-09T22:40:34+08:00">2021-12-09</time>
+                <time title="Modified: 2022-01-03 14:20:55" itemprop="dateModified" datetime="2022-01-03T14:20:55+08:00">2022-01-03</time>
               </span>
 
           
@@ -248,6 +252,128 @@
 <h1 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># locate passwd</span></span><br><span class="line">locate: can not stat () `<span class="regexp">/var/</span>lib<span class="regexp">/mlocate/m</span>locate.d<span class="string">b&#x27;: No such file or directory</span></span><br></pre></td></tr></table></figure>
 <p><i class="fa fa-fighter-jet" aria-hidden="true"></i>查询系统上预创建的文件索引数据库。就是说如果要使用，索引数据库就要事先存在。<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 依赖于事先构建的索引。索引的构建是在系统较为空闲时自动进行(周期性任务)，管理员手动更新数据库<code>(updatedb)</code><br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 索引构建过程需要遍历整个根文件系统，极消耗资源。<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 工作特点:<br>  查找速度快<br>  模糊搜索<br>  非实时查找<br>  搜索的是文件的全路径，不仅仅是文件名<br>  可能只搜索用户具备读权限和执行权限的目录</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-i 不区分大小写</span><br><span class="line">-<span class="built_in">n</span> <span class="built_in">N</span> 只列举前<span class="built_in">N</span>个匹配项目 locate -<span class="built_in">n</span> <span class="number">5</span> passwd 只列举前<span class="number">5</span>个passwd文件</span><br><span class="line">-r 使用基本正则表达式 locate -r <span class="string">&quot;\(\.jpg\|png\)$&quot;</span> 搜索以jpg或png结尾的文件。</span><br></pre></td></tr></table></figure>
+
+<h1 id="find"><a href="#find" class="headerlink" title="find"></a>find</h1><p><i class="fa fa-fighter-jet" aria-hidden="true"></i> 实时查找工具，通过遍历指定路径完成文件查找。<br><i class="fa fa-fighter-jet" aria-hidden="true"></i> 工作特点：<br>  查找速度略慢<br>  精确查找<br>  实时查找<br>  可能只搜索用户具备读取和执行权限的目录<br>find [option]…[查找路径][查找条件][处理动作]<br>  查找路径：指定具体目标路径；默认为当前目录<br>  查找条件：指定的查找标准，可以文件名、大小、类型、权限等标准进行；默认为找出指定路径下的所有文件。<br>  处理动作：对符合条件的文件做操作，默认输出至屏幕。</p>
+<h2 id="查找条件"><a href="#查找条件" class="headerlink" title="查找条件"></a>查找条件</h2><h2 id="指定搜索层级"><a href="#指定搜索层级" class="headerlink" title="指定搜索层级"></a>指定搜索层级</h2><div class="alert alert-success"><i class="fa fa-bell">指定搜索层级</i><br>
+
+<p><code>-maxdepth level</code> 最大搜索目录深度，指定目录下的文件为第1级<br><code>-maindepth level</code>最小搜索目录深度,即使从最指定的层级开始搜索<br><code>-depth</code> 先处理目录内的文件，在处理指定目录</p>
+</div>
+
+<details>
+  <summary>例子输出查看</summary>
+
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# find /etc/ -maxdepth <span class="number">1</span> -name passwd</span><br><span class="line">/etc/passwd</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# find /<span class="class"><span class="keyword">data</span> #默认先搜索目录本身，再搜索文件</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span></span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/dir</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/dir/f</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/f2</span></span><br><span class="line">[root@localhost ~]# find /<span class="class"><span class="keyword">data</span> -depth #此选项是 先搜索文件，再搜索目录</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/dir/f</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/dir</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/f2</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span></span></span><br></pre></td></tr></table></figure>
+</details>
+
+
+<h2 id="根据文件名和inode查找"><a href="#根据文件名和inode查找" class="headerlink" title="根据文件名和inode查找"></a>根据文件名和inode查找</h2><div class="alert alert-info"><i class="fa fa-info"> 根据文件名和inode查找</i>
+
+<p><code>-name &quot;文件名称&quot; :支持使用glob     * ? [] [^]  </code><br><code>-iname &quot;文件名称&quot;</code>:不区分字母大小写<br><code>-inum n </code>:按inode号查找<br><code>-samefile name </code>:相同inode号的文件<br><code>links n</code>:链接数为n的文件<br><code>regex &quot;PATTERN&quot;</code>:以PATTERN匹配整个文件路径，而非文件名称</p>
+</div>
+
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost data]# <span class="keyword">find</span> / -name <span class="string">&quot;*.jpg&quot;</span></span><br><span class="line"></span><br><span class="line">[root@localhost ~]# <span class="keyword">find</span> /data -inum <span class="number">1251</span> #最好指定位置进行搜索</span><br><span class="line"><span class="regexp">/data/</span>f2</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# <span class="keyword">find</span> <span class="regexp">/data -samefile /</span>data/f2</span><br><span class="line"><span class="regexp">/data/</span>f2</span><br><span class="line"><span class="regexp">/data/</span>f3</span><br><span class="line"><span class="regexp">/data/</span>f2.link</span><br><span class="line"></span><br><span class="line">正则表达式搜索，此目录以.jpg结尾的文件</span><br><span class="line">[root@localhost data]# <span class="keyword">find</span> <span class="regexp">/usr/</span>share/backgrounds -regex <span class="string">&quot;.*\.jpg&quot;</span></span><br><span class="line"><span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/m</span>orning.jpg</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据属主，属组查找"><a href="#根据属主，属组查找" class="headerlink" title="根据属主，属组查找"></a>根据属主，属组查找</h2><div class="alert alert-success"><i class="fa fa-bell">根据属主，属组查找</i><br>
+
+<p><code>-user  USERNAME</code>: 查找属主为指定用户(UID)的文件<br><code>-group GRPNAME</code>: 查找属组为指定组(GID)的文件<br><code>-uid UserID</code>: 查找属主为指定的UID号的文件<br><code>-gid GroupID</code>: 查找属组为指定的GID号的文件<br><code>-nouser</code>: 查找没有属主的文件<br><code>-nogroup</code>: 查找没有属组的文件</p>
+</div>
+
+<details>
+  <summary>例子输出查看</summary>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">搜索根目录下 用户是 pan的文件 并且列出详细信息</span><br><span class="line">[root@localhost ~]<span class="comment"># find / -user pan -ls</span></span><br><span class="line"></span><br><span class="line">新建一个账号test 然后切换到他的身份 新建文件，再回到root下，删除这个账号</span><br><span class="line">并没有加-r选项，home目录下的文件依然保留，使用-nouser 搜索出来。</span><br><span class="line">[root@localhost ~]<span class="comment"># useradd test</span></span><br><span class="line">[root@localhost ~]<span class="comment"># su - test</span></span><br><span class="line">[test@localhost ~]$ touch test.txt</span><br><span class="line">[test@localhost ~]$ touch test2.txt</span><br><span class="line">[test@localhost ~]$ <span class="keyword">exit</span></span><br><span class="line">logout</span><br><span class="line">[root@localhost ~]<span class="comment"># userdel test</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ll /home/</span></span><br><span class="line">total <span class="number">0</span></span><br><span class="line">drwx------. <span class="number">2</span> pan  pan   <span class="number">62</span> Dec <span class="number">12</span> <span class="number">00</span>:<span class="number">34</span> pan</span><br><span class="line">drwx------. <span class="number">2</span> <span class="number">1001</span> <span class="number">1001</span> <span class="number">116</span> Dec <span class="number">12</span> <span class="number">00</span>:<span class="number">39</span> test</span><br><span class="line">[root@localhost ~]<span class="comment"># find /home -nouser </span></span><br><span class="line"><span class="regexp">/home/</span>test</span><br><span class="line"><span class="regexp">/home/</span>test/.bash_logout</span><br><span class="line"><span class="regexp">/home/</span>test/.bash_profile</span><br><span class="line"><span class="regexp">/home/</span>test/.bashrc</span><br><span class="line"><span class="regexp">/home/</span>test/test.txt</span><br><span class="line"><span class="regexp">/home/</span>test/test2.txt</span><br><span class="line"><span class="regexp">/home/</span>test/.bash_history</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="根据文件类型查找"><a href="#根据文件类型查找" class="headerlink" title="根据文件类型查找"></a>根据文件类型查找</h2><div class="alert alert-danger"><i class="fa fa-bug"></i> 根据文件类型查找<br>
+
+<p>-type TYPE<br><code>f</code>:普通文件<br><code>d</code>:目录文件<br><code>l</code>:符号链接文件<br><code>s</code>:套接字文件<br><code>b</code>:块设备文件<br><code>c</code>:字符设备文件<br><code>p</code>:管道文件<br>空文件或目录：<code>-empty</code> </p>
+</div>
+
+<details>
+  <summary>例子输出查看</summary>
+
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">搜索文件夹</span><br><span class="line">[root@localhost ~]# <span class="keyword">find</span> /etc/ -<span class="built_in">type</span> d -<span class="keyword">ls</span></span><br><span class="line"></span><br><span class="line">搜索块文件</span><br><span class="line">[root@localhost ~]# <span class="keyword">find</span> /dev/ -<span class="built_in">type</span> <span class="keyword">b</span> -<span class="keyword">ls</span></span><br><span class="line"></span><br><span class="line">搜索空文件或目录</span><br><span class="line">[root@localhost ~]# <span class="keyword">find</span> /data -<span class="built_in">empty</span>  -<span class="keyword">ls</span></span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="组合条件"><a href="#组合条件" class="headerlink" title="组合条件"></a>组合条件</h2><div class="alert alert-pan"><i class="fa fa-star-half"></i> 组合条件 <br>
+与: -a <br>
+或: -o <br>
+非: -not ! <br>
+<i class="fa fa-star-half"></i> 德·摩根定律: <br>
+(非A)或(非B)=非(A且B) <br>
+(非A)且(非B)=非(A或B) <br>
+</div>
+
+<details>
+  <summary>例子输出查看</summary>
+
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">搜索非空的文件</span><br><span class="line">[root@localhost ~]# find /<span class="class"><span class="keyword">data</span> ! -empty -ls</span></span><br><span class="line">[root@localhost ~]# find /<span class="class"><span class="keyword">data</span> -not -empty -ls</span></span><br><span class="line"></span><br><span class="line">搜索文件名是f开头 并且 类型是f的文件</span><br><span class="line">[root@localhost ~]# find /<span class="class"><span class="keyword">data</span> -name &quot;f*&quot; -<span class="keyword">type</span> f (默认并且的关系)</span></span><br><span class="line">这里两个条件可以加-a 也可以不加</span><br><span class="line">[root@localhost <span class="class"><span class="keyword">data</span>]# find /<span class="keyword">data</span> -name &quot;f*&quot; -a -<span class="keyword">type</span> f</span></span><br><span class="line"></span><br><span class="line">如果是或者的关系就 -o 表示 </span><br><span class="line">[root@localhost <span class="class"><span class="keyword">data</span>]# find /<span class="keyword">data</span> -name &quot;f*&quot; -o -<span class="keyword">type</span> f | ls -l</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#这里注意:找到的文件，使用ls查看 无法全部显示出来，问题在于(-type f -ls )，就是两个条件</span></span><br><span class="line">后面再使用-ls就相当于加了一个-a的选项(find /<span class="class"><span class="keyword">data</span> -name &quot;f*&quot; -o -<span class="keyword">type</span> f -a -ls)，</span></span><br><span class="line">-a 是并且，与运算，他的优先级比-o要高，所以他就会先做 (-<span class="class"><span class="keyword">type</span> f -a ls)这个运算，</span></span><br><span class="line">再和(-name <span class="string">&quot;f*&quot;</span>)或。就是先找到类型是f开头的文件去ls,再去或，</span><br><span class="line">    这种写法就 只会显示后面那部分(-<span class="class"><span class="keyword">type</span> f -ls)，前面的就不会显示了。</span></span><br><span class="line">[root@localhost <span class="class"><span class="keyword">data</span>]# find /<span class="keyword">data</span> -name &quot;f*&quot; -o -<span class="keyword">type</span> f</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/dir/f</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/f2</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/f3</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/f2.link</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/b.txt</span></span><br><span class="line">/<span class="class"><span class="keyword">data</span>/ff</span></span><br><span class="line">[root@localhost <span class="class"><span class="keyword">data</span>]# find /<span class="keyword">data</span> -name &quot;f*&quot; -o -<span class="keyword">type</span> f -ls</span></span><br><span class="line">  <span class="number">1258</span>    <span class="number">0</span> -rw-r<span class="comment">--r--   1 root     root            0 Dec 12 01:00 /data/b.txt</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+<img src="/images/德摩根定律.png" width="80%" height="50%" align="center/">
+
+<p><code>find -not \( -user joe -o -user jane \)</code><br>不是joe 并且 也 不是 jane 的文件。<br>下面两种写法是等价的：<br><code>find /home -not \( -user pan -o -user test \) -ls</code><br><code>find /home -not -user pan -a -not -user test -ls</code></p>
+<h2 id="排除"><a href="#排除" class="headerlink" title="排除"></a>排除</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查找<span class="regexp">/etc/</span>下，除<span class="regexp">/etc/</span>sane.d目录的其他所有.conf后缀的文件。</span><br><span class="line">[root@localhost data]<span class="comment"># find /etc -path &#x27;/etc/sane.d&#x27; -a -prune -o -name &quot;*.conf&quot;</span></span><br><span class="line"></span><br><span class="line">查找<span class="regexp">/etc/</span>下，除<span class="regexp">/etc/</span>sane.d和<span class="regexp">/etc/</span>fonts两个目录的所有.conf后缀的文件</span><br><span class="line">[root@localhost data]<span class="comment"># find /etc \( -path &quot;/etc/sane.d&quot; -o -path /etc/fonts \) -a -prune -o -name &quot;*.conf&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="根据文件大小来查找"><a href="#根据文件大小来查找" class="headerlink" title="根据文件大小来查找"></a>根据文件大小来查找</h2><div class="alert alert-warning"><i class="fa fa-bell"></i> 根据文件大小来查找:<br>
+-size +|- 常用单位:k M G c(byte) <br>
+6K 表示(5K,6K] 不包括5K-6K<br>
+-6k 表示[0,5k] <br>
++6k 表示(6K,∞) <br>
+如果你搜索 find -size 1M 就是0M-1M
+</div>
+
+<h2 id="根据时间戳"><a href="#根据时间戳" class="headerlink" title="根据时间戳"></a>根据时间戳</h2><div class="alert alert-pan"><i class="fa fa-magnet"></i> 以"天"为单位 <br>
+-atime 访问时间  <br>
+-mtime 内容修改时间 <br>
+-ctime 文件状态时间 <br>
+#:[#,#+1) <br>
++#:[#+1,∞] <br>
+-#:[0,#) <br>
+<i class="fa fa-magnet"></i> 以分钟为单位 <br>
+-amin <br>
+-mmin <br>
+-cmin <br>
+</div>
+
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">新建一个账号，查看<span class="regexp">/etc/</span>下一分钟内那些文件发生了变化</span><br><span class="line">[root@localhost data]# useradd test2</span><br><span class="line">[root@localhost data]# <span class="keyword">find</span> <span class="regexp">/etc/</span> -mmin -<span class="number">1</span></span><br><span class="line"><span class="regexp">/etc/</span></span><br><span class="line"><span class="regexp">/etc/g</span>roup</span><br><span class="line"><span class="regexp">/etc/g</span>shadow</span><br><span class="line"><span class="regexp">/etc/</span>passwd</span><br><span class="line"><span class="regexp">/etc/</span>shadow</span><br></pre></td></tr></table></figure>
+<img src="/images/find时间.jpg" width="80%" height="50%" align="center/">
+
+<h2 id="根据权限来搜索"><a href="#根据权限来搜索" class="headerlink" title="根据权限来搜索"></a>根据权限来搜索</h2><div class="alert alert-info"><i class="fa fa-info"></i> -perm [/|-]MODE <br>
+MODE:精确权限匹配 <br>
+/MODE:任何一类(u,g,o)对象的权限中只要能一位匹配即可，或关系，+从centos7开始淘汰 <br>
+-MODE:每一类对象都必须同时拥有指定权限，与关系 <br>
+0表示不关注 <br>
+</div>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>localhost data]# find -perm /<span class="number">222</span> -ls u,g,o </span><br><span class="line">只要有一位有写的权限就行</span><br><span class="line">/<span class="number">700</span> 表示所有者有 r,w,o 其中一个权限就行。</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>localhost data]# find -perm <span class="number">-222</span> -ls</span><br><span class="line">表示三位都要有写权限才可以</span><br><span class="line"></span><br><span class="line">只有当其他人(other)有写权限时，find -perm <span class="number">-002</span> 才会匹配</span><br></pre></td></tr></table></figure>
+
+<h2 id="处理动作"><a href="#处理动作" class="headerlink" title="处理动作"></a>处理动作</h2><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">print: 默认的处理动作，显示至屏幕</span><br><span class="line">-<span class="ruby"><span class="symbol">ls:</span> 类似于对查找到的文件执行<span class="string">&quot;ls -l&quot;</span>命令</span></span><br><span class="line"><span class="ruby">-<span class="symbol">delete:</span> 删除查找到的文件</span></span><br><span class="line"><span class="ruby">-fls <span class="symbol">file:</span> 查找到的所有文件的长格式信息保存至指定文件中</span></span><br><span class="line"><span class="ruby">-ok COMMAND &#123;&#125; \; <span class="symbol">:</span>对查找到的每个文件执行由CMOOAND指定的命令，对于</span></span><br><span class="line"><span class="ruby">每个文件执行命令之前，都会交互式要求用户确认</span></span><br><span class="line"><span class="ruby">-exec COMMAND &#123;&#125; \; <span class="symbol">:</span>对查找到的每个文件执行由COMMAND指定的命令</span></span><br><span class="line"><span class="ruby">&#123;&#125;: 用于引用查找到的文件名称自身</span></span><br><span class="line"><span class="ruby">find传递查找到的文件至后面指定的命令时，查找到所有符合条件的文件一次性传递给后面的命令。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查找出other权限是写的文件，并把other去掉写权限。 使用ok系统问你每一个文件</span></span><br><span class="line">[root@localhost ~]<span class="comment"># find -perm /002 </span></span><br><span class="line"><span class="string">./a.conf</span></span><br><span class="line">[root@localhost ~]<span class="comment"># find -perm /002 -ok chmod o-w &#123;&#125; \; </span></span><br><span class="line">&lt; chmod <span class="string">...</span> <span class="string">./a.conf</span> &gt; ? y</span><br><span class="line">[root@localhost ~]<span class="comment"># ll a.conf </span></span><br><span class="line">-rw-r<span class="params">-----</span>. 1 root root 0 Dec 12 03<span class="function">:00</span> a.conf</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用-exec就不会询问，一次性解决。 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># find -perm /002</span></span><br><span class="line"><span class="string">./f2.back</span></span><br><span class="line"><span class="string">./a.txt</span></span><br><span class="line"><span class="string">./a.conf</span></span><br><span class="line">[root@localhost ~]<span class="comment"># find -perm /002 -exec chmod o-w &#123;&#125; \;</span></span><br></pre></td></tr></table></figure>
+<h2 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h2><p><i class="fa fa-info"></i> 由于很多命令不支持管道｜来传递参数，xargs用于产生某个命令的参数，xargs可以读入stdin的数据，并且以空格符或回车符将stdin的数据分隔成为参数。<br><i class="fa fa-info"></i> 许多命令不能接受过多参数，命令执行可能会失败，xargs可以解决<br><i class="fa fa-info"></i> 注意：文件名或者是其他意义的名次内含有空格符的情况<br><i class="fa fa-info"></i> find和xargs 的组合：find ｜ xargs COMMAND<br>[root@localhost data]# find /data/ -perm /700 ｜ls -l 错误操作，因为ls是不支持stdin 可以使用[root@localhost data]# find /data/ -perm /700 | xargs ls -l<br>[root@localhost data]# find /data/ -perm /700 | xargs ls -Sl 从大到小进行排序<br><font color="red">xargs 就是将前面的标准输出变为后面命令的参数。rm 本来是不支持的标准输入的。</font></p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">del记录文件名，再将输出的文件名传递给xargs rm 来进行删除文件。</span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># cat del </span></span><br><span class="line">a.conf</span><br><span class="line">f2.back</span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># cat del | xargs rm -f</span></span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># ls</span></span><br><span class="line">anaconda-ks.cfg  a.txt  del  fstab  grub.back  kuai  pass  pass.back</span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># </span></span><br></pre></td></tr></table></figure>
+<h2 id="特殊字符的删除方法"><a href="#特殊字符的删除方法" class="headerlink" title="特殊字符的删除方法"></a>特殊字符的删除方法</h2><p>由于xargs默认将空格作为分隔符，所以不太适合处理文件名，因为文件名可能包含空格。<br>有一个特别的参数-print0，指定输出的文件列表以null分隔。然后，xargs命令的-0参数表示用null当作分隔符。(-print0 这个0 是ASCII中的字符   <code>man ascii</code> 以查看)</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">创建命令：touch <span class="string">&quot;fa b.txt&quot;</span></span><br><span class="line">[root@localhost del]# ls</span><br><span class="line">a.txt  f1.txt  f2.txt  f3.txt  f4.txt  f5.txt  f6.txt  fa b.txt</span><br><span class="line">[root@localhost del]# <span class="builtin-name">find</span> -name <span class="string">&quot;f*.txt&quot;</span> | xargs rm </span><br><span class="line">rm: cannot <span class="builtin-name">remove</span> ‘./fa’: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br><span class="line">rm: cannot <span class="builtin-name">remove</span> ‘b.txt’: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br><span class="line">[root@localhost del]# <span class="builtin-name">find</span> -name <span class="string">&quot;f*.txt&quot;</span> -print0 | xargs -0 rm</span><br><span class="line">[root@localhost del]# ls</span><br><span class="line">a.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="批量创造账号"><a href="#批量创造账号" class="headerlink" title="批量创造账号"></a>批量创造账号</h2><p>xargs 一次只能处理一行的内容，所以这里需要换行，</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>localhost ~]# echo user&#123;<span class="number">1.</span><span class="number">.10</span>&#125; </span><br><span class="line">user1 user2 user3 user4 user5 user6 user7 user8 user9 user10</span><br><span class="line">[<span class="symbol">root@</span>localhost ~]# echo user&#123;<span class="number">1.</span><span class="number">.10</span>&#125; | xargs -n <span class="number">1</span> useradd </span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>localhost ~]# seq <span class="number">10</span> | xargs -n <span class="number">2</span> </span><br><span class="line"><span class="number">1</span> <span class="number">2</span>     #通过使用-n可以确定每次处理多少行的内容 </span><br><span class="line"><span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="number">5</span> <span class="number">6</span></span><br><span class="line"><span class="number">7</span> <span class="number">8</span></span><br><span class="line"><span class="number">9</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<img src="/images/find例子.png" width="80%" height="50%" align="center/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -341,7 +467,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#locate"><span class="nav-number">1.</span> <span class="nav-text">locate</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#locate"><span class="nav-number">1.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#find"><span class="nav-number">2.</span> <span class="nav-text">find</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">查找条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%90%9C%E7%B4%A2%E5%B1%82%E7%BA%A7"><span class="nav-number">2.2.</span> <span class="nav-text">指定搜索层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%96%87%E4%BB%B6%E5%90%8D%E5%92%8Cinode%E6%9F%A5%E6%89%BE"><span class="nav-number">2.3.</span> <span class="nav-text">根据文件名和inode查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E5%B1%9E%E4%B8%BB%EF%BC%8C%E5%B1%9E%E7%BB%84%E6%9F%A5%E6%89%BE"><span class="nav-number">2.4.</span> <span class="nav-text">根据属主，属组查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E6%9F%A5%E6%89%BE"><span class="nav-number">2.5.</span> <span class="nav-text">根据文件类型查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.6.</span> <span class="nav-text">组合条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E9%99%A4"><span class="nav-number">2.7.</span> <span class="nav-text">排除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E6%9D%A5%E6%9F%A5%E6%89%BE"><span class="nav-number">2.8.</span> <span class="nav-text">根据文件大小来查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">2.9.</span> <span class="nav-text">根据时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%9D%83%E9%99%90%E6%9D%A5%E6%90%9C%E7%B4%A2"><span class="nav-number">2.10.</span> <span class="nav-text">根据权限来搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%8A%A8%E4%BD%9C"><span class="nav-number">2.11.</span> <span class="nav-text">处理动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xargs"><span class="nav-number">2.12.</span> <span class="nav-text">xargs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E7%9A%84%E5%88%A0%E9%99%A4%E6%96%B9%E6%B3%95"><span class="nav-number">2.13.</span> <span class="nav-text">特殊字符的删除方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E5%88%9B%E9%80%A0%E8%B4%A6%E5%8F%B7"><span class="nav-number">2.14.</span> <span class="nav-text">批量创造账号</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -357,7 +483,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -397,7 +523,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
