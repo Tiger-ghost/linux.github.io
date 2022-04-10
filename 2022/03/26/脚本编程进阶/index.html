@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="脚本编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="脚本编程进阶">
+<meta property="og:url" content="http://example.com/2022/03/26/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="脚本编程">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/for循环.png">
+<meta property="article:published_time" content="2022-03-26T07:34:30.000Z">
+<meta property="article:modified_time" content="2022-04-03T05:54:27.402Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/for循环.png">
+
+<link rel="canonical" href="http://example.com/2022/03/26/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>脚本编程进阶 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/26/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          脚本编程进阶
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-26 15:34:30" itemprop="dateCreated datePublished" datetime="2022-03-26T15:34:30+08:00">2022-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-03 13:54:27" itemprop="dateModified" datetime="2022-04-03T13:54:27+08:00">2022-04-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">脚本编程</font></center>
+
+<a id="more"></a>
+
+<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="循环控制"><a href="#循环控制" class="headerlink" title="循环控制"></a>循环控制</h2><p><i class="fa fa-tags" aria-hidden="true"></i> 循环执行<br>&nbsp;&nbsp;将某段代码重复运行多次<br>&nbsp;&nbsp;重复运行多少次<br>&nbsp;&nbsp;&nbsp;&nbsp;循环次数事先已知<br>&nbsp;&nbsp;&nbsp;&nbsp;循环次数事先未知<br>&nbsp;&nbsp;有进入条件和退出条件<br><i class="fa fa-tags" aria-hidden="true"></i> for,while,until</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 变量名 <span class="keyword">in</span> 列表;<span class="keyword">do</span></span><br><span class="line">    循环体</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">执行机制:依次将列表中的元素赋值给“变量名”；每次赋值后即执行一次循环体；直到列表中的元素耗尽，循环结束。</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">三个字符串，执行三次 </span><br><span class="line">[<span class="symbol">root@</span>pan ~]# <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span> a Z;<span class="keyword">do</span> echo abc;done</span><br><span class="line">abc</span><br><span class="line">abc</span><br><span class="line">abc</span><br><span class="line">--------------------------------------&gt;</span><br><span class="line">赋值给i</span><br><span class="line">[<span class="symbol">root@</span>pan ~]# <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3333</span>;<span class="keyword">do</span> echo $i;done</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3333</span></span><br><span class="line">[<span class="symbol">root@</span>pan ~]# <span class="keyword">for</span> i <span class="keyword">in</span> `seq <span class="number">10</span> <span class="number">-3</span> <span class="number">1</span>`;<span class="keyword">do</span> echo $i;done</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">--------------------------------------&gt;</span><br><span class="line">以文件的方式,这里的<span class="keyword">do</span>可以单独一行，然后分号不写。</span><br><span class="line">[<span class="symbol">root@</span>pan ~]# cat text.sh </span><br><span class="line">#!/bin/bash</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $@;<span class="keyword">do</span></span><br><span class="line">        echo arg <span class="keyword">is</span> $i</span><br><span class="line">done</span><br><span class="line">[<span class="symbol">root@</span>pan ~]# bash text.sh  a b c <span class="number">3</span></span><br><span class="line">arg <span class="keyword">is</span> a</span><br><span class="line">arg <span class="keyword">is</span> b</span><br><span class="line">arg <span class="keyword">is</span> c</span><br><span class="line">arg <span class="keyword">is</span> <span class="number">3</span></span><br><span class="line">--------------------------------------&gt;</span><br><span class="line">计算<span class="number">1</span>+.<span class="number">.100</span></span><br><span class="line">[<span class="symbol">root@</span>pan ~]# cat <span class="number">5050.</span>sh </span><br><span class="line">#!/bin/bash</span><br><span class="line">declare -i sum=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;<span class="number">1.</span><span class="number">.100</span>&#125;;<span class="keyword">do</span></span><br><span class="line">        let sum+=i</span><br><span class="line">done</span><br><span class="line">echo sum=$sum</span><br><span class="line">[<span class="symbol">root@</span>pan ~]# bash <span class="number">5050.</span>sh </span><br><span class="line">sum=<span class="number">5050</span></span><br><span class="line">--------------------------------------&gt;</span><br><span class="line">[<span class="symbol">root@</span>pan ~]# seq -s+ <span class="number">100</span> | bc</span><br><span class="line"><span class="number">5050</span> </span><br><span class="line">--------------------------------------&gt;</span><br><span class="line">对i取模，如果是奇数<span class="number">1</span>就参与到计算</span><br><span class="line">#!/bin/bash</span><br><span class="line">declare -i sum=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;<span class="number">1.</span><span class="number">.100</span>&#125;;<span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ $[i%<span class="number">2</span>] -eq <span class="number">1</span> ];then</span><br><span class="line">        let sum+=i</span><br><span class="line">        fi</span><br><span class="line">done</span><br><span class="line">echo sum=$sum</span><br><span class="line">[<span class="symbol">root@</span>pan ~]# bash <span class="number">5050.</span>sh </span><br><span class="line">sum=<span class="number">2500</span></span><br></pre></td></tr></table></figure>
+<h2 id="随机取字符"><a href="#随机取字符" class="headerlink" title="随机取字符"></a>随机取字符</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@pan</span> ~]# tr -dc <span class="string">&#x27;[:alnum:]&#x27;</span> &lt; <span class="regexp">/dev/u</span>random | head -c <span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="批量创建用户"><a href="#批量创建用户" class="headerlink" title="批量创建用户"></a>批量创建用户</h1><p>批量创建10个用户,并且给他们设置8为随机密码，记录到文件，下次登录提示密码已经过期</p>
+<details>
+  <summary>批量创建用户</summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-e:使用户密码失效，强制用户下次登录改变密码，只有root用户才能使用</span><br><span class="line">[root@pan ~]<span class="comment"># cat user.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..10&#125;;<span class="keyword">do</span></span><br><span class="line">        useradd user<span class="variable">$i</span></span><br><span class="line">        password=`tr -dc <span class="string">&#x27;[:alnum:]&#x27;</span> &lt; /dev/urandom | head -c 8`</span><br><span class="line">        <span class="built_in">echo</span> user<span class="variable">$i</span>:<span class="variable">$password</span> |tee -a pass.txt | chpasswd</span><br><span class="line">        passwd -e user<span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;User:user<span class="variable">$i</span> is created&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">[root@pan ~]<span class="comment"># bash -n user.sh #检查语法</span></span><br><span class="line">------------------------------------&gt;</span><br><span class="line">引入文件例子：文件提前创建</span><br><span class="line">[root@pan ~]<span class="comment"># cat name.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> USER <span class="keyword">in</span> `cat userlist.txt`;<span class="keyword">do</span></span><br><span class="line">        useradd <span class="variable">$USER</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="sed取passwd中的用户名-删除"><a href="#sed取passwd中的用户名-删除" class="headerlink" title="sed取passwd中的用户名+删除"></a>sed取passwd中的用户名+删除</h2><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@pan</span> ~]# sed -nr <span class="string">&#x27;/^user1/,<span class="subst">$s</span>#^([^:]+):.*#\1#p&#x27;</span> /etc/passwd</span><br><span class="line"></span><br><span class="line">sed批量删除用户</span><br><span class="line">[root<span class="meta">@pan</span> ~]# <span class="keyword">for</span> i <span class="keyword">in</span> `sed -nr <span class="string">&#x27;/^user1/,<span class="subst">$s</span>#^([^:]+):.*#\1#p&#x27;</span> /etc/passwd`;<span class="keyword">do</span> userdel -r $i;done</span><br></pre></td></tr></table></figure>
+<h2 id="打印99乘法表"><a href="#打印99乘法表" class="headerlink" title="打印99乘法表"></a>打印99乘法表</h2><details>
+  <summary>打印九九乘法表</summary>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@pan ~]# cat 9.sh</span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1<span class="built_in">..</span>9&#125;;<span class="keyword">do</span> #i表示行</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> `seq <span class="variable">$i</span>`;<span class="keyword">do</span></span><br><span class="line">                echo -e <span class="string">&quot;<span class="variable">$&#123;j&#125;</span>x<span class="variable">$&#123;i&#125;</span>=$[j*i]\t\c&quot;</span></span><br><span class="line">        done</span><br><span class="line">        echo</span><br><span class="line">done</span><br><span class="line"><span class="attribute">1x1</span>=1</span><br><span class="line"><span class="attribute">1x2</span>=2   <span class="attribute">2x2</span>=4</span><br><span class="line"><span class="attribute">1x3</span>=3   <span class="attribute">2x3</span>=6   <span class="attribute">3x3</span>=9</span><br><span class="line"><span class="attribute">1x4</span>=4   <span class="attribute">2x4</span>=8   <span class="attribute">3x4</span>=12  <span class="attribute">4x4</span>=16</span><br><span class="line"><span class="attribute">1x5</span>=5   <span class="attribute">2x5</span>=10  <span class="attribute">3x5</span>=15  <span class="attribute">4x5</span>=20  <span class="attribute">5x5</span>=25</span><br><span class="line"><span class="attribute">1x6</span>=6   <span class="attribute">2x6</span>=12  <span class="attribute">3x6</span>=18  <span class="attribute">4x6</span>=24  <span class="attribute">5x6</span>=30  <span class="attribute">6x6</span>=36</span><br><span class="line"><span class="attribute">1x7</span>=7   <span class="attribute">2x7</span>=14  <span class="attribute">3x7</span>=21  <span class="attribute">4x7</span>=28  <span class="attribute">5x7</span>=35  <span class="attribute">6x7</span>=42  <span class="attribute">7x7</span>=49</span><br><span class="line"><span class="attribute">1x8</span>=8   <span class="attribute">2x8</span>=16  <span class="attribute">3x8</span>=24  <span class="attribute">4x8</span>=32  <span class="attribute">5x8</span>=40  <span class="attribute">6x8</span>=48  <span class="attribute">7x8</span>=56  <span class="attribute">8x8</span>=64</span><br><span class="line"><span class="attribute">1x9</span>=9   <span class="attribute">2x9</span>=18  <span class="attribute">3x9</span>=27  <span class="attribute">4x9</span>=36  <span class="attribute">5x9</span>=45  <span class="attribute">6x9</span>=54  <span class="attribute">7x9</span>=63  <span class="attribute">8x9</span>=72  <span class="attribute">9x9</span>=81 </span><br></pre></td></tr></table></figure>
+</details>
+
+<h1 id="for循环2"><a href="#for循环2" class="headerlink" title="for循环2"></a>for循环2</h1><p><code>for ((: for (( exp1; exp2; exp3 )); do COMMANDS; done</code><br><img src="/images/for循环.png" width="80%" height="50%" align="center/"></p>
+<h1 id="例子计算1-100"><a href="#例子计算1-100" class="headerlink" title="例子计算1+..100"></a>例子计算1+..100</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@pan ~]<span class="comment"># cat for2.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">sum=0</span><br><span class="line"><span class="keyword">for</span> (( i=1;i&lt;=100;i++ ));<span class="keyword">do</span></span><br><span class="line">        <span class="built_in">let</span> sum+=i</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> sum=<span class="variable">$sum</span> </span><br><span class="line">---------------------------------------或者</span><br><span class="line">[root@pan ~]<span class="comment"># cat for2.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> (( sum=0,i=1;i&lt;=100;i++ ));<span class="keyword">do</span></span><br><span class="line">        <span class="built_in">let</span> sum+=i</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> sum=<span class="variable">$sum</span></span><br></pre></td></tr></table></figure>
+<h2 id="打印等腰三角形"><a href="#打印等腰三角形" class="headerlink" title="打印等腰三角形"></a>打印等腰三角形</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  *</span><br><span class="line"> ***</span><br><span class="line">*****</span><br><span class="line">*号个数:行数*2-1</span><br><span class="line">空格数:总行数-当前行</span><br><span class="line">[root@pan ~]<span class="comment"># cat san.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;please input line number: &quot;</span> LINE <span class="comment">#LINE表示总共多少行</span></span><br><span class="line"><span class="keyword">for</span>(( i=1;i&lt;=LINE;i++ ));<span class="keyword">do</span>  <span class="comment">#i表示第几行</span></span><br><span class="line">        <span class="keyword">for</span>(( j=0;j&lt;LINE-i;j++));<span class="keyword">do</span> <span class="comment">#j表示*号个数</span></span><br><span class="line">                <span class="built_in">echo</span> -e <span class="string">&quot; \c&quot;</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line">        <span class="keyword">for</span>(( k=1;k&lt;=i*2-1;k++ ));<span class="keyword">do</span>  <span class="comment">#k表示空格</span></span><br><span class="line">                <span class="built_in">echo</span> -e <span class="string">&quot;+\c&quot;</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line">        <span class="built_in">echo</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> CONDITION;<span class="keyword">do</span></span><br><span class="line">    循环体</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>CONDITION:循环控制条件；进入循环之前，先做一次判断;每一次循环之后会再次做判断；条件为”ture”,则执行一次循环;直到条件测试状态为”false”终止循环<br>因此:CONDTION一般应该有循环控制变量;而此变量的值在循环体不断地被修正。<br>进入条件:CONDITION为true<br>退出条件:CONDITION为false</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/13/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="prev" title="进程管理">
+      <i class="fa fa-chevron-left"></i> 进程管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/10/zabbix/" rel="next" title="zabbix">
+      zabbix <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">循环控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%8F%96%E5%AD%97%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">随机取字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="nav-number">2.</span> <span class="nav-text">批量创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sed%E5%8F%96passwd%E4%B8%AD%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D-%E5%88%A0%E9%99%A4"><span class="nav-number">2.1.</span> <span class="nav-text">sed取passwd中的用户名+删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8D%B099%E4%B9%98%E6%B3%95%E8%A1%A8"><span class="nav-number">2.2.</span> <span class="nav-text">打印99乘法表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF2"><span class="nav-number">3.</span> <span class="nav-text">for循环2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%E8%AE%A1%E7%AE%971-100"><span class="nav-number">4.</span> <span class="nav-text">例子计算1+..100</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E7%AD%89%E8%85%B0%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="nav-number">4.1.</span> <span class="nav-text">打印等腰三角形</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#while%E5%BE%AA%E7%8E%AF"><span class="nav-number">5.</span> <span class="nav-text">while循环</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

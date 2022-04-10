@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="软件包管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件包管理">
+<meta property="og:url" content="http://example.com/2022/01/08/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86.md/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="软件包管理">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/包命名.jpg">
+<meta property="og:image" content="http://example.com/images/dnf.png">
+<meta property="og:image" content="http://example.com/images/ubuntu.png">
+<meta property="og:image" content="http://example.com/images/ubuntu-dpkg.png">
+<meta property="og:image" content="http://example.com/images/ubuntu-apt.png">
+<meta property="og:image" content="http://example.com/images/apt-help.png">
+<meta property="og:image" content="http://example.com/images/apt文件.png">
+<meta property="article:published_time" content="2022-01-08T05:04:30.000Z">
+<meta property="article:modified_time" content="2022-02-13T09:54:53.481Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/包命名.jpg">
+
+<link rel="canonical" href="http://example.com/2022/01/08/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86.md/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>软件包管理 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/08/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86.md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软件包管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-08 13:04:30" itemprop="dateCreated datePublished" datetime="2022-01-08T13:04:30+08:00">2022-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-13 17:54:53" itemprop="dateModified" datetime="2022-02-13T17:54:53+08:00">2022-02-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">软件包管理</font></center>
+
+<a id="more"></a>
+
+<h1 id="包命名"><a href="#包命名" class="headerlink" title="包命名"></a>包命名</h1><img src="/images/包命名.jpg" width="80%" height="50%" align="center/">
+
+<p>xorg-x11-xkb-utils-7.7-12.el7.x86_64.rpm<br>xorg-x11-xkb-utils:软件名<br>7.7:版本<br>12:是编译次数<br>el7:适合什么版本，这是centos7上的rpm包就显示el7 centos6就会显示el6<br>x86_64:表示适合的硬件平台</p>
+<p>统计Package下所有的软件包，有多少种硬件平台</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                    zziplib<span class="number">-0.13</span><span class="number">.62</span><span class="number">-5.</span>el7.x86_64.rpm</span><br><span class="line">[<span class="symbol">root@</span>localhost Packages]# ls | rev | cut -d . -f <span class="number">2</span> | rev | sort | uniq -c</span><br><span class="line">   <span class="number">1348</span> noarch</span><br><span class="line">      <span class="number">1</span> TRANS</span><br><span class="line">   <span class="number">2546</span> x86_64</span><br><span class="line"></span><br><span class="line">-r:表示使用扩展正则表达式</span><br><span class="line">[<span class="symbol">root@</span>localhost Packages]# ls | sed -r <span class="string">&#x27;s@.*\.(.*)\.rpm$@\1@&#x27;</span> | sort  | uniq -c</span><br><span class="line">   <span class="number">1348</span> noarch</span><br><span class="line">      <span class="number">1</span> TRANS.TBL</span><br><span class="line">   <span class="number">2546</span> x86_64</span><br></pre></td></tr></table></figure>
+<h1 id="库文件"><a href="#库文件" class="headerlink" title="库文件"></a>库文件</h1><p><i class="fa fa-info"></i> 复制源码查看二进制程序所依赖的库文件<br>ldd /PATH/TO/BINARY_FILE<br><i class="fa fa-info"></i> 管理及查看本机装载的库文件<br>ldconfig 加载配置文件中指定的库文件<br>/sbin/ldconfig -p 显示本机已经缓存的所有可用库文件名及文件路径映射关系<br>配置文件:/etc/ld.so.conf,/etc/ld.so.conf.d/*.conf<br>缓存文件:/etc/ld.so.cache</p>
+<h1 id="程序包的来源"><a href="#程序包的来源" class="headerlink" title="程序包的来源"></a>程序包的来源</h1><p>搜索引擎：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>pkgs.org</span><br><span class="line">http:<span class="regexp">//</span>rpmfind.net</span><br><span class="line">http:<span class="regexp">//</span>rpm.pbone.net</span><br><span class="line">https:<span class="regexp">//</span>sourceforge.net/</span><br></pre></td></tr></table></figure>
+<h1 id="rpm包管理"><a href="#rpm包管理" class="headerlink" title="rpm包管理"></a>rpm包管理</h1><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rpm</span> <span class="string">-ivh PACKAGE_FILE</span></span><br><span class="line"><span class="meta">-h</span>:<span class="string">以#显示程序包管理执行进度</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-q:查询rpm包是否已安装</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-ql:查询已安装的软件包里含哪些文件</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-qi:查询已安装软件的信息</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-e:卸载RPM包</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-qa:列出所有安装的包</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-qc:只查看有哪些配置文件</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-qd:只查看有哪些文档</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-q --changelog httpd:查看某个包的更新历史</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">--provides -q bash:查询某个包拥有哪些能力(CAPABILITY)</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-qR httpd:查询某个包依赖于哪些能力(依赖于哪些文件)</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-qpR httpd-2.4.6-67.el7.centos.x86_64.rpm:软件没有安装时，使用参数p和全名</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-e rpm --nodeps:卸载rpm包 并忽略他的依赖性，强制卸载</span></span><br><span class="line"><span class="attr">rpm</span> <span class="string">-K:用于验证所给的包是否为红帽官方提供，当是官方包提供时，会有“OK”字样</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶查询"><a href="#进阶查询" class="headerlink" title="进阶查询"></a>进阶查询</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">-f</span>:查看指定的文件由那个程序包安装生成</span><br><span class="line">    [root<span class="variable">@Centos7</span> Packages]# rpm -qf /usr/bin/tree</span><br><span class="line"></span><br><span class="line"><span class="attribute">-p</span>:针对尚未安装的程序包文件做查询操作</span><br><span class="line">    查询某个未安装包包含哪些文件：</span><br><span class="line">[root<span class="variable">@Centos7</span> Packages]# rpm -qpl /misc/cd/Packages/tree-<span class="number">1.6</span>.<span class="number">0</span>-<span class="number">10</span>.el7.x86_64.rpm </span><br><span class="line"></span><br><span class="line">[root<span class="variable">@Centos7</span> Packages]# rpm -q --whatprovides /bin/bash</span><br><span class="line">查询指定的能力由哪个包所提供</span><br><span class="line">[root<span class="variable">@Centos7</span> Packages]# rpm -q --whatrequires /bin/bash</span><br><span class="line">查询指定的能力被哪个包所依赖</span><br><span class="line"></span><br><span class="line"><span class="attribute">--test</span>:测试安装，但不真正执行安装，即dry run模式</span><br><span class="line"><span class="attribute">--nodeps</span>:忽略依赖关系</span><br><span class="line"><span class="attribute">--replacepkgs</span>:覆盖安装</span><br><span class="line"><span class="attribute">--replacefiles</span>:表示安装同一个软件的不通版本时，可能会创建同名的文件，用他来忽略</span><br><span class="line"></span><br><span class="line"><span class="attribute">--nosignature</span>:不检查来源合法性</span><br><span class="line"><span class="attribute">--noscripts</span>:不执行程序包脚本</span><br><span class="line">    %<span class="attribute">pre</span>:安装前脚本 --nopre</span><br><span class="line">    %<span class="attribute">post</span>:安装后脚本 --nopost</span><br><span class="line">    %<span class="attribute">preun</span>:卸载前脚本 --nopreun</span><br><span class="line">    %<span class="attribute">postun</span>:卸载后脚本 --nopostun</span><br><span class="line">    [root<span class="variable">@Centos7</span> Packages]# rpm -q --scripts 包命:查询某个包是否有脚本</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除tree命令并找回"><a href="#删除tree命令并找回" class="headerlink" title="删除tree命令并找回"></a>删除tree命令并找回</h2><p>tree命令包含很多文件，这里只是删除了一个文件： /usr/bin/tree，<br>所以方法一：可以覆盖安装。使用<code>--replacepkgs</code><br>方法二：只恢复删除的文件:<br>rpm2cpio 针对某个rpm包解包或者预览</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>Centos7 data]# rpm2cpio &lt; /misc/cd/Packages/tree<span class="number">-1.6</span><span class="number">.0</span><span class="number">-10.</span>el7.x86_64.rpm | cpio -tv</span><br><span class="line">-rwxr-xr-x   <span class="number">1</span> root     root        <span class="number">62768</span> Jun  <span class="number">9</span>  <span class="number">2014</span> ./usr/bin/tree</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root     root            <span class="number">0</span> Jun  <span class="number">9</span>  <span class="number">2014</span> ./usr/share/doc/tree<span class="number">-1.6</span><span class="number">.0</span></span><br><span class="line">-rw-r--r--   <span class="number">1</span> root     root        <span class="number">18009</span> Aug <span class="number">12</span>  <span class="number">2004</span> ./usr/share/doc/tree<span class="number">-1.6</span><span class="number">.0</span>/LICENSE</span><br><span class="line">-rw-r--r--   <span class="number">1</span> root     root         <span class="number">4628</span> Jun <span class="number">24</span>  <span class="number">2011</span> ./usr/share/doc/tree<span class="number">-1.6</span><span class="number">.0</span>/README</span><br><span class="line">-rw-r--r--   <span class="number">1</span> root     root         <span class="number">4100</span> Jun <span class="number">24</span>  <span class="number">2011</span> ./usr/share/man/man1/tree<span class="number">.1</span>.gz</span><br><span class="line"><span class="number">177</span> blocks</span><br><span class="line">查看里面的文件列表</span><br><span class="line">[<span class="symbol">root@</span>Centos7 data]# rpm2cpio &lt; /misc/cd/Packages/tree<span class="number">-1.6</span><span class="number">.0</span><span class="number">-10.</span>el7.x86_64.rpm | cpio -idv ./usr/bin/tree</span><br><span class="line">                -d:表示只解压某个文件夹，想要全解压就不加</span><br><span class="line">[<span class="symbol">root@</span>Centos7 data]# ls</span><br><span class="line">usr</span><br><span class="line">[<span class="symbol">root@</span>Centos7 data]# mv usr/bin/tree /bin/ 将解压出来的文件移回去就行</span><br></pre></td></tr></table></figure>
+<h2 id="nosignature-不检查来源合法性"><a href="#nosignature-不检查来源合法性" class="headerlink" title="--nosignature:不检查来源合法性"></a><code>--nosignature</code>:不检查来源合法性</h2><p>安装软件会有一个报警提示warning加了这个参数就没有了 </p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@Centos7 Packages]# rpm -ivh tree<span class="number">-1.6</span><span class="number">.0</span><span class="number">-10.</span>el7.x86_64.rpm </span><br><span class="line">warning: tree<span class="number">-1.6</span><span class="number">.0</span><span class="number">-10.</span>el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY</span><br><span class="line">Preparing...                          ################################# [<span class="number">100</span>%]</span><br><span class="line">        package tree<span class="number">-1.6</span><span class="number">.0</span><span class="number">-10.</span>el7.x86_64 is already installed</span><br><span class="line">[root@Centos7 Packages]# </span><br></pre></td></tr></table></figure>
+
+<h2 id="卸载rpm"><a href="#卸载rpm" class="headerlink" title="卸载rpm"></a>卸载rpm</h2><p>Centos7卸载rpm命令后，进救援模式重新安装rpm<br><code>rpm -ivh XX --root=/mnt/sysimage</code><br>进入镜像修复安装，注意安装的路径，后面加上<code>--root=/mnt/sysimage</code>才是安装到系统。</p>
+<h2 id="包校验"><a href="#包校验" class="headerlink" title="包校验"></a>包校验</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>localhost ~]# ll /bin/tree</span><br><span class="line">-rwxr-xr-x. <span class="number">1</span> root root <span class="number">62768</span> Jun  <span class="number">9</span>  <span class="number">2014</span> /bin/tree</span><br><span class="line">[<span class="symbol">root@</span>localhost ~]# rpm -V tree</span><br><span class="line">[<span class="symbol">root@</span>localhost ~]# chown pan /bin/tree</span><br><span class="line">[<span class="symbol">root@</span>localhost ~]# rpm -V tree</span><br><span class="line">.....U...    /usr/bin/tree</span><br></pre></td></tr></table></figure>
+<p>每个点表示一个类型：<br>S    文件大小是否改变<br>M    文件的类型或文件的权限（rwx）是否变改变<br>5    文件MD5校验和是否改变（可以看作文件内容是否改变）<br>D    装置的主/次代码已经改变<br>L    Link路径已被改变<br>U    文件的所属人已被改变<br>G    文件的所属群组已被改变<br>T    文件的创建时间忆被改变<br><code>rpm -Va 校验所有的rpm包</code></p>
+<p>rpm包公钥文件:就在挂载光盘目录下的 RPM-GPG-KEY-CentOS-7<br>将它导入:<code>rpm --import RPM-GPG-KEY-CentOS-7</code>这样以后安装就不会有报警了。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">查看导入的公钥文件:</span><br><span class="line">[<span class="symbol">root@</span>localhost Packages]# rpm -qa <span class="string">&quot;gpg-pubkey&quot;</span></span><br><span class="line">gpg-pubkey-f4a80eb5<span class="number">-53</span>a7ff4b</span><br><span class="line">查看公钥密钥:</span><br><span class="line">[<span class="symbol">root@</span>localhost Packages]# rpm -qi gpg-pubkey-f4a80eb5<span class="number">-53</span>a7ff4b</span><br><span class="line">卸载公钥文件:</span><br><span class="line">[<span class="symbol">root@</span>localhost mnt]# rpm -e gpg-pubkey-f4a80eb5<span class="number">-53</span>a7ff4b</span><br><span class="line">[<span class="symbol">root@</span>localhost mnt]# rpm -qi  gpg-pubkey-f4a80eb5<span class="number">-53</span>a7ff4b</span><br><span class="line">package gpg-pubkey-f4a80eb5<span class="number">-53</span>a7ff4b <span class="keyword">is</span> <span class="keyword">not</span> installed</span><br></pre></td></tr></table></figure>
+<p>也可以不从光盘里面导入，只要装完系统<code>cd /etc/pki/rpm-gpg/</code>此路径下就有一个公钥文件，和光盘里面的是一样的。直接导入也可以。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rpm</span> -K tree-<span class="number">1</span>.<span class="number">6</span>.<span class="number">0</span>-<span class="number">10</span>.el<span class="number">7</span>.x<span class="number">86</span>_<span class="number">64</span>.rpm </span><br><span class="line"><span class="attribute">tree</span>-<span class="number">1</span>.<span class="number">6</span>.<span class="number">0</span>-<span class="number">10</span>.el<span class="number">7</span>.x<span class="number">86</span>_<span class="number">64</span>.rpm: rsa sha<span class="number">1</span> (md<span class="number">5</span>) pgp md<span class="number">5</span> OK</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改二进制文件"><a href="#修改二进制文件" class="headerlink" title="修改二进制文件"></a>修改二进制文件</h1><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">以二进制方式打开文件</span><br><span class="line">    vim -b <span class="keyword">file</span></span><br><span class="line">扩展命令模式下，利用xxd命令模式转换为可读的十六进制</span><br><span class="line">    :%!xxd</span><br><span class="line">插入模式，编辑二进制文件</span><br><span class="line">扩展命令模式下，利用xxd命令转换回二进制</span><br><span class="line">    :%!xxd -r</span><br><span class="line">保存退出</span><br></pre></td></tr></table></figure>
+<h1 id="rpm数据库"><a href="#rpm数据库" class="headerlink" title="rpm数据库"></a>rpm数据库</h1><p><code>/var/lib/rpm</code><br><code>rpm --initdb,--rebuilddb</code><br>initdb:初始化<br>数据库如果事先不存在数据库，则新建之。否则请不要执行任何操作。<br>rebuilddb:重建已经安装的包头的数据库索引目录。<br>(rpm查询安装都依靠此数据库，请不要动此数据库的文件)</p>
+<h1 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h1><p>yum是基于C/S架构的<br>光盘挂载后会有一个文件夹:<code>repodata </code> 此文件放的元数据</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[仓库名有唯一性]</span><br><span class="line">name=仓库描述说明</span><br><span class="line">mirrorlist=仓库路径 也可以写成 <span class="comment">#baseurl=</span></span><br><span class="line">gpgcheck=是否检查rpm包 如果为<span class="number">1</span>则必须检查(这样是默认值 不写也是<span class="number">1</span>)</span><br><span class="line">gpgkey=file:<span class="regexp">//</span><span class="regexp">/etc/</span>pki<span class="regexp">/rpm-gpg/</span>RPM-GPG-KEY-CentOS-<span class="number">7</span> 导入密钥检查</span><br><span class="line">也可以导入光盘文件里面的key文件 <span class="regexp">/mnt/</span>RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line">enabled=<span class="number">0</span> <span class="number">0</span>表示仓库禁用，<span class="number">1</span>表示启用，默认不写也是启用。</span><br><span class="line">yum repolist 下载元数据到  <span class="regexp">/var/</span>cache<span class="regexp">/yum/</span>下</span><br><span class="line">yum clean all 清除元数据</span><br><span class="line">yum日志:cat <span class="regexp">/var/</span>log/yum.log</span><br></pre></td></tr></table></figure>
+<h1 id="基于httpd协议的yum源"><a href="#基于httpd协议的yum源" class="headerlink" title="基于httpd协议的yum源"></a>基于httpd协议的yum源</h1><p>关闭防火墙，SELinux先。<br>1.yum install -y httpd 安装httpd<br>2.systemctl start httpd 启动httpd<br>3.cd /var/www/html<br>4.mkdir centos/{6,7}/os/x86_64/ -pv<br>5.搭建yum</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat test.repo </span><br><span class="line">[test]</span><br><span class="line">name=test-yum</span><br><span class="line">baseurl=http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">43.6</span><span class="regexp">/centos/</span><span class="variable">$releasever</span><span class="regexp">/os/</span><span class="variable">$basearch</span>/</span><br><span class="line">gpgkey=http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">43.6</span><span class="regexp">/centos/</span><span class="variable">$releasever</span><span class="regexp">/os/</span><span class="variable">$basearch</span>/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>测试安装samba 无报错</p>
+<h1 id="mirrorlist"><a href="#mirrorlist" class="headerlink" title="mirrorlist"></a>mirrorlist</h1><p>关于yum中mirrorlist的作用：<br>mirrorlist指定的是一个文件路径，文件中所存储的是yum源的路径，可以多条存储</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@Centos7 yum.repos.d]<span class="comment"># cat test.repo </span></span><br><span class="line">[test]</span><br><span class="line">name=test-yum</span><br><span class="line"><span class="comment">#baseurl=http://192.168.43.6/centos/$releasever/os/$basearch/</span></span><br><span class="line">mirrorlist=http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">43.6</span>/yum.test</span><br><span class="line">gpgkey=http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">43.6</span><span class="regexp">/centos/</span><span class="variable">$releasever</span><span class="regexp">/os/</span><span class="variable">$basearch</span>/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line">[root@Centos7 yum.repos.d]<span class="comment"># cd /var/www/html/</span></span><br><span class="line">[root@Centos7 html]<span class="comment"># cat yum.test </span></span><br><span class="line">http:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/epel/</span><span class="number">7</span>/<span class="variable">$basearch</span> <span class="comment">#阿里云的yum源</span></span><br><span class="line">http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">43.6</span><span class="regexp">/centos/</span><span class="number">7</span><span class="regexp">/os/</span>x86_64/ <span class="comment">#本地yum源的路径</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="yum包组的管理命令"><a href="#yum包组的管理命令" class="headerlink" title="yum包组的管理命令"></a>yum包组的管理命令</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@Centos7 html]# yum<span class="built_in"> group </span>list #列出所有的包组</span><br><span class="line">There is <span class="literal">no</span> installed groups file.</span><br><span class="line">Maybe run: yum groups mark convert (see man yum)</span><br><span class="line">Available Environment Groups: #环境组</span><br><span class="line">   Minimal Install</span><br><span class="line">   Compute Node</span><br><span class="line">   Infrastructure Server</span><br><span class="line">   File <span class="keyword">and</span> <span class="builtin-name">Print</span> Server</span><br><span class="line">   Basic Web Server</span><br><span class="line">   Virtualization Host</span><br><span class="line">  <span class="built_in"> Server </span>with GUI</span><br><span class="line">   GNOME Desktop</span><br><span class="line">   KDE Plasma Workspaces</span><br><span class="line">   Development <span class="keyword">and</span> Creative Workstation</span><br><span class="line">Available Groups: #普通组</span><br><span class="line">   Compatibility Libraries</span><br><span class="line">  <span class="built_in"> Console </span>Internet Tools</span><br><span class="line">   Development Tools</span><br><span class="line">   Graphical Administration Tools</span><br><span class="line">   Legacy UNIX Compatibility</span><br><span class="line">   Scientific Support</span><br><span class="line">   Security Tools</span><br><span class="line">   Smart Card Support</span><br><span class="line">  <span class="built_in"> System </span>Administration Tools</span><br><span class="line">  <span class="built_in"> System </span>Management</span><br><span class="line">Done</span><br><span class="line"></span><br><span class="line">[root@Centos7 html]# yum<span class="built_in"> group </span><span class="builtin-name">info</span> <span class="string">&quot; Development Tools&quot;</span> #查看某个包组 带有包的列表</span><br><span class="line">+号就是还没有安装的 会随包组一块安装，安装后 会变成=号</span><br><span class="line">[root@Centos7 html]# yum<span class="built_in"> group </span>install <span class="string">&quot; Development Tools&quot;</span> #安装整个包组</span><br></pre></td></tr></table></figure>
+
+<h1 id="yum的命令行选项"><a href="#yum的命令行选项" class="headerlink" title="yum的命令行选项"></a>yum的命令行选项</h1><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--nogpgcheck:禁止进行gpg check</span><br><span class="line">-y:自动回答为yes</span><br><span class="line">-q:静默模式</span><br><span class="line">--disablerepo=repoidglob:临时禁用此处指定的repo 禁用某个仓库</span><br><span class="line">--enablerepo=repoidglob:临时启用此处指定的repo 启用某个仓库</span><br><span class="line">--noplugins:禁用所有插件</span><br></pre></td></tr></table></figure>
+<h1 id="自建yum仓库"><a href="#自建yum仓库" class="headerlink" title="自建yum仓库"></a>自建yum仓库</h1><p>如果是自己下载的RPM包，没有仓库的元数据，是无法使用yum,所以需要在当前目录下创建元数据。<br><code>createrepo .</code>在rpm包文件夹下直接执行，就可生成元数据。<br>createrepo命令会分析每个RPM包的元数据并提取出来，放在repodata(自动新建)目录下。</p>
+<h1 id="dnf"><a href="#dnf" class="headerlink" title="dnf"></a>dnf</h1><img src="/images/dnf.png" width="80%" height="50%" align="center/">
+
+<h1 id="程序包编译"><a href="#程序包编译" class="headerlink" title="程序包编译"></a>程序包编译</h1><p>程序包编译安装:<br>源代码——预处理——编译——汇编——链接——执行<br>源代码组织格式:<br>&nbsp;&nbsp;&nbsp;多文件:文件中的代码之间，很可能存在跨文件依赖关系<br>&nbsp;&nbsp;&nbsp;C、C++:make 项目管理器<br>&nbsp;&nbsp;&nbsp;configure脚本 –&gt; Makfile.in –&gt; Makefile<br>&nbsp;&nbsp;&nbsp;java:maven</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C语言源代码编译安装三大步骤:</span><br><span class="line"><span class="number">1</span>、./configure</span><br><span class="line">    (<span class="number">1</span>)通过传递选项参数，指定启用特性、安装路径;执行时会参考用户的指定以及Makefile.<span class="keyword">in</span>文件生成Makefile</span><br><span class="line">    (<span class="number">2</span>)检查依赖到的外部环境，如依赖的软件包</span><br><span class="line"><span class="number">2</span>、make 根据Makefile文件，构建应用程序</span><br><span class="line"><span class="number">3</span>、make install 复制文件到相应路径</span><br><span class="line">开发工具:</span><br><span class="line">    <span class="built_in">auto</span>conf:生成configure脚本</span><br><span class="line">    <span class="built_in">auto</span>make:生成Makefile.<span class="keyword">in</span></span><br><span class="line">注意:安装前查看INSTALL,README</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译安装tree"><a href="#编译安装tree" class="headerlink" title="编译安装tree"></a>编译安装tree</h2><p>rpm -qi tree 查询软件包信息得到URL，再到链接网站上 复制下载链接<br>wget <a target="_blank" rel="noopener" href="http://mama.indstate.edu/users/ice/tree/">http://mama.indstate.edu/users/ice/tree/</a> 回到系统上直接下载<br>tar xvf tree-2.0.1.tgz 解压缩，得到解压后的文件夹<br>cat INSTALL 查看安装步骤<br>PREFIX=/apps/tree Makefile文件中定义安装路径<br>make时，Centos7.9安装会有一个报错：需要修改Makefile文件中的:CC=/usr/bin/c99<br>make INSTALL 后就可以用新的tree了，但是系统也有一个tree,所以改变环境变量就可以执行了</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost profile.d]<span class="comment"># cat /etc/profile.d/env.sh </span></span><br><span class="line">PATH=<span class="regexp">/apps/</span>tree<span class="regexp">/bin/</span>:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编译安装httpd-2-4"><a href="#编译安装httpd-2-4" class="headerlink" title="编译安装httpd-2.4"></a>编译安装httpd-2.4</h2><p>./configure <br>–prefix=/apps/httpd24 <br>–sysconfdir=/etc/httpd <br>–enable-ssl <br>–enable-so<br>缺包就是后面加devel,执行完成以后就会生成makefile文件，<br>make -j 4(看有几个CPU)<br>make install<br>cd /apps/httpd24/bin/ 查看文件已经有了</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]<span class="comment"># cat /etc/profile.d/env.sh 写入环境变量</span></span><br><span class="line">PATH=<span class="regexp">/apps/</span>httpd24/bin:<span class="variable">$PATH</span> </span><br><span class="line">. <span class="regexp">/etc/</span>profile.d/env.sh</span><br><span class="line">apachectl start 启动软件</span><br></pre></td></tr></table></figure>
+<p>浏览器打来验证。但是这样只是现在打开了，无法自启动。将它加入一个文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>rc.d/rc.local </span><br><span class="line"><span class="regexp">/apps/</span>httpd24<span class="regexp">/bin/</span>apachectl start</span><br><span class="line">并加上执行权限:chmod +x <span class="regexp">/etc/</span>rc.d/rc.local </span><br></pre></td></tr></table></figure>
+<p>页面来源文件路径：/apps/httpd24/htdocs/index.html </p>
+<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><img src="/images/ubuntu.png" width="80%" height="50%" align="center/">
+<img src="/images/ubuntu-dpkg.png" width="80%" height="50%" align="center/">
+<img src="/images/ubuntu-apt.png" width="80%" height="50%" align="center/">
+
+<h1 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h1><img src="/images/apt-help.png" width="80%" height="50%" align="center/">
+<img src="/images/apt文件.png" width="80%" height="50%" align="center/">
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/28/find/" rel="prev" title="文件查找和压缩">
+      <i class="fa fa-chevron-left"></i> 文件查找和压缩
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/13/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="next" title="进程管理">
+      进程管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%85%E5%91%BD%E5%90%8D"><span class="nav-number">1.</span> <span class="nav-text">包命名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">库文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%8C%85%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="nav-number">3.</span> <span class="nav-text">程序包的来源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rpm%E5%8C%85%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">rpm包管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.1.</span> <span class="nav-text">进阶查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4tree%E5%91%BD%E4%BB%A4%E5%B9%B6%E6%89%BE%E5%9B%9E"><span class="nav-number">4.2.</span> <span class="nav-text">删除tree命令并找回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nosignature-%E4%B8%8D%E6%A3%80%E6%9F%A5%E6%9D%A5%E6%BA%90%E5%90%88%E6%B3%95%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">--nosignature:不检查来源合法性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BDrpm"><span class="nav-number">4.4.</span> <span class="nav-text">卸载rpm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E6%A0%A1%E9%AA%8C"><span class="nav-number">4.5.</span> <span class="nav-text">包校验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">修改二进制文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rpm%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">rpm数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum"><span class="nav-number">7.</span> <span class="nav-text">yum</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Ehttpd%E5%8D%8F%E8%AE%AE%E7%9A%84yum%E6%BA%90"><span class="nav-number">8.</span> <span class="nav-text">基于httpd协议的yum源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mirrorlist"><span class="nav-number">9.</span> <span class="nav-text">mirrorlist</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum%E5%8C%85%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">10.</span> <span class="nav-text">yum包组的管理命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%80%89%E9%A1%B9"><span class="nav-number">11.</span> <span class="nav-text">yum的命令行选项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%BB%BAyum%E4%BB%93%E5%BA%93"><span class="nav-number">12.</span> <span class="nav-text">自建yum仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dnf"><span class="nav-number">13.</span> <span class="nav-text">dnf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%8C%85%E7%BC%96%E8%AF%91"><span class="nav-number">14.</span> <span class="nav-text">程序包编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85tree"><span class="nav-number">14.1.</span> <span class="nav-text">编译安装tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85httpd-2-4"><span class="nav-number">14.2.</span> <span class="nav-text">编译安装httpd-2.4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu"><span class="nav-number">15.</span> <span class="nav-text">Ubuntu</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apt"><span class="nav-number">16.</span> <span class="nav-text">apt</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
