@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安全">
+<meta property="og:url" content="http://example.com/2022/05/15/%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="安全">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/ssl.png">
+<meta property="article:published_time" content="2022-05-15T05:37:30.000Z">
+<meta property="article:modified_time" content="2022-06-26T05:39:42.668Z">
+<meta property="article:author" content="xiaohu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/ssl.png">
+
+<link rel="canonical" href="http://example.com/2022/05/15/%E5%AE%89%E5%85%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>安全 | 个人笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人笔记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">note</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/15/%E5%AE%89%E5%85%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pxh.jpg">
+      <meta itemprop="name" content="xiaohu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          安全
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-15 13:37:30" itemprop="dateCreated datePublished" datetime="2022-05-15T13:37:30+08:00">2022-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-26 13:39:42" itemprop="dateModified" datetime="2022-06-26T13:39:42+08:00">2022-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center><font face="FZShuTi">安全</font></center>
+
+<a id="more"></a>
+
+<h1 id="对称密钥加密"><a href="#对称密钥加密" class="headerlink" title="对称密钥加密"></a>对称密钥加密</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">gpg</span> <span class="selector-tag">-c</span> <span class="selector-tag">passwd</span> 加密文件</span><br><span class="line">弹出密码框,输两次密码.</span><br><span class="line">生成新的文件 <span class="selector-tag">passwd</span><span class="selector-class">.gpg</span> 打开是乱码,无法查看.拷贝到对应的机器上</span><br><span class="line">    <span class="selector-tag">gpg</span> <span class="selector-tag">-o</span> <span class="selector-tag">passwd</span> <span class="selector-tag">-d</span> <span class="selector-tag">passwd</span><span class="selector-class">.pgp</span> 解密时会弹出一个框,输入刚才新建的密码</span><br><span class="line"><span class="selector-tag">-d</span>:解密,默认打印在屏幕上, 不会生成新的文件</span><br><span class="line"><span class="selector-tag">-o</span>:生成新的文件.</span><br></pre></td></tr></table></figure>
+<h1 id="非对称密钥加密"><a href="#非对称密钥加密" class="headerlink" title="非对称密钥加密"></a>非对称密钥加密</h1><p>实验:在一台主机上生成新的密钥,然后把公钥传给其他机器,在其他机器上通过公钥加密一个文件后,再传回本机,用私钥解密</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">gpg <span class="params">--gen-key</span>  生成新的key</span><br><span class="line"><span class="keyword">cd</span> <span class="string">.gnupg/</span></span><br><span class="line">    pubring.gpg:公钥文件</span><br><span class="line">    secring.gpg:私钥文件</span><br><span class="line"></span><br><span class="line">查看生成的公钥:</span><br><span class="line">[root@test2 <span class="string">.gnupg</span>]<span class="comment"># gpg --list-keys</span></span><br><span class="line"><span class="string">/root/.gnupg/pubring.gpg</span></span><br><span class="line"><span class="params">------------------------</span></span><br><span class="line">pub   1024R/96F37F62 2022-05-16</span><br><span class="line">uid                  pan-test2 <span class="params">(test2)</span></span><br><span class="line">sub   1024R/FB56AAD7 2022-05-16</span><br><span class="line">    原来的公钥文件是一个二进制文件,现在把他转换为文本文件</span><br><span class="line">[root@test2 <span class="string">.gnupg</span>]<span class="comment"># gpg -a --export -o /data/pan-test2.pubkey</span></span><br><span class="line">   </span><br><span class="line">    然后把这个文件传给另外一台主机</span><br><span class="line">另外一台主机: 可以看到没有自己的key</span><br><span class="line">[root@test1 data]<span class="comment"># gpg --list-keys</span></span><br><span class="line">gpg: <span class="string">/root/.gnupg/trustdb.gpg</span>: trustdb created</span><br><span class="line">    然后导入这个key</span><br><span class="line">[root@test1 data]<span class="comment"># gpg --import /data/pan-test2.pubkey </span></span><br><span class="line">gpg: keyring `<span class="string">/root/.gnupg/secring.gpg</span>&#x27; created</span><br><span class="line">gpg: key 96F37F62: public key <span class="string">&quot;pan-test2 (test2)&quot;</span> imported</span><br><span class="line">gpg: Total number processed: 1</span><br><span class="line">gpg:               imported: 1  <span class="params">(RSA: 1)</span></span><br></pre></td></tr></table></figure>
+<p>如果自己现在再创建自己的key,那么他的key 都是放在/root/gnupg/,这个文件夹下.和导入的key在同一个文件里面.都在公钥和私钥文件里面(上面)</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gpg -e -r pan-test2 passwd</span><br><span class="line">    -<span class="attr">e:</span>表示加密</span><br><span class="line">    -<span class="attr">r:</span>表示用哪一个公钥进行加密.gpg --list-keys 可以先查看使用他的uid.</span><br><span class="line">生成passwd.gpg 再 传给 初始主机</span><br><span class="line">gpg -o passwd -d passwd.gpg </span><br><span class="line">    -<span class="attr">o:</span>生成新的文件(不加,默认打印到屏幕)</span><br><span class="line">    -<span class="attr">d:</span>解密</span><br></pre></td></tr></table></figure>
+
+<h1 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h1><img src="/images/ssl.png" width="80%" height="50%" align="center/">
+
+<h1 id="base64位编码换算"><a href="#base64位编码换算" class="headerlink" title="base64位编码换算"></a>base64位编码换算</h1><p>echo -n:表示不换行输出</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>test1 ~]# echo -n <span class="string">&quot;ab&quot;</span>  | base64</span><br><span class="line">YWI=</span><br><span class="line">推算过程: 这里求ab的base64编码</span><br><span class="line">a和b是ascii,他们对应的十进制数是,a=<span class="number">97</span>,b=<span class="number">98</span> 换算为二进制</span><br><span class="line"><span class="number">01100001</span> <span class="number">01100010</span>,然后分为六个为一组<span class="number">011000</span> <span class="number">010110</span> <span class="number">001000</span>(不足六位后面用<span class="number">0</span>补齐,输出加<span class="string">&quot;=&quot;</span>)</span><br><span class="line">再将它们转换为十进制是 <span class="number">24</span> <span class="number">22</span> <span class="number">8</span> 查看base64编码表为 YWI=</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>test1 ~]# echo  <span class="string">&quot;ab&quot;</span>  | base64</span><br><span class="line">YWIK</span><br><span class="line">因为这里echo带有换行符号<span class="string">&quot;\n&quot;</span> 他的十进制数是<span class="number">10</span></span><br><span class="line"><span class="number">01100001</span> <span class="number">01100010</span> <span class="number">00001010</span>分为六个一组:<span class="number">011000</span> <span class="number">010110</span> <span class="number">001000</span> <span class="number">001010</span></span><br><span class="line">再将它们转换为十进制是 <span class="number">24</span> <span class="number">22</span> <span class="number">8</span> <span class="number">10</span> 对应的base64编码为 YWIK</span><br></pre></td></tr></table></figure>
+
+<h1 id="openssl"><a href="#openssl" class="headerlink" title="openssl"></a>openssl</h1><h2 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h2><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">这里是一个小括号,小括号表示生成一个子shell,生成结束后,不会修改原来的umask值</span><br><span class="line">(umask 077;openssl genrsa -<span class="meta">out</span> test.<span class="meta">key</span> -dest 2048)</span><br><span class="line">umask 077:表示后面输出的文件权限是600</span><br><span class="line">genrsa:用rsa算法来生成对应的私钥</span><br><span class="line">-<span class="meta">out</span>:输出的文件名 test.<span class="meta">key</span></span><br><span class="line">-dest:对称的密钥加密算法,表示给这个私钥加了一层密码,那么以后每次使用就都要输入这个密码</span><br><span class="line">如果不加密,就不用这个参数就好.</span><br><span class="line">2048:生成的私钥有多长</span><br><span class="line"></span><br><span class="line">将上面加密的<span class="meta">key</span>解密</span><br><span class="line">openssl ras -<span class="meta">in</span> test.<span class="meta">key</span> -<span class="meta">out</span> test2.<span class="meta">key</span></span><br><span class="line"></span><br><span class="line">从私钥中提取公钥</span><br><span class="line">openssl rsa -<span class="meta">in</span> <span class="meta">file</span>.<span class="meta">key</span> -pubout -<span class="meta">out</span> <span class="meta">file</span>.<span class="meta">key</span>.pub</span><br></pre></td></tr></table></figure>
+<h1 id="建立私有CA"><a href="#建立私有CA" class="headerlink" title="建立私有CA"></a>建立私有CA</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">cat <span class="regexp">/etc/</span>pki<span class="regexp">/tls/</span>openssl.cnf 中的一段,参照这个建立.</span><br><span class="line">[ CA_default ]</span><br><span class="line"></span><br><span class="line">dir             = <span class="regexp">/etc/</span>pki/CA           <span class="comment"># Where everything is kept</span></span><br><span class="line">certs           = <span class="variable">$dir</span>/certs            <span class="comment"># Where the issued certs are kept #专门放证书的目录</span></span><br><span class="line">crl_dir         = <span class="variable">$dir</span>/crl              <span class="comment"># Where the issued crl are kept</span></span><br><span class="line">database        = <span class="variable">$dir</span>/index.txt        <span class="comment"># database index file. #数据库文件 后面放颁发的证书信息</span></span><br><span class="line"><span class="comment">#unique_subject = no                    # Set to &#x27;no&#x27; to allow creation of</span></span><br><span class="line">                                        <span class="comment"># several ctificates with same subject.</span></span><br><span class="line">new_certs_dir   = <span class="variable">$dir</span>/newcerts         <span class="comment"># default place for new certs.</span></span><br><span class="line"></span><br><span class="line">certificate     = <span class="variable">$dir</span>/cacert.pem       <span class="comment"># The CA certificate #自签名证书</span></span><br><span class="line">serial          = <span class="variable">$dir</span>/serial           <span class="comment"># The current serial number #即将颁发的证书编号</span></span><br><span class="line">crlnumber       = <span class="variable">$dir</span>/crlnumber        <span class="comment"># the current crl number #即将吊销的证书编号</span></span><br><span class="line">                                        <span class="comment"># must be commented out to leave a V1 CRL</span></span><br><span class="line">crl             = <span class="variable">$dir</span>/crl.pem          <span class="comment"># The current CRL #证书吊销列表</span></span><br><span class="line">private_key     = <span class="variable">$dir</span><span class="regexp">/private/</span>cakey.pem<span class="comment"># The private key #私钥文件必须放在这里</span></span><br><span class="line">RANDFILE        = <span class="variable">$dir</span><span class="regexp">/private/</span>.rand    <span class="comment"># private random number file</span></span><br></pre></td></tr></table></figure>
+<h2 id="建立一个私有CA-为用户颁发证书"><a href="#建立一个私有CA-为用户颁发证书" class="headerlink" title="建立一个私有CA,为用户颁发证书"></a>建立一个私有CA,为用户颁发证书</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>建立CA</span><br><span class="line"> 生成私钥文件:</span><br><span class="line"> cd /etc/pki/CA</span><br><span class="line"> [root@test2 CA]# (umask <span class="number">066</span>;openssl genrsa -out <span class="keyword">private</span>/cakey.pem <span class="number">4096</span>) </span><br><span class="line"> 生成自签名证书:</span><br><span class="line"> [root@test2 CA]<span class="meta"># openssl req -new -x509 -key /etc/pki/CA/private/cakey.pem -out /etc/pki/CA/cacert.pem -days 3650 &lt;&lt;EOF</span></span><br><span class="line">&gt; CN #国家</span><br><span class="line">&gt; guangdong #省</span><br><span class="line">&gt; guangzhou #城市</span><br><span class="line">&gt; gongsi #公司名</span><br><span class="line">&gt; yunweibu #部门</span><br><span class="line">&gt; ca.panxiaohu.com #网站名</span><br><span class="line">&gt; admin@panxiaohu.com #邮箱</span><br><span class="line">&gt; EOF</span><br><span class="line"> 生成以后,进行查看</span><br><span class="line">[root@test2 CA]<span class="meta"># openssl x509 -in cacert.pem -noout -text</span></span><br><span class="line">[root@test2 data]<span class="meta"># touch /etc/pki/CA/index.txt 建立数据库文件</span></span><br><span class="line">[root@test2 data]<span class="meta"># echo 0F &gt; /etc/pki/CA/serial 这里表示新颁发的证书的编号,是以十六进制表示,这里应该以0开始.</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>申请证书</span><br><span class="line"> 到其他机器上先申请私钥</span><br><span class="line">[root@test1 app]# (umask <span class="number">066</span>;openssl genrsa -out app.key  <span class="number">1024</span>)</span><br><span class="line"> 再利用刚刚申请的私钥申请证书申请,国家,省,公司名 必须是一样的</span><br><span class="line">[root@test1 app]<span class="meta"># openssl req -new -key app.key -out app.csr</span></span><br><span class="line">然后需要把这个证书的请求文件传递给CA CA来进行检查.检查无误就可以颁发证书了.</span><br><span class="line">[root@test1 app]<span class="meta"># scp app.csr 192.168.44.151:/data/ 拷贝到CA服务器上</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>颁发证书</span><br><span class="line">在证书服务器上申请证书:</span><br><span class="line">openssl ca -in /data/app.csr -out /etc/pki/CA/certs/app.crt -days <span class="number">100</span></span><br><span class="line"></span><br><span class="line">查看某个证书编号,状态有效性</span><br><span class="line">[root@test2 CA]<span class="meta"># openssl ca -status 0F</span></span><br><span class="line">Using configuration from /etc/pki/tls/openssl.cnf</span><br><span class="line"><span class="number">0F</span>=Valid (V) V表示有效</span><br></pre></td></tr></table></figure>
+
+<h2 id="国家-省-公司名-不一样时"><a href="#国家-省-公司名-不一样时" class="headerlink" title="国家,省,公司名 不一样时"></a>国家,省,公司名 不一样时</h2><p>如果申请证书的请求文件 这三项和之前不一样时,是无法创建成功的,可以修改配置文件.</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@test2 app2]<span class="comment"># vim /etc/pki/tls/openssl.cnf </span></span><br><span class="line"> <span class="number">83</span> <span class="comment"># For the CA policy</span></span><br><span class="line"> <span class="number">84</span> [ policy_match ]</span><br><span class="line"> <span class="number">85</span> countryName             = <span class="built_in">match</span></span><br><span class="line"> <span class="number">86</span> <span class="keyword">state</span>OrProvinceName     = optional (表示可选的)</span><br><span class="line"> <span class="number">87</span> organizationName        = <span class="built_in">match</span>   </span><br><span class="line"> <span class="number">88</span> organizationalUnitName  = optional</span><br><span class="line"> <span class="number">89</span> commonName              = supplied</span><br></pre></td></tr></table></figure>
+<h2 id="使用同一个证书申请文件"><a href="#使用同一个证书申请文件" class="headerlink" title="使用同一个证书申请文件"></a>使用同一个证书申请文件</h2><p>使用同一个证书申请文件,申请多个证书,默认是不允许的,这里改为NO,就可以了.</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[root@test2 CA]</span><span class="comment"># cat index.txt.attr</span></span><br><span class="line"><span class="attr">unique_subject</span> = <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="吊销证书"><a href="#吊销证书" class="headerlink" title="吊销证书"></a>吊销证书</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">1</span>.先查看证书</span><br><span class="line">[root@test2 CA]# cat <span class="regexp">/etc/</span>pki<span class="regexp">/CA/i</span>ndex.txt</span><br><span class="line">V       <span class="number">220913053108</span>Z           <span class="number">0</span>F      unknown <span class="regexp">/C=CN/</span>ST=guangdong<span class="regexp">/O=gongsi/</span>OU=yun/CN=pan</span><br><span class="line">V       <span class="number">220913072351</span>Z           <span class="number">10</span>      unknown <span class="regexp">/C=CN/</span>ST=henan<span class="regexp">/O=gongsi/</span>OU=yunw/CN=yunwei.com</span><br><span class="line">    <span class="number">2</span>.执行吊销</span><br><span class="line">[root@test2 CA]#  openssl ca -revoke <span class="regexp">/etc/</span>pki<span class="regexp">/CA/</span>newcerts/<span class="number">10</span>.pem</span><br><span class="line">Using configuration <span class="keyword">from</span> <span class="regexp">/etc/</span>pki<span class="regexp">/tls/</span>openssl.cnf</span><br><span class="line">Revoking Certificate <span class="number">10</span>.</span><br><span class="line">Data Base Updated</span><br><span class="line">    <span class="number">3</span>.查看</span><br><span class="line">[root@test2 CA]# cat <span class="regexp">/etc/</span>pki<span class="regexp">/CA/i</span>ndex.txt</span><br><span class="line">V       <span class="number">220913053108</span>Z           <span class="number">0</span>F      unknown <span class="regexp">/C=CN/</span>ST=guangdong<span class="regexp">/O=gongsi/</span>OU=yun/CN=pan</span><br><span class="line">R       <span class="number">220913072351</span>Z   <span class="number">220605081804</span>Z   <span class="number">10</span>      unknown <span class="regexp">/C=CN/</span>ST=henan<span class="regexp">/O=gongsi/</span>OU=yunw/CN=yunwei.com</span><br><span class="line">    <span class="number">4</span>.更新证书吊销列表</span><br><span class="line">echo FF &gt;<span class="regexp">/etc/</span>pki<span class="regexp">/CA/</span>crlnumber 需要给他一个是十六进制的编号,只是编号,不用和上面一样</span><br><span class="line">openssl ca -gencrl -out <span class="regexp">/etc/</span>pki<span class="regexp">/CA/</span>crl.pem 更新列表以后 上面的编号就会增加.</span><br></pre></td></tr></table></figure>
+
+<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><div class="alert alert-success"><i class="fa fa-registered"></i> ssh:secure shell,protocol,22/tcp/安全的远程登录:</div>
+<i class="fa fa-bookmark" aria-hidden="true"></i> 具体的软件实现: 
+
+<p>&emsp;&emsp;&emsp;OpenSSH:ssh协议的开源实现,Centos默认安装<br>&emsp;&emsp;&emsp;dropbear:另一个开源实现<br><i class="fa fa-bookmark" aria-hidden="true"></i> SSH协议版本<br>&emsp;&emsp;&emsp;v1:基于CRC-32做MAC,不安全;man-in-middle<br>&emsp;&emsp;&emsp;v2:双方主机协议选择安全的MAC方式<br>&emsp;&emsp;&emsp;基于DH算法做密钥交换,基于RSA或DSA实现身份认证<br><i class="fa fa-bookmark" aria-hidden="true"></i> 两种方式的用户登录认证:<br>&emsp;&emsp;&emsp;基于password<br>&emsp;&emsp;&emsp;基于key</p>
+<h2 id="基于用户和口令登录验证"><a href="#基于用户和口令登录验证" class="headerlink" title="基于用户和口令登录验证"></a>基于用户和口令登录验证</h2><p><i class="fa fa-bookmark" aria-hidden="true"></i> 1.客户端发起ssh请求,服务器会把自己的公钥发送给用户<br><i class="fa fa-bookmark" aria-hidden="true"></i> 2.用户会根据服务器发来的公钥对密码进行加密<br><i class="fa fa-bookmark" aria-hidden="true"></i> 3.加密后的信息回传给服务器,服务器用自己的私钥解密,如果密码正确,则用户登录成功.</p>
+<p>当用户远程连接ssh服务器时,会复制ssh服务器<code>/etc/ssh/ssh_host*key.pub(Centos7默认是ssh_host_ecdsa_key.pub)</code>文件中的公钥到客户机的<code>~./ssh/know_hosts中.</code>下次连接时,会自动匹配相应私钥,不能连接,将拒绝连接</p>
+<h2 id="ssh客户端配置文件"><a href="#ssh客户端配置文件" class="headerlink" title="ssh客户端配置文件"></a>ssh客户端配置文件</h2><p><i class="fa fa-bookmark" aria-hidden="true"></i> ssh,配置文件:/etc/ssh/ssh_config<br>配置文件中的<code>StrictHostKeyChecking no</code>这一项表示 ssh连接时不提示 yes|no,可以直接输入密码.<br>-p:指定服务器的端口<br>-b:指定连接的源IP 到服务器上ss -nt 进行查看</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>Test<span class="number">-6</span><span class="number">-7</span> ~]# ip a a <span class="number">10.211</span><span class="number">.55</span><span class="number">.30</span>/<span class="number">24</span> dev eth0 添加其他IP</span><br><span class="line">[<span class="symbol">root@</span>Test<span class="number">-6</span><span class="number">-7</span> ~]# ssh -b  <span class="number">10.211</span><span class="number">.55</span><span class="number">.30</span> <span class="number">10.211</span><span class="number">.55</span><span class="number">.29</span> 使用另外的IP连接 </span><br></pre></td></tr></table></figure>
+<p>-v:调试模式<br>-t:强制伪tty分配<br>表示一般只能从1-2-3这样跳转,不能从1直接连接到3.但是一个个跳转太麻烦,所以改变写法: ssh -t 1的ip ssh -t 2的ip ssh 3的ip</p>
+<h2 id="基于用户名口令登录验证过程"><a href="#基于用户名口令登录验证过程" class="headerlink" title="基于用户名口令登录验证过程:"></a>基于用户名口令登录验证过程:</h2><p>客户端发起链接请求<br>服务端返回自己的公钥，以及一个会话ID（这一步客户端得到服务端公钥<br>客户端生威密钥对<br>客户端用自己的公钥异或会话ID，计算出一个值Res，并用服务端的公钥加密<br>客户端发送加密后的值到服务端，服务端用私钥解密,得到Res<br>服务端用解密后的值Res异或会话D，计算出客户端的公钥（这一步服务端得到<br>客户端公钥，<br>最终：双方各自持有三个秘钥，分别为自己的一对公、私钥，以及对方的公钥 之后的所有通讯都会被加密</p>
+<h2 id="基于密钥的登录方式"><a href="#基于密钥的登录方式" class="headerlink" title="基于密钥的登录方式"></a>基于密钥的登录方式</h2><p><code>known_hosts</code>:客户端独有,当用户远程连接ssh服务器时,会复制ssh服务器<code>/etc/ssh/ssh_host*key.pub(Centos7默认是ssh_host_ecdsa_key.pub)</code>文件中的公钥到客户机这个文件中.<br><code>authorized_keys</code>:服务端独有,储存客户端创建的公钥.</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">root@</span>Test<span class="number">-6</span><span class="number">-7</span> ~]# ssh-keygen #生成私钥</span><br><span class="line"></span><br><span class="line">#复制自己的公钥到对方主机上.</span><br><span class="line">[<span class="symbol">root@</span>Test<span class="number">-6</span><span class="number">-7</span> .ssh]# ssh-copy-id -i /root/.ssh/id_rsa.pub <span class="number">10.211</span><span class="number">.55</span><span class="number">.29</span></span><br><span class="line"></span><br><span class="line">#生成私钥后加密</span><br><span class="line">[<span class="symbol">root@</span>Test<span class="number">-6</span><span class="number">-7</span> .ssh]# ssh-keygen -p -f /root/.ssh/id_rsa </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/10/zabbix/" rel="prev" title="zabbix">
+      <i class="fa fa-chevron-left"></i> zabbix
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/14/awk/" rel="next" title="awk">
+      awk <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86"><span class="nav-number">1.</span> <span class="nav-text">对称密钥加密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">非对称密钥加密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-TLS"><span class="nav-number">3.</span> <span class="nav-text">SSL&#x2F;TLS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#base64%E4%BD%8D%E7%BC%96%E7%A0%81%E6%8D%A2%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">base64位编码换算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#openssl"><span class="nav-number">5.</span> <span class="nav-text">openssl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E7%A7%81%E9%92%A5"><span class="nav-number">5.1.</span> <span class="nav-text">生成私钥</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89CA"><span class="nav-number">6.</span> <span class="nav-text">建立私有CA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E7%A7%81%E6%9C%89CA-%E4%B8%BA%E7%94%A8%E6%88%B7%E9%A2%81%E5%8F%91%E8%AF%81%E4%B9%A6"><span class="nav-number">6.1.</span> <span class="nav-text">建立一个私有CA,为用户颁发证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BD%E5%AE%B6-%E7%9C%81-%E5%85%AC%E5%8F%B8%E5%90%8D-%E4%B8%8D%E4%B8%80%E6%A0%B7%E6%97%B6"><span class="nav-number">6.2.</span> <span class="nav-text">国家,省,公司名 不一样时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E6%96%87%E4%BB%B6"><span class="nav-number">6.3.</span> <span class="nav-text">使用同一个证书申请文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8A%E9%94%80%E8%AF%81%E4%B9%A6"><span class="nav-number">6.4.</span> <span class="nav-text">吊销证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH"><span class="nav-number">7.</span> <span class="nav-text">SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81"><span class="nav-number">7.1.</span> <span class="nav-text">基于用户和口令登录验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">ssh客户端配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E5%90%8D%E5%8F%A3%E4%BB%A4%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="nav-number">7.3.</span> <span class="nav-text">基于用户名口令登录验证过程:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%86%E9%92%A5%E7%9A%84%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F"><span class="nav-number">7.4.</span> <span class="nav-text">基于密钥的登录方式</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaohu"
+      src="/images/pxh.jpg">
+  <p class="site-author-name" itemprop="name">xiaohu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

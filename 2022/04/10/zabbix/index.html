@@ -28,11 +28,13 @@
 <meta property="og:site_name" content="个人笔记">
 <meta property="og:description" content="脚本编程">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/zabbix.png">
 <meta property="article:published_time" content="2022-04-10T05:41:30.000Z">
-<meta property="article:modified_time" content="2022-04-10T07:12:45.542Z">
+<meta property="article:modified_time" content="2022-04-10T11:48:41.091Z">
 <meta property="article:author" content="xiaohu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/zabbix.png">
 
 <link rel="canonical" href="http://example.com/2022/04/10/zabbix/">
 
@@ -221,7 +223,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-04-10 13:41:30 / Modified: 15:12:45" itemprop="dateCreated datePublished" datetime="2022-04-10T13:41:30+08:00">2022-04-10</time>
+              <time title="Created: 2022-04-10 13:41:30 / Modified: 19:48:41" itemprop="dateCreated datePublished" datetime="2022-04-10T13:41:30+08:00">2022-04-10</time>
             </span>
 
           
@@ -240,6 +242,37 @@
 <a id="more"></a>
 
 <h1 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h1><p><i class="fa fa-circle" aria-hidden="true"></i> 采集:周期性时序数据<br>&emsp;&emsp;&emsp;主机:服务器、路由器、交换机、存储、……<br>&emsp;&emsp;&emsp;采集点:监控项,指标(metrics data)<br><i class="fa fa-circle" aria-hidden="true"></i> 存储:<br>&emsp;&emsp;&emsp; 存储系统:<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; SQL:MySQL、PGSQL<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; NoSQL:MongoDB、HBase、InfluxDB、Prometheus、……<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; rrd:Round Robin Database<br>&emsp;&emsp;&emsp; 数据:<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 历史数据:3months<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 趋势数据:1year<br><i class="fa fa-circle" aria-hidden="true"></i> 告警<br>&emsp;&emsp;&emsp; 阈值:secerity<br>&emsp;&emsp;&emsp; 告警:email，短信<br><i class="fa fa-circle" aria-hidden="true"></i> 数据采集的信道<br>&emsp;&emsp;&emsp; 服务器:<br>&emsp;&emsp;&emsp; 网络设备:<br>&emsp;&emsp;&emsp; 存储设备:<br><font color="red">agentless</font>:是指在被监控应用所在的主机上面，不安装代理软件采集相应的信息，而是通过一些标准的协议，这些包括主机使用的SNMP、Telnet、SSH、WMI等，以及应用使用的JMX、JDBC、ODBC等。<br><font color="red">agent</font>:就是在被监控应用所在的主机上面，安装小的Agent软件，即代理软件，通过它，实现对数据的采集和管理</p>
+<h1 id="Zabbix"><a href="#Zabbix" class="headerlink" title="Zabbix"></a>Zabbix</h1><img src="/images/zabbix.png" width="80%" height="50%" align="center/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </div>
 
@@ -261,7 +294,10 @@
     <a href="/2022/03/26/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6/" rel="prev" title="脚本编程进阶">
       <i class="fa fa-chevron-left"></i> 脚本编程进阶
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/15/%E5%AE%89%E5%85%A8/" rel="next" title="安全">
+      安全 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -320,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7"><span class="nav-number">1.</span> <span class="nav-text">监控</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7"><span class="nav-number">1.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zabbix"><span class="nav-number">2.</span> <span class="nav-text">Zabbix</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -336,7 +372,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
